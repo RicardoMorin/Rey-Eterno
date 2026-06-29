@@ -1,263 +1,266 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Iglesia Cristiana Rey Eterno</title>
-
-<link rel="stylesheet" href="style.css">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iglesia Cristiana Rey Eterno</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-
 <body>
 
-<header>
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="logo.png" alt="Logo Rey Eterno">
+        <h2>Rey Eterno</h2>
+      </div>
+      <ul class="menu">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#evento">Eventos</a></li>
+        <li><a href="#envivo">En Vivo</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <button class="menu-toggle" aria-label="Menú">
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+  </header>
 
-<nav class="navbar">
+  <!-- HERO -->
+  <section id="inicio" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="badge">
+        <i class="fas fa-cross"></i> Bienvenido a Casa
+      </span>
+      <h1>Iglesia Cristiana<br><span>Rey Eterno</span></h1>
+      <p>Un lugar donde encontrarás esperanza, amor y una familia en Cristo.</p>
+      <a href="#contacto" class="btn btn-primary">
+        <i class="fas fa-heart"></i> Visítanos
+      </a>
+    </div>
+    <div class="scroll-indicator">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
 
-<div class="logo">
+  <!-- SERVICIOS -->
+  <section id="servicios" class="section-light">
+    <div class="container">
+      <span class="section-badge">Horarios</span>
+      <h2 class="title">Servicios</h2>
+      <p class="subtitle">Únete a nosotros y experimenta la presencia de Dios</p>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <h3>Facebook Live</h3>
+          <p class="card-time">Miércoles 7:00 PM</p>
+          <p class="card-desc">Conéctate desde cualquier lugar</p>
+        </div>
+        <div class="card featured">
+          <div class="card-ribbon"> Fe + Union</div>
+          <div class="card-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Servicio Juvenil</h3>
+          <p class="card-time">Sábado 6:00 PM</p>
+          <p class="card-desc">Para jóvenes con propósito</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-church"></i>
+          </div>
+          <h3>Servicio General</h3>
+          <p class="card-time">Domingo 12:00 PM</p>
+          <p class="card-desc">Toda la familia reunida</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<img src="logo.png" alt="Logo">
+  <!-- EVENTO -->
+<section id="evento" class="section-dark">
+  <div class="container">
+    <span class="section-badge">No te lo pierdas</span>
+    <h2 class="title">Eventos</h2>
 
-<h2>Rey Eterno</h2>
+    <div class="evento-card">
 
-</div>
+      <div class="evento-img">
+        <img src="29Agosto.jpg" alt="Evento 29 Agosto">
+        <div class="evento-date">
+          <span class="day">SAB</span>
+          <span class="num">29</span>
+          <span class="month">AGO</span>
+        </div>
+      </div>
 
-<ul class="menu">
+      <div class="evento-info">
+        <h3>Evento Especial</h3>
+        <p>Un tiempo especial de adoración, palabra y comunión para la juventud.</p>
 
-<li><a href="#inicio">Inicio</a></li>
-<li><a href="#servicios">Servicios</a></li>
-<li><a href="#evento">Evento</a></li>
-<li><a href="#envivo">Conéctate con Dios</a></li>
-<li><a href="#galeria">Galería</a></li>
-<li><a href="#contacto">Contacto</a></li>
+        <a href="https://wa.me/528129483665" class="btn btn-secondary">
+          <i class="fab fa-whatsapp"></i> Más información
+        </a>
+      </div>
 
-</ul>
+    </div>
 
-</nav>
 
-</header>
+    <div class="evento-card">
 
-<section id="inicio" class="hero">
+      <div class="evento-img">
+        <img src="Domingo21.jpg" alt="Evento Domingo 21">
+        <div class="evento-date">
+          <span class="day">DOM</span>
+          <span class="num">21</span>
+          <span class="month">DÍA</span>
+        </div>
+      </div>
 
-<div class="overlay"></div>
+      <div class="evento-info">
+        <h3>Servicio General</h3>
+        <p>Un momento para compartir en familia, recibir palabra y crecer en Cristo.</p>
 
-<div class="hero-content">
+        <a href="https://wa.me/528129483665" class="btn btn-secondary">
+          <i class="fab fa-whatsapp"></i> Más información
+        </a>
+      </div>
 
-<span class="badge">
-✝ Bienvenido
-</span>
+    </div>
 
-<h1>
-Iglesia Cristiana
-<span>Rey Eterno</span>
-</h1>
 
-<p>
-Un lugar donde encontrarás esperanza,
-amor y una familia en Cristo.
-</p>
-
-<a href="#contacto" class="btn">
-Visítanos
-</a>
-
-</div>
-
+  </div>
 </section>
 
-<section id="servicios">
-
-<h2 class="title">
-Nuestros Servicios
-</h2>
-
-<div class="cards">
-
-<div class="card">
-<i class="fas fa-video"></i>
-<h3>Facebook Live</h3>
-<p>Miércoles 7:00 PM</p>
-</div>
-
-<div class="card">
-<i class="fas fa-users"></i>
-<h3>Servicio Juvenil</h3>
-<p>Sábado 6:00 PM</p>
-</div>
-
-<div class="card">
-<i class="fas fa-church"></i>
-<h3>Servicio General</h3>
-<p>Domingo 12:00 PM</p>
-</div>
-
-</div>
-
-</section>
-
-<section id="evento">
-
-<h2 class="title">
- Eventos
-</h2>
-
-<div class="evento">
-
-<img src="servicio-jovenes.png">
-
-</div>
-
-</section>
-
-<section id="envivo">
-
-<h2 class="title">
-Conéctate con Dios
-</h2>
-
-<div class="pastor">
-
-<div>
-
-<img src="envivo.png" alt="En Vivo">
-
-</div>
-
-<div>
-
-<p style="font-size:1.3rem;font-weight:600;">
-¿No puedes asistir a la iglesia?
-</p>
-
-<br>
-
-<p style="font-size:1.3rem;font-weight:600;">
-¿No tienes dónde congregarte?
-</p>
-
-<br>
-
-<p style="font-size:1.3rem;font-weight:600;">
-¿Necesitas una palabra para tu vida?
-</p>
-
-<br>
-
-<p style="font-size:1.5rem;color:#d4af37;font-weight:bold;">
-🔴 CONÉCTATE CON DIOS ‼️👇🏼👇🏼
-</p>
-
-<br>
-
-<a href="https://www.facebook.com/izliajoram.martinezreyes.52"
-target="_blank"
-class="btn">
-Ver Transmisiones
-</a>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section id="galeria" class="predicaciones">
-
-<h2 class="title">
-📸 Galeria
-</h2>
-
-<p class="subtitulo">
-Conéctate con nosotros y recibe una palabra de bendición.
-</p>
-
-<div class="videos-grid">
-
-<iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F975498985381273%2F&show_text=false&width=267&t=0"
-width="267" height="476" style="border:none;overflow:hidden"
-scrolling="no" frameborder="0" allowfullscreen="true">
-</iframe>
-
-<iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F956554253559462%2F&show_text=false&width=267&t=0"
-width="267" height="476" style="border:none;overflow:hidden"
-scrolling="no" frameborder="0" allowfullscreen="true">
-</iframe>
-
-<iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3918172574994024%2F&show_text=false&width=267&t=0"
-width="267" height="476" style="border:none;overflow:hidden"
-scrolling="no" frameborder="0" allowfullscreen="true">
-</iframe>
-
-</div>
-
-</section>
-
-
-
-<section id="contacto">
-
-<h2 class="title">
-Contáctanos
-</h2>
-
-<div class="contacto">
-
-<p>
-<i class="fas fa-location-dot"></i>
-
-<a href="https://maps.app.goo.gl/sXkj3JwrUdYhQF4B7"
-target="_blank"
-class="map-link">
-
-5421 Costa Rica. Guadalupe, Nuevo León
-
-</a>
-</p>
-
-<p>
-<i class="fas fa-phone"></i>
-81 2948 366
-</p>
-
-</div>
-
-<div class="social">
-
-<a href="https://www.facebook.com/izliajoram.martinezreyes.52" target="_blank">
-<i class="fab fa-facebook-f"></i>
-</a>
-
-<a href="https://wa.me/528129483665">
-<i class="fab fa-whatsapp"></i>
-</a>
-
-</div>
-
-</section>
-
-<footer>
-
-<p>
-© 2026 Iglesia Cristiana Rey Eterno
-</p>
-
-</footer>
-
-<a href="https://wa.me/528129483665" class="whatsapp">
-
-<i class="fab fa-whatsapp"></i>
-
-</a>
+  <!-- EN VIVO -->
+  <section id="envivo" class="section-light">
+    <div class="container">
+      <div class="envivo-grid">
+        <div class="envivo-img">
+          <img src="envivo.png" alt="Transmisiones en vivo">
+          <div class="live-badge">
+            <span class="pulse"></span> EN VIVO
+          </div>
+        </div>
+        <div class="envivo-content">
+          <span class="section-badge">Transmisiones</span>
+          <h2 class="title-left">Conéctate con Dios</h2>
+          <div class="envivo-questions">
+            <p><i class="fas fa-check-circle"></i> ¿No puedes asistir a la iglesia?</p>
+            <p><i class="fas fa-check-circle"></i> ¿No tienes dónde congregarte?</p>
+            <p><i class="fas fa-check-circle"></i> ¿Necesitas una palabra para tu vida?</p>
+          </div>
+          <p class="envivo-cta">🔴 <strong>CONÉCTATE CON DIOS</strong></p>
+          <a href="https://www.facebook.com/izliajoram.martinezreyes.52" target="_blank" class="btn btn-primary">
+            <i class="fab fa-facebook"></i> Ver Transmisiones
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section id="galeria" class="section-gradient">
+    <div class="container">
+      <span class="section-badge">Momentos de Fe</span>
+      <h2 class="title">Galería</h2>
+      <p class="subtitle">Conéctate con nosotros y recibe una palabra de bendición</p>
+      <div class="videos-grid">
+        <div class="video-card">
+          <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F975498985381273%2F&show_text=false&width=267&t=0"
+            width="267" height="476" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F956554253559462%2F&show_text=false&width=267&t=0"
+            width="267" height="476" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F3918172574994024%2F&show_text=false&width=267&t=0"
+            width="267" height="476" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="section-light">
+    <div class="container">
+      <span class="section-badge">Encuéntranos</span>
+      <h2 class="title">Contáctanos</h2>
+      <div class="contacto-grid">
+        <div class="contacto-info">
+          <div class="info-card">
+            <i class="fas fa-location-dot"></i>
+            <div>
+              <h4>Dirección</h4>
+              <p>5421 Costa Rica, Guadalupe, Nuevo León</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <i class="fas fa-phone"></i>
+            <div>
+              <h4>Teléfono</h4>
+              <p>81 2948 3665</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <i class="fas fa-clock"></i>
+            <div>
+              <h4>Horarios</h4>
+              <p>Miércoles a distancia 7PM · Sáb 6PM · Dom 12PM</p>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="https://www.facebook.com/izliajoram.martinezreyes.52" target="_blank" class="social-btn facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://wa.me/528129483665" target="_blank" class="social-btn whatsapp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+        <div class="contacto-mapa">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3595.123456789!2d-100.2345678!3d25.6789012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s5421+Costa+Rica%2C+Guadalupe%2C+Nuevo+Le%C3%B3n!5e0!3m2!1ses!2smx!4v1600000000000!5m2!1ses!2smx"
+            width="100%" 
+            height="300" 
+            style="border:0; border-radius:20px;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="logo.png" alt="Logo">
+        <h3>Rey Eterno</h3>
+      </div>
+      <p>Un lugar de esperanza, amor y familia en Cristo</p>
+      <div class="footer-divider"></div>
+      <p class="copyright">© 2026 Iglesia Cristiana Rey Eterno · Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <a href="https://wa.me/528129483665" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+    <span>¿Necesitas ayuda?</span>
+  </a>
 
 </body>
 </html>
