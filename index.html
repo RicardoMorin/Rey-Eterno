@@ -12,21 +12,56 @@
 <script src="versiculos.js"></script>
 
 <script>
+document.addEventListener("DOMContentLoaded", () => {
 
-const hoy = new Date();
+    const hoy = new Date();
+    const inicio = new Date(hoy.getFullYear(), 0, 0);
+    const diferencia = hoy - inicio;
+    const diaDelAnio = Math.floor(diferencia / 86400000);
 
-const inicio = new Date(hoy.getFullYear(),0,0);
+    const versiculo = versiculos[diaDelAnio % versiculos.length];
 
-const diferencia = hoy - inicio;
+    document.getElementById("verse-text").textContent =
+        `"${versiculo.texto}"`;
 
-const diaDelAnio = Math.floor(diferencia / 86400000);
+    document.getElementById("verse-reference").textContent =
+        versiculo.referencia;
 
-const versiculo = versiculos[diaDelAnio % versiculos.length];
+    // BOTÓN COMPARTIR
+    const boton = document.getElementById("shareVerse");
 
-document.getElementById("verse-text").textContent = `"${versiculo.texto}"`;
+    boton.addEventListener("click", async () => {
 
-document.getElementById("verse-reference").textContent = versiculo.referencia;
+        const texto =
+`${versiculo.texto}
 
+📖 ${versiculo.referencia}
+
+https://rey-eterno.com`;
+
+        if (navigator.share) {
+
+            try {
+
+                await navigator.share({
+                    title: "Versículo del día",
+                    text: texto,
+                    url: "https://rey-eterno.com"
+                });
+
+            } catch(e){}
+
+        } else {
+
+            navigator.clipboard.writeText(texto);
+
+            alert("Versículo copiado al portapapeles.");
+
+        }
+
+    });
+
+});
 </script>
 <body>
 
@@ -90,14 +125,20 @@ document.getElementById("verse-reference").textContent = versiculo.referencia;
             <i class="fas fa-book-bible verse-icon"></i>
 
             <p id="verse-text">
-                Cargando versículo...
-            </p>
+            Cargando versículo...
+        </p>
 
-            <h3 id="verse-reference"></h3>
+        <h3 id="verse-reference"></h3>
+
+        <button id="shareVerse" class="share-btn">
+            <i class="fas fa-share-alt"></i>
+            Compartir versículo
+        </button>
 
         </div>
 
     </div>
+    
 
 </section>
   <!-- SERVICIOS -->

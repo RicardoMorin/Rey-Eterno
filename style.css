@@ -65,6 +65,38 @@ font-size:1.15rem;
 
 }
 
+.share-btn{
+
+    margin-top:25px;
+    padding:14px 30px;
+
+    border:none;
+    border-radius:50px;
+
+    background:#c8a96a;
+    color:white;
+
+    font-size:16px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.share-btn:hover{
+
+    background:#b38d4d;
+    transform:translateY(-3px);
+
+}
+
+.share-btn i{
+
+    margin-right:8px;
+
+}
 
 
 /* ====================================
