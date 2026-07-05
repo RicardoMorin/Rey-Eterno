@@ -9,6 +9,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
+<script src="versiculos.js"></script>
+
+<script>
+
+const hoy = new Date();
+
+const inicio = new Date(hoy.getFullYear(),0,0);
+
+const diferencia = hoy - inicio;
+
+const diaDelAnio = Math.floor(diferencia / 86400000);
+
+const versiculo = versiculos[diaDelAnio % versiculos.length];
+
+document.getElementById("verse-text").textContent = `"${versiculo.texto}"`;
+
+document.getElementById("verse-reference").textContent = versiculo.referencia;
+
+</script>
 <body>
 
   <!-- HEADER -->
@@ -49,7 +68,38 @@
       <i class="fas fa-chevron-down"></i>
     </div>
   </section>
+<!-- ================== VERSÍCULO DEL DÍA ================== -->
+<section id="versiculo-dia" class="section-light">
 
+    <div class="container">
+
+        <span class="section-badge">
+            📖 Versículo del día
+        </span>
+
+        <h2 class="title">
+            Palabra para Hoy
+        </h2>
+
+        <p class="subtitle">
+            Dios tiene una palabra especial para ti.
+        </p>
+
+        <div class="verse-card">
+
+            <i class="fas fa-book-bible verse-icon"></i>
+
+            <p id="verse-text">
+                Cargando versículo...
+            </p>
+
+            <h3 id="verse-reference"></h3>
+
+        </div>
+
+    </div>
+
+</section>
   <!-- SERVICIOS -->
   <section id="servicios" class="section-light">
     <div class="container">
@@ -120,9 +170,9 @@
       <div class="evento-img">
         <img src="Domingo21.jpg" alt="Evento Domingo 21">
         <div class="evento-date">
-          <span class="day">DOM</span>
-          <span class="num">21</span>
-          <span class="month">DÍA</span>
+          <span class="day"></span>
+          <span class="num">DOMINGOS</span>
+          <span class="month"></span>
         </div>
       </div>
 
