@@ -35,9 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const texto =
 `${versiculo.texto}
 
-📖 ${versiculo.referencia}
-
-https://rey-eterno.com`;
+📖 ${versiculo.referencia}`;
 
         if (navigator.share) {
 
@@ -46,6 +44,7 @@ https://rey-eterno.com`;
                 await navigator.share({
                     title: "Versículo del día",
                     text: texto,
+                    url: "https://rey-eterno.com"
                     
                 });
 
