@@ -8,11 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-</head>
-<script src="versiculos.js"></script>
+</head><script src="versiculos.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+
+    // =====================================
+    // VERSÍCULO DEL DÍA
+    // =====================================
 
     const hoy = new Date();
     const inicio = new Date(hoy.getFullYear(), 0, 0);
@@ -27,38 +30,175 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("verse-reference").textContent =
         versiculo.referencia;
 
-    // BOTÓN COMPARTIR
-    const boton = document.getElementById("shareVerse");
+    // =====================================
+    // COMPARTIR VERSÍCULO
+    // =====================================
 
-    boton.addEventListener("click", async () => {
+    const botonVersiculo = document.getElementById("shareVerse");
 
-        const texto =
+    if (botonVersiculo) {
+
+        botonVersiculo.addEventListener("click", async () => {
+
+            const texto =
 `${versiculo.texto}
 
 📖 ${versiculo.referencia}`;
 
-        if (navigator.share) {
+            if (navigator.share) {
+
+                try {
+
+                    await navigator.share({
+                        title: "Versículo del día",
+                        text: texto,
+                        url: "https://rey-eterno.com"
+                    });
+
+                } catch (e) {}
+
+            } else {
+
+                navigator.clipboard.writeText(
+                    texto + "\n\nhttps://rey-eterno.com"
+                );
+
+                alert("Versículo copiado al portapapeles.");
+
+            }
+
+        });
+
+    }
+
+    // =====================================
+    // COMPARTIR EVENTOS
+    // =====================================
+
+    document.querySelectorAll(".share-event").forEach((boton) => {
+
+        boton.addEventListener("click", async () => {
+
+            const imagen = boton.dataset.image;
+            const titulo = boton.dataset.title;
 
             try {
 
-                await navigator.share({
-                    title: "Versículo del día",
-                    text: texto,
-                    url: "https://rey-eterno.com"
-                    
-                });
+                const respuesta = await fetch(imagen);
+                const blob = await respuesta.blob();
 
-            } catch(e){}
+                const archivo = new File(
+                    [blob],
+                    imagen,
+                    { type: blob.type }
+                );
 
-        } else {
+                const texto =
+`🙌 ${titulo}
 
-            navigator.clipboard.writeText(texto);
+¡Te esperamos!
 
-            alert("Versículo copiado al portapapeles.");
+📍 Iglesia Cristiana Rey Eterno`;
+
+                if (
+                    navigator.canShare &&
+                    navigator.canShare({ files: [archivo] })
+                ) {
+
+                    await navigator.share({
+                        title: titulo,
+                        text: texto,
+                        files: [archivo]
+                    });
+
+                } else if (navigator.share) {
+
+                    await navigator.share({
+                        title: titulo,
+                        text: texto,
+                        url: "https://rey-eterno.com"
+                    });
+
+                } else {
+
+                    navigator.clipboard.writeText(
+                        texto + "\nhttps://rey-eterno.com"
+                    );
+
+                    alert("Información del evento copiada.");
+
+                }
+
+            } catch (e) {
+
+                console.error(e);
+
+            }
+
+        });
+
+    });
+
+    // =====================================
+    // VIDEO HERO
+    // =====================================
+
+    const video = document.getElementById("heroVideo");
+    const sonido = document.getElementById("toggleSound");
+    const pantalla = document.getElementById("fullscreenVideo");
+
+    if (video) {
+
+        // Intentar reproducir
+        video.play().catch(() => {});
+
+        if (sonido) {
+
+            sonido.addEventListener("click", () => {
+
+                video.muted = !video.muted;
+
+                sonido.innerHTML = video.muted
+                    ? '<i class="fas fa-volume-mute"></i>'
+                    : '<i class="fas fa-volume-up"></i>';
+
+                video.play().catch(() => {});
+
+            });
 
         }
 
-    });
+        if (pantalla) {
+
+            pantalla.addEventListener("click", () => {
+
+                if (document.fullscreenElement) {
+
+                    document.exitFullscreen();
+
+                } else {
+
+                    if (video.requestFullscreen) {
+
+                        video.requestFullscreen();
+
+                    } else if (video.webkitRequestFullscreen) {
+
+                        video.webkitRequestFullscreen();
+
+                    } else if (video.msRequestFullscreen) {
+
+                        video.msRequestFullscreen();
+
+                    }
+
+                }
+
+            });
+
+        }
+
+    }
 
 });
 </script>
@@ -86,22 +226,66 @@ document.addEventListener("DOMContentLoaded", () => {
   </header>
 
   <!-- HERO -->
-  <section id="inicio" class="hero">
+ <!-- HERO -->
+<section id="inicio" class="hero">
+
+    <!-- VIDEO -->
+    <video
+        id="heroVideo"
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto">
+
+        <source src="alabanza.mov" type="video/mp4">
+
+    </video>
+
+    <!-- CAPA OSCURA -->
     <div class="hero-overlay"></div>
+
+    <!-- CONTENIDO -->
     <div class="hero-content">
-      <span class="badge">
-        <i class="fas fa-cross"></i> Bienvenido a Casa
-      </span>
-      <h1>Iglesia Cristiana<br><span>Rey Eterno</span></h1>
-      <p>Un lugar donde encontrarás esperanza, amor y una familia en Cristo.</p>
-      <a href="#contacto" class="btn btn-primary">
-        <i class="fas fa-heart"></i> Visítanos
-      </a>
+
+
+
+        <h1>
+            Iglesia Cristiana<br>
+            <span>Rey Eterno</span>
+        </h1>
+
+        <p>
+            Un lugar donde encontrarás esperanza,
+            amor y una familia en Cristo.
+        </p>
+
+        <a href="#contacto" class="btn btn-primary">
+            <i class="fas fa-heart"></i>
+            Visítanos
+        </a>
+
     </div>
+
+    <!-- BOTONES -->
+    <div class="video-controls">
+
+        <button id="toggleSound">
+            <i class="fas fa-volume-mute"></i>
+        </button>
+
+        <button id="fullscreenVideo">
+            <i class="fas fa-expand"></i>
+        </button>
+
+    </div>
+
     <div class="scroll-indicator">
-      <i class="fas fa-chevron-down"></i>
+        <i class="fas fa-chevron-down"></i>
     </div>
-  </section>
+
+</section>
 <!-- ================== VERSÍCULO DEL DÍA ================== -->
 <section id="versiculo-dia" class="section-light">
 
@@ -176,16 +360,19 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </section>
 
-  <!-- EVENTO -->
+ <!-- EVENTOS -->
 <section id="evento" class="section-dark">
   <div class="container">
+
     <span class="section-badge">No te lo pierdas</span>
     <h2 class="title">Eventos</h2>
 
+    <!-- EVENTO 1 -->
     <div class="evento-card">
 
       <div class="evento-img">
         <img src="29Agosto.jpg" alt="Evento 29 Agosto">
+
         <div class="evento-date">
           <span class="day">SAB</span>
           <span class="num">29</span>
@@ -194,43 +381,72 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
 
       <div class="evento-info">
+
         <h3>Evento Especial</h3>
-        <p>Un tiempo especial de adoración, palabra y comunión para la juventud.</p>
+
+        <p>
+          Un tiempo especial de adoración, palabra y comunión para la juventud.
+        </p>
 
         <a href="https://wa.me/528129483665" class="btn btn-secondary">
-          <i class="fab fa-whatsapp"></i> Más información
+          <i class="fab fa-whatsapp"></i>
+          Más información
         </a>
+
+        <button
+          class="btn btn-primary share-event"
+          data-image="29Agosto.jpg"
+          data-title="Evento Especial - Iglesia Cristiana Rey Eterno">
+          <i class="fas fa-share-alt"></i>
+          Compartir evento
+        </button>
+
       </div>
 
     </div>
 
-
+    <!-- EVENTO 2 -->
     <div class="evento-card">
 
       <div class="evento-img">
-        <img src="Domingo21.jpg" alt="Evento Domingo 21">
+
+        <img src="Domingo21.jpg" alt="Servicio General">
+
         <div class="evento-date">
           <span class="day"></span>
           <span class="num">DOMINGOS</span>
           <span class="month"></span>
         </div>
+
       </div>
 
       <div class="evento-info">
+
         <h3>Servicio General</h3>
-        <p>Un momento para compartir en familia, recibir palabra y crecer en Cristo.</p>
+
+        <p>
+          Un momento para compartir en familia, recibir palabra y crecer en Cristo.
+        </p>
 
         <a href="https://wa.me/528129483665" class="btn btn-secondary">
-          <i class="fab fa-whatsapp"></i> Más información
+          <i class="fab fa-whatsapp"></i>
+          Más información
         </a>
+
+        <button
+          class="btn btn-primary share-event"
+          data-image="Domingo21.jpg"
+          data-title="Servicio General - Iglesia Cristiana Rey Eterno">
+          <i class="fas fa-share-alt"></i>
+          Compartir evento
+        </button>
+
       </div>
 
     </div>
 
-
   </div>
 </section>
-
   <!-- EN VIVO -->
   <section id="envivo" class="section-light">
     <div class="container">
@@ -309,18 +525,45 @@ document.addEventListener("DOMContentLoaded", () => {
               <p>Miércoles a distancia 7PM · Sáb 6PM · Dom 12PM</p>
             </div>
           </div>
-          <div class="social-links">
-            <a href="https://www.facebook.com/izliajoram.martinezreyes.52" target="_blank" class="social-btn facebook">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://wa.me/528129483665" target="_blank" class="social-btn whatsapp">
-              <i class="fab fa-whatsapp"></i>
-            </a>
-          </div>
+         <div class="social-links">
+
+  <a href="https://www.facebook.com/izliajoram.martinezreyes.52"
+     target="_blank"
+     class="social-btn facebook"
+     aria-label="Facebook">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+
+  <a href="https://wa.me/528129483665"
+     target="_blank"
+     class="social-btn whatsapp"
+     aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <a href="https://www.instagram.com/iglesiareyeterno/?utm_source=ig_web_button_share_sheet"
+     target="_blank"
+     class="social-btn instagram"
+     aria-label="Instagram">
+    <i class="fab fa-instagram"></i>
+  </a>
+
+  <a href="https://www.tiktok.com/@iglesia.rey.etern?is_from_webapp=1&sender_device=pc"
+     target="_blank"
+     class="social-btn tiktok"
+     aria-label="TikTok">
+    <i class="fab fa-tiktok"></i>
+  </a>
+<a href="mailto:contacto@rey-eterno.com"
+   class="social-btn email"
+   aria-label="Correo">
+    <i class="fas fa-envelope"></i>
+</a>
+</div>
         </div>
         <div class="contacto-mapa">
           <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3595.123456789!2d-100.2345678!3d25.6789012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s5421+Costa+Rica%2C+Guadalupe%2C+Nuevo+Le%C3%B3n!5e0!3m2!1ses!2smx!4v1600000000000!5m2!1ses!2smx"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1069.325155815192!2d-100.2096538747663!3d25.645865440364528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662c10039835b49%3A0xab03450c14dec6a!2sIglesia%20Rey%20Eterno!5e0!3m2!1ses-419!2smx!4v1783312024895!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin">
             width="100%" 
             height="300" 
             style="border:0; border-radius:20px;" 
