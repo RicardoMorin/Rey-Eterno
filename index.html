@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-        if (pantalla) {
+                if (pantalla) {
 
             pantalla.addEventListener("click", () => {
 
@@ -185,16 +185,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
 
                     if (video.requestFullscreen) {
-                     video.requestFullscreen();
-                } else if (video.webkitEnterFullscreen) {
-                    // Safari iPhone
-                    video.webkitEnterFullscreen();
-                } else if (video.webkitRequestFullscreen) {
-                    // Android
-                    video.webkitRequestFullscreen();
-                } else if (video.msRequestFullscreen) {
-                    video.msRequestFullscreen();
-                }
+
+                        video.requestFullscreen();
+
+                    } else if (video.webkitRequestFullscreen) {
+
+                        video.webkitRequestFullscreen();
+
+                    } else if (video.msRequestFullscreen) {
+
+                        video.msRequestFullscreen();
+
+                    }
 
                 }
 
@@ -203,6 +205,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     }
+
+
  const pages = document.querySelectorAll(".gallery-page");
 
 let currentPage = 0;
@@ -427,6 +431,7 @@ document.querySelectorAll(".menu a").forEach(link=>{
         autoplay
         muted
         loop
+        playsinline
         preload="auto">
 
         <source src="alabanza.mp4" type="video/mp4">
@@ -465,9 +470,7 @@ document.querySelectorAll(".menu a").forEach(link=>{
             <i class="fas fa-volume-mute"></i>
         </button>
 
-        <button id="fullscreenVideo">
-            <i class="fas fa-expand"></i>
-        </button>
+
 
     </div>
 
