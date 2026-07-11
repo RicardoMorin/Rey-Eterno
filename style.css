@@ -1503,3 +1503,11 @@ transform:translateY(0);
 }
 
 }
+
+.gallery-btn:disabled{
+
+    opacity:.35;
+
+    cursor:not-allowed;
+
+}

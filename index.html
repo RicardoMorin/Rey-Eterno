@@ -221,13 +221,46 @@ function showPage(i){
 
 document.querySelector(".next").onclick=()=>{
 
-    currentPage++;
+    const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
 
-    if(currentPage>=pages.length){
+function showPage(i){
 
-        currentPage=0;
+    pages.forEach(p => p.classList.remove("active"));
+
+    pages[i].classList.add("active");
+
+    // Deshabilitar botones
+    prevBtn.disabled = i === 0;
+    nextBtn.disabled = i === pages.length - 1;
+
+}
+
+showPage(0);
+
+nextBtn.onclick = () => {
+
+    if(currentPage < pages.length - 1){
+
+        currentPage++;
+
+        showPage(currentPage);
 
     }
+
+};
+
+prevBtn.onclick = () => {
+
+    if(currentPage > 0){
+
+        currentPage--;
+
+        showPage(currentPage);
+
+    }
+
+};
 
     showPage(currentPage);
 
@@ -726,7 +759,15 @@ document.querySelectorAll(".menu a").forEach(link=>{
 
             <div class="gallery-item"><img src="19.jpg"></div>
             <div class="gallery-item"><img src="20.jpg"></div>
-            <div class="gallery-item"><img src="21.jpg"></div>
+            <div class="gallery-item video">
+                <video muted>
+                    <source src="alabanza.mp4">
+                </video>
+                <span class="play-icon">
+                    <i class="fas fa-play"></i>
+                </span>
+            </div>
+            
 
 
 
@@ -734,15 +775,12 @@ document.querySelectorAll(".menu a").forEach(link=>{
 
         <!-- PAGINA 3 -->
         <div class="gallery-page">
+        
 
-            <div class="gallery-item video">
-                <video muted>
-                    <source src="galeria/video1.mp4">
-                </video>
-                <span class="play-icon">
-                    <i class="fas fa-play"></i>
-                </span>
-            </div>
+        <div class="gallery-item"><img src="21.jpg"></div>
+        <div class="gallery-item"><img src="22.jpg"></div>
+        <div class="gallery-item"><img src="23.jpg"></div>
+        <div class="gallery-item"><img src="24.jpg"></div>
 
         </div>
 
