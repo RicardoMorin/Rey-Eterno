@@ -11,6 +11,14 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta name="description" content="Iglesia Cristiana Rey Eterno en Guadalupe, Nuevo León. Servicios, eventos, transmisiones en vivo, ubicación y contacto.">
+  <meta name="keywords" content="Iglesia Rey Eterno, iglesia cristiana, Guadalupe Nuevo León, iglesia evangélica, cristianos, servicios">
+  <meta name="author" content="Iglesia Cristiana Rey Eterno">
+  <meta property="og:title" content="Iglesia Cristiana Rey Eterno">
+  <meta property="og:description" content="Un lugar donde encontrarás esperanza, amor y una familia en Cristo.">
+  <meta property="og:image" content="https://rey-eterno.com/logo.png">
+  <meta property="og:url" content="https://rey-eterno.com">
+  <meta name="theme-color" content="#4a2c7a">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;
   600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -19,9 +27,6 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-    // =====================================
-    // VERSÍCULO DEL DÍA
-    // =====================================
 
     const hoy = new Date();
     const inicio = new Date(hoy.getFullYear(), 0, 0);
@@ -35,10 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("verse-reference").textContent =
         versiculo.referencia;
-
-    // =====================================
-    // COMPARTIR VERSÍCULO
-    // =====================================
 
     const botonVersiculo = document.getElementById("shareVerse");
 
@@ -207,78 +208,51 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
- const pages = document.querySelectorAll(".gallery-page");
+ //======================
+// GALERÍA
+//======================
+
+const pages = document.querySelectorAll(".gallery-page");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
 
 let currentPage = 0;
 
-function showPage(i){
-
-    pages.forEach(p=>p.classList.remove("active"));
-
-    pages[i].classList.add("active");
-
+function showPage(index) {
+    pages.forEach(page => page.classList.remove("active"));
+    pages[index].classList.add("active");
 }
 
-document.querySelector(".next").onclick=()=>{
+// Mostrar la primera página
+showPage(currentPage);
 
-    const prevBtn = document.querySelector(".prev");
-const nextBtn = document.querySelector(".next");
+// Siguiente
+nextBtn.addEventListener("click", () => {
 
-function showPage(i){
+    currentPage++;
 
-    pages.forEach(p => p.classList.remove("active"));
-
-    pages[i].classList.add("active");
-
-    // Deshabilitar botones
-    prevBtn.disabled = i === 0;
-    nextBtn.disabled = i === pages.length - 1;
-
-}
-
-showPage(0);
-
-nextBtn.onclick = () => {
-
-    if(currentPage < pages.length - 1){
-
-        currentPage++;
-
-        showPage(currentPage);
-
+    // Si llega al final, vuelve al inicio
+    if (currentPage >= pages.length) {
+        currentPage = 0;
     }
-
-};
-
-prevBtn.onclick = () => {
-
-    if(currentPage > 0){
-
-        currentPage--;
-
-        showPage(currentPage);
-
-    }
-
-};
 
     showPage(currentPage);
 
-};
+});
 
-document.querySelector(".prev").onclick=()=>{
+// Anterior
+prevBtn.addEventListener("click", () => {
 
     currentPage--;
 
-    if(currentPage<0){
-
-        currentPage=pages.length-1;
-
+    // Si está en la primera, vuelve a la última
+    if (currentPage < 0) {
+        currentPage = pages.length - 1;
     }
 
     showPage(currentPage);
 
-};
+});
 //======================
 // LIGHTBOX
 //======================
@@ -636,7 +610,7 @@ document.querySelectorAll(".menu a").forEach(link=>{
 
       <div class="evento-img">
 
-        <img src="Domingo21.jpg" alt="Servicio General">
+        <img src="domingo.jpg" alt="Servicio General">
 
         <div class="evento-date">
           <span class="day"></span>
@@ -661,7 +635,7 @@ document.querySelectorAll(".menu a").forEach(link=>{
 
         <button
           class="btn btn-primary share-event"
-          data-image="Domingo21.jpg"
+          data-image="domingo.jpg"
           data-title="Servicio General - Iglesia Cristiana Rey Eterno">
           <i class="fas fa-share-alt"></i>
           Compartir evento
@@ -678,7 +652,7 @@ document.querySelectorAll(".menu a").forEach(link=>{
     <div class="container">
       <div class="envivo-grid">
         <div class="envivo-img">
-          <img src="envivo.png" alt="Transmisiones en vivo">
+          <img src="envivo.webp" alt="Transmisiones en vivo">
           <div class="live-badge">
             <span class="pulse"></span> EN VIVO
           </div>
@@ -732,41 +706,50 @@ document.querySelectorAll(".menu a").forEach(link=>{
 
         <!-- PAGINA 1 -->
         <div class="gallery-page active">
-            <div class="gallery-item"><img src="img1.jpg"></div>
-            <div class="gallery-item"><img src="img2.jpg"></div>
-            <div class="gallery-item"><img src="9.jpg"></div>
-            <div class="gallery-item"><img src="10.jpg"></div>
-            <div class="gallery-item"><img src="4.jpg"></div>
-            <div class="gallery-item"><img src="5.jpg"></div>
-            <div class="gallery-item"><img src="6.jpg"></div>
-            <div class="gallery-item"><img src="7.jpg"></div>
-            <div class="gallery-item"><img src="8.jpg"></div>
+            <div class="gallery-item"><img src="img1.webp"></div>
+            <div class="gallery-item"><img src="img2.webp"></div>
+            <div class="gallery-item"><img src="9.webp"></div>
+            <div class="gallery-item"><img src="10.webp"></div>
+            <div class="gallery-item"><img src="4.webp"></div>
+            <div class="gallery-item"><img src="5.webp"></div>
+            <div class="gallery-item"><img src="6.webp"></div>
+            <div class="gallery-item"><img src="7.webp"></div>
+            <div class="gallery-item"><img src="8.webp"></div>
 
-            <div class="gallery-item"><img src="11.jpg"></div>
+            <div class="gallery-item"><img src="11.webp"></div>
 
 
         </div>
 
         <!-- PAGINA 2 -->
         <div class="gallery-page">
-            <div class="gallery-item"><img src="12.jpg"></div>
-            <div class="gallery-item"><img src="13.jpg"></div>
-            <div class="gallery-item"><img src="14.jpg"></div>
-            <div class="gallery-item"><img src="15.jpg"></div>
-            <div class="gallery-item"><img src="16.jpg"></div>
-            <div class="gallery-item"><img src="17.jpg"></div>
-            <div class="gallery-item"><img src="18.jpg"></div>
+            <div class="gallery-item"><img src="12.webp"></div>
+            <div class="gallery-item"><img src="13.webp"></div>
+            <div class="gallery-item"><img src="14.webp"></div>
+            <div class="gallery-item"><img src="15.webp"></div>
+            <div class="gallery-item"><img src="16.webp"></div>
+            <div class="gallery-item"><img src="17.webp"></div>
+            <div class="gallery-item"><img src="18.webp"></div>
 
-            <div class="gallery-item"><img src="19.jpg"></div>
-            <div class="gallery-item"><img src="20.jpg"></div>
+            <div class="gallery-item"><img src="19.webp"></div>
+            <div class="gallery-item"><img src="20.webp"></div>
             <div class="gallery-item video">
-                <video muted>
-                    <source src="alabanza.mp4">
-                </video>
-                <span class="play-icon">
-                    <i class="fas fa-play"></i>
-                </span>
-            </div>
+
+    <video
+        muted
+        playsinline
+        preload="metadata"
+        poster="alabanza.webp">
+
+        <source src="alabanza.mp4" type="video/mp4">
+
+    </video>
+
+    <span class="play-icon">
+        <i class="fas fa-play"></i>
+    </span>
+
+</div>
             
 
 
@@ -777,10 +760,10 @@ document.querySelectorAll(".menu a").forEach(link=>{
         <div class="gallery-page">
         
 
-        <div class="gallery-item"><img src="21.jpg"></div>
-        <div class="gallery-item"><img src="22.jpg"></div>
-        <div class="gallery-item"><img src="23.jpg"></div>
-        <div class="gallery-item"><img src="24.jpg"></div>
+        <div class="gallery-item"><img src="21.webp"></div>
+        <div class="gallery-item"><img src="22.webp"></div>
+        <div class="gallery-item"><img src="23.webp"></div>
+        <div class="gallery-item"><img src="24.webp"></div>
 
         </div>
 
