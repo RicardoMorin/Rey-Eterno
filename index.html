@@ -175,7 +175,12 @@ campModal.onclick = (e)=>{
     // =====================================
     // VIDEO HERO
     // =====================================
+video.muted = true;
+video.playsInline = true;
 
+video.play().catch(() => {
+    console.log("Autoplay bloqueado");
+});
     const video = document.getElementById("heroVideo");
     const sonido = document.getElementById("toggleSound");
     const pantalla = document.getElementById("fullscreenVideo");
@@ -458,16 +463,17 @@ document.querySelectorAll(".menu a").forEach(link=>{
 <section id="inicio" class="hero">
 
     <!-- VIDEO -->
-    <video
-        id="heroVideo"
-        class="hero-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto">
+<video
+id="heroVideo"
+class="hero-video"
+autoplay
+muted
+loop
+playsinline
+webkit-playsinline
+preload="metadata">
 
-        <source src="alabanza(1).mp4" type="video/mp4">
+        <source src="hero.mp4" type="video/mp4">
 
     </video>
 
