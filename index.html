@@ -176,32 +176,28 @@ campModal.onclick = (e)=>{
     // VIDEO HERO
     // =====================================
 
+const video = document.getElementById("heroVideo");
+const sonido = document.getElementById("toggleSound");
+
 video.defaultMuted = true;
 video.muted = true;
 
 video.load();
 
-video.play().catch(err=>{
-    console.log(err);
-});
+video.play().catch(() => {});
 
-    sonido.addEventListener("click", async () => {
 
-    try {
+sonido.addEventListener("click", async () => {
 
-        if (video.paused) {
-            await video.play();
-        }
-
-        video.muted = !video.muted;
-
-        sonido.innerHTML = video.muted
-            ? '<i class="fas fa-volume-mute"></i>'
-            : '<i class="fas fa-volume-up"></i>';
-
-    } catch (e) {
-        console.log(e);
+    if (video.paused) {
+        await video.play().catch(()=>{});
     }
+
+    video.muted = !video.muted;
+
+    sonido.innerHTML = video.muted
+        ? '<i class="fas fa-volume-mute"></i>'
+        : '<i class="fas fa-volume-up"></i>';
 
 });
     const pantalla = document.getElementById("fullscreenVideo");
@@ -432,7 +428,7 @@ document.querySelectorAll(".menu a").forEach(link=>{
     });
 
 });
-});
+
 </script>
 <body>
 
@@ -463,16 +459,18 @@ document.querySelectorAll(".menu a").forEach(link=>{
 
     <!-- VIDEO -->
 <video
-id="heroVideo"
-class="hero-video"
-autoplay muted loop playsinline>
-webkit-playsinline
-preload="metadata">
+    id="heroVideo"
+    class="hero-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    webkit-playsinline
+    preload="auto">
 
     <source src="hero.mp4" type="video/mp4">
-</video>
 
-    </video>
+</video>
 
     <!-- CAPA OSCURA -->
     <div class="hero-overlay"></div>
