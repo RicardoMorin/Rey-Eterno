@@ -181,30 +181,26 @@ video.playsInline = true;
 video.play().catch(() => {
     console.log("Autoplay bloqueado");
 });
-    const video = document.getElementById("heroVideo");
-    const sonido = document.getElementById("toggleSound");
-    const pantalla = document.getElementById("fullscreenVideo");
+    sonido.addEventListener("click", async () => {
 
-    if (video) {
+    try {
 
-        // Intentar reproducir
-        video.play().catch(() => {});
-
-        if (sonido) {
-
-            sonido.addEventListener("click", () => {
-
-                video.muted = !video.muted;
-
-                sonido.innerHTML = video.muted
-                    ? '<i class="fas fa-volume-mute"></i>'
-                    : '<i class="fas fa-volume-up"></i>';
-
-                video.play().catch(() => {});
-
-            });
-
+        if (video.paused) {
+            await video.play();
         }
+
+        video.muted = !video.muted;
+
+        sonido.innerHTML = video.muted
+            ? '<i class="fas fa-volume-mute"></i>'
+            : '<i class="fas fa-volume-up"></i>';
+
+    } catch (e) {
+        console.log(e);
+    }
+
+});
+    const pantalla = document.getElementById("fullscreenVideo");
 
                 if (pantalla) {
 
@@ -466,14 +462,12 @@ document.querySelectorAll(".menu a").forEach(link=>{
 <video
 id="heroVideo"
 class="hero-video"
-autoplay
-muted
-loop
-playsinline
+autoplay muted loop playsinline>
 webkit-playsinline
 preload="metadata">
 
-        <source src="hero.mp4" type="video/mp4">
+    <source src="hero.mp4" type="video/mp4">
+</video>
 
     </video>
 
