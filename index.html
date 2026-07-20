@@ -77,7 +77,33 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     }
+const campModal = document.getElementById("campModal");
 
+document
+.getElementById("openCampModal")
+.onclick = () => {
+
+    campModal.classList.add("active");
+
+};
+
+document
+.querySelector(".camp-close")
+.onclick = () => {
+
+    campModal.classList.remove("active");
+
+};
+
+campModal.onclick = (e)=>{
+
+    if(e.target===campModal){
+
+        campModal.classList.remove("active");
+
+    }
+
+};
     // =====================================
     // COMPARTIR EVENTOS
     // =====================================
@@ -522,8 +548,73 @@ document.querySelectorAll(".menu a").forEach(link=>{
       <i class="fas fa-arrow-right"></i>
 
     </a>
+<button class="camp-connect-btn" id="openCampModal">
+    ❤️ ¿Fuiste al campamento?
+</button>
+<div class="camp-modal" id="campModal">
 
+    <div class="camp-modal-content">
 
+        <span class="camp-close">&times;</span>
+
+        <h2>❤️ ¡Conectemos!</h2>
+
+        <p>
+            ¿Fuiste al Campamento <strong>"Siempre por Amor"</strong>?
+            ¡Nos encantaría seguir en contacto contigo!
+        </p>
+
+        <form
+        action="https://formsubmit.co/contacto@rey-eterno.com"
+        method="POST">
+
+            <input type="hidden" name="_subject"
+            value="Nuevo contacto del Campamento">
+
+            <input type="hidden" name="_captcha" value="false">
+
+            <input type="hidden"
+            name="_next"
+            value="https://rey-eterno.com/">
+
+            <label>Red social</label>
+
+            <select name="Red Social" required>
+
+                <option value="">Selecciona...</option>
+
+                <option>Instagram</option>
+
+                <option>TikTok</option>
+
+                <option>Facebook</option>
+
+            </select>
+
+            <label>Usuario o enlace</label>
+
+            <input
+            type="text"
+            name="Usuario"
+            placeholder="@usuario">
+
+            <label>Tu nombre (opcional)</label>
+
+            <input
+            type="text"
+            name="Nombre">
+
+            <button type="submit">
+
+                Compartir ❤️
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
   </div>
 
 </section>

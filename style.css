@@ -10,6 +10,222 @@
     object-fit:cover;
     display:block;
 }
+.album-campamento{
+
+position:relative;
+
+}
+
+.camp-connect-btn{
+
+    display:block;
+
+    margin:18px auto 0;
+
+    padding:14px 28px;
+
+    background:#ffffff;
+
+    color:#6c3eb8;
+
+    border:none;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.18);
+
+    transition:.3s;
+
+}
+
+.camp-connect-btn:hover{
+
+    transform:translateY(-3px);
+
+    background:#6c3eb8;
+
+    color:#fff;
+
+}
+
+.camp-connect-btn small{
+
+    display:block;
+
+    margin-top:3px;
+
+    font-size:13px;
+
+    font-weight:400;
+
+    opacity:.85;
+
+}
+
+.camp-connect-btn:hover{
+
+transform:translateY(-3px);
+
+background:#6c3eb8;
+
+color:white;
+
+}
+
+.camp-modal{
+
+display:none;
+
+position:fixed;
+
+left:0;
+
+top:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.65);
+
+z-index:9999;
+
+justify-content:center;
+
+align-items:center;
+
+padding:20px;
+
+}
+
+.camp-modal.active{
+
+display:flex;
+
+}
+
+.camp-modal-content{
+
+background:white;
+
+border-radius:20px;
+
+padding:35px;
+
+max-width:480px;
+
+width:100%;
+
+position:relative;
+
+animation:popup .35s;
+
+}
+
+@keyframes popup{
+
+from{
+
+opacity:0;
+
+transform:scale(.8);
+
+}
+
+to{
+
+opacity:1;
+
+transform:scale(1);
+
+}
+
+}
+
+.camp-modal h2{
+
+text-align:center;
+
+margin-bottom:15px;
+
+}
+
+.camp-modal p{
+
+text-align:center;
+
+margin-bottom:25px;
+
+}
+
+.camp-modal label{
+
+display:block;
+
+margin-top:15px;
+
+font-weight:600;
+
+}
+
+.camp-modal input,
+.camp-modal select{
+
+width:100%;
+
+padding:13px;
+
+margin-top:6px;
+
+border-radius:12px;
+
+border:1px solid #ddd;
+
+font-size:15px;
+
+}
+
+.camp-modal button{
+
+margin-top:25px;
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+background:#6c3eb8;
+
+color:rgb(20, 19, 19);
+
+border-radius:12px;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+.camp-close{
+
+position:absolute;
+
+right:18px;
+
+top:15px;
+
+font-size:30px;
+
+cursor:pointer;
+
+}
 .gallery-pagination{
     display:flex;
     justify-content:center;
@@ -149,6 +365,50 @@ grid-template-columns:repeat(2,1fr);
 
 }
 
+}
+/* ===== MODAL CONECTEMOS ===== */
+
+.camp-modal-content{
+    color:#111;
+}
+
+.camp-modal-content h2{
+    color:#111;
+}
+
+.camp-modal-content p{
+    color:#111;
+}
+
+.camp-modal-content label{
+    color:#111;
+}
+
+.camp-modal-content input,
+.camp-modal-content select{
+    color:#111;
+    background:#fff;
+}
+
+.camp-modal-content input::placeholder{
+    color:#666;
+}
+
+.camp-modal-content option{
+    color:#111;
+}
+
+.camp-close{
+    color:#111;
+}
+
+/* Fuerza texto negro dentro del modal */
+#campModal .camp-modal-content h2,
+#campModal .camp-modal-content p,
+#campModal .camp-modal-content label,
+#campModal .camp-modal-content span,
+#campModal .camp-modal-content strong {
+    color: #111 !important;
 }
 /* ====================================
    ALBUM CAMPAMENTO SIEMPRE POR AMOR
