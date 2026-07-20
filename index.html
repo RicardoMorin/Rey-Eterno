@@ -175,12 +175,16 @@ campModal.onclick = (e)=>{
     // =====================================
     // VIDEO HERO
     // =====================================
-video.muted = true;
-video.playsInline = true;
 
-video.play().catch(() => {
-    console.log("Autoplay bloqueado");
+video.defaultMuted = true;
+video.muted = true;
+
+video.load();
+
+video.play().catch(err=>{
+    console.log(err);
 });
+
     sonido.addEventListener("click", async () => {
 
     try {
@@ -232,8 +236,7 @@ video.play().catch(() => {
 
         }
 
-    }
-
+});
 
  //======================
 // GALERÍA
