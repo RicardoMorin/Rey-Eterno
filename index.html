@@ -702,10 +702,82 @@ document.querySelectorAll(".menu a").forEach(link=>{
         <i class="fas fa-chevron-left"></i>
     </button>
 
-    <div class="gallery-pages" id="gallery">
+    <div class="gallery-pages">
+
+        <!-- PAGINA 1 -->
+        <div class="gallery-page active">
+            <div class="gallery-item"><img src="img1.webp"></div>
+            <div class="gallery-item"><img src="img2.webp"></div>
+            <div class="gallery-item"><img src="9.webp"></div>
+            <div class="gallery-item"><img src="10.webp"></div>
+            <div class="gallery-item"><img src="4.webp"></div>
+            <div class="gallery-item"><img src="5.webp"></div>
+            <div class="gallery-item"><img src="6.webp"></div>
+            <div class="gallery-item"><img src="7.webp"></div>
+            <div class="gallery-item"><img src="8.webp"></div>
+
+            <div class="gallery-item"><img src="11.webp"></div>
+
+
+        </div>
+
+        <!-- PAGINA 2 -->
+        <div class="gallery-page">
+            <div class="gallery-item"><img src="12.webp"></div>
+            <div class="gallery-item"><img src="13.webp"></div>
+            <div class="gallery-item"><img src="14.webp"></div>
+            <div class="gallery-item"><img src="15.webp"></div>
+            <div class="gallery-item"><img src="16.webp"></div>
+            <div class="gallery-item"><img src="17.webp"></div>
+            <div class="gallery-item"><img src="18.webp"></div>
+
+            <div class="gallery-item"><img src="19.webp"></div>
+            <div class="gallery-item"><img src="20.webp"></div>
+            <div class="gallery-item video">
+
+    <video
+        muted
+        playsinline
+        preload="metadata"
+        poster="alabanza.webp">
+
+        <source src="alabanza.mp4" type="video/mp4">
+
+    </video>
+
+    <span class="play-icon">
+        <i class="fas fa-play"></i>
+    </span>
+
+</div>
+            
+
+
+
+        </div>
+
+        <!-- PAGINA 3 -->
+        <div class="gallery-page">
+        
+
+        <div class="gallery-item"><img src="21.webp"></div>
+        <div class="gallery-item"><img src="22.webp"></div>
+        <div class="gallery-item"><img src="23.webp"></div>
+        <div class="gallery-item"><img src="24.webp"></div>
+
+        </div>
+
     </div>
+
+    <button class="gallery-btn next">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
 </div>
 
+</div>
+      </div>
+    </div>
   </section>
 
   <!-- CONTACTO -->
@@ -827,35 +899,5 @@ document.querySelectorAll(".menu a").forEach(link=>{
     </button>
 
 </div>
-<script type="module">
-fetch("galeria.json")
-.then(res=>res.json())
-.then(imagenes=>{
-
-
-const galeria=
-document.getElementById("gallery");
-
-
-imagenes.forEach(img=>{
-
-
-galeria.innerHTML+=`
-
-<div class="gallery-item">
-
-<img src="${img}">
-
-</div>
-
-`;
-
-
-});
-
-
-});
-</script>
 </body>
-
 </html>
