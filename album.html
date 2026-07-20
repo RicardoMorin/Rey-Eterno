@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Álbum Campamento Siempre por Amor</title>
+
+
+<link rel="stylesheet" href="style.css">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+</head>
+
+
+<body>
+<script>
+    // =============================
+// COMPARTIR FOTOS
+// =============================
+
+
+document.querySelectorAll(".share-photo")
+.forEach(btn=>{
+
+
+btn.addEventListener("click",async()=>{
+
+
+const image = btn.dataset.image;
+
+
+const url = window.location.origin + "/" + image;
+
+
+
+if(navigator.share){
+
+
+await navigator.share({
+
+title:"Campamento Siempre por Amor",
+
+text:"Un momento especial del campamento ❤️",
+
+url:url
+
+});
+
+
+}else{
+
+
+navigator.clipboard.writeText(url);
+
+
+alert("Enlace de /campamento/imagen copiado");
+
+
+}
+
+
+
+});
+
+
+});
+</script>
+
+<!-- HEADER -->
+
+<section class="album-page-header">
+
+
+<div class="album-content">
+
+
+<span class="album-badge">
+
+<i class="fas fa-camera-retro"></i>
+
+Campamento Especial
+
+</span>
+
+
+
+<h1>
+
+Álbum de Fotos
+
+<br>
+
+<span>"Siempre por Amor"</span>
+
+</h1>
+
+
+
+<p>
+
+Momentos de fe, alegría y comunión junto a nuestra familia en Cristo.
+
+</p>
+
+
+
+<a href="index.html" class="btn-album">
+
+<i class="fas fa-arrow-left"></i>
+
+Volver al inicio
+
+</a>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- GALERÍA -->
+
+
+<section class="section-gradient">
+
+
+<div class="container">
+
+
+<span class="section-badge">
+
+Momentos Especiales
+
+</span>
+
+
+<h2 class="title">
+
+Galería del Campamento
+
+</h2>
+
+
+
+<div class="gallery-slider">
+
+
+<button class="gallery-btn prev">
+    <i class="fas fa-chevron-left"></i>
+</button>
+
+
+
+<div class="gallery-pages">
+
+
+
+<!-- ================= PAGINA 1 ================= -->
+
+<div class="gallery-page active">
+
+
+<div class="gallery-item"><img src="campamento/2E6E739A-FAD5-40EB-A3B5-5D4A036F189E.jpg"></div>
+<div class="gallery-item"><img src="campamento/78BFC553-171D-4C0E-88A6-82B77EA6E9E1.jpg"></div>
+<div class="gallery-item"><img src="campamento/AC59BAE6-95D0-4358-B5A8-B10CB62151AE.jpg"></div>
+<div class="gallery-item"><img src="campamento/B9D7B411-910A-47EA-B040-BBCDD0DF6270.jpg"></div>
+<div class="gallery-item"><img src="campamento/C84D354D-6C47-426F-95D7-99C288D440A5.jpg"></div>
+
+<div class="gallery-item"><img src="campamento/E0477770-B6E9-4A0D-809F-49BFDDE3A8DD.jpg"></div>
+<div class="gallery-item"><img src="campamento/F6F18344-90C2-497F-8460-1B66245636DD.jpg"></div>
+<div class="gallery-item"><img src="campamento/F7847A2C-BF2D-4EA7-BF19-2CC628DEB405.jpg"></div>
+<div class="gallery-item"><img src="campamento/IMG_0190.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0191.JPG"></div>
+
+<div class="gallery-item"><img src="campamento/IMG_0192.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0222.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0223.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0224.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0232.JPG"></div>
+
+<div class="gallery-item"><img src="campamento/IMG_0233.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0234.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0276.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0277.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0278.JPG"></div>
+
+<div class="gallery-item"><img src="campamento/IMG_0279.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0281.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0282.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0290.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0291.JPG"></div>
+
+
+</div>
+
+
+
+
+
+<!-- ================= PAGINA 2 ================= -->
+
+<div class="gallery-page">
+
+
+<div class="gallery-item"><img src="campamento/IMG_0292.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0293.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0294.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0295.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0307.JPG"></div>
+
+<div class="gallery-item"><img src="campamento/IMG_0308.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0309.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0310.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0311.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0312.JPG"></div>
+
+<div class="gallery-item"><img src="campamento/IMG_0313.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0314.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0315.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0316.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0324.JPG"></div>
+
+<div class="gallery-item"><img src="campamento/IMG_0325.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0326.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0327.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0329.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0330.JPG"></div>
+
+<div class="gallery-item"><img src="campamento/IMG_0331.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0388.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0389.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0390.JPG"></div>
+<div class="gallery-item"><img src="campamento/IMG_0391.JPG"></div>
+
+
+</div>
+
+
+
+
+
+<!-- ================= PAGINA 3 ================= -->
+
+<div class="gallery-page">
+
+
+<div class="gallery-item"><img src="/campamento/imagen51.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen52.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen53.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen54.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen55.JPG"></div>
+
+<div class="gallery-item"><img src="/campamento/imagen56.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen57.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen58.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen59.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen60.JPG"></div>
+
+<div class="gallery-item"><img src="/campamento/imagen61.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen62.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen63.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen64.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen65.JPG"></div>
+
+<div class="gallery-item"><img src="/campamento/imagen66.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen67.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen68.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen69.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen70.JPG"></div>
+
+<div class="gallery-item"><img src="/campamento/imagen71.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen72.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen73.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen74.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen75.JPG"></div>
+
+
+</div>
+
+
+
+
+
+<!-- ================= PAGINA 4 ================= -->
+
+<div class="gallery-page">
+
+
+<div class="gallery-item"><img src="/campamento/imagen76.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen77.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen78.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen79.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen80.JPG"></div>
+
+<div class="gallery-item"><img src="/campamento/imagen81.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen82.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen83.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen84.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen85.JPG"></div>
+
+<div class="gallery-item"><img src="/campamento/imagen86.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen87.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen88.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen89.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen90.JPG"></div>
+
+<div class="gallery-item"><img src="/campamento/imagen91.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen92.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen93.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen94.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen95.JPG"></div>
+
+<div class="gallery-item"><img src="/campamento/imagen96.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen97.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen98.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen99.JPG"></div>
+<div class="gallery-item"><img src="/campamento/imagen100.JPG"></div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+<button class="gallery-btn next">
+
+<i class="fas fa-chevron-right"></i>
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- LIGHTBOX -->
+
+
+<div class="lightbox" id="lightbox">
+
+
+<button class="close-lightbox">
+
+×
+</button>
+
+
+
+<button class="lightbox-prev">
+
+<i class="fas fa-chevron-left"></i>
+
+</button>
+
+
+
+<div class="lightbox-content">
+
+
+<img id="lightboxImage">
+
+
+<video id="lightboxVideo" controls></video>
+
+
+</div>
+
+
+
+<button class="lightbox-next">
+
+<i class="fas fa-chevron-right"></i>
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+//======================
+// GALERÍA PAGINAS
+//======================
+
+
+const pages=document.querySelectorAll(".gallery-page");
+
+const prevBtn=document.querySelector(".prev");
+
+const nextBtn=document.querySelector(".next");
+
+
+let currentPage=0;
+
+
+
+function showPage(index){
+
+pages.forEach(page=>{
+
+page.classList.remove("active");
+
+});
+
+
+pages[index].classList.add("active");
+
+
+}
+
+
+
+showPage(currentPage);
+
+
+
+nextBtn.onclick=()=>{
+
+
+currentPage++;
+
+
+if(currentPage>=pages.length){
+
+currentPage=0;
+
+}
+
+
+showPage(currentPage);
+
+
+};
+
+
+
+
+prevBtn.onclick=()=>{
+
+
+currentPage--;
+
+
+if(currentPage<0){
+
+currentPage=pages.length-1;
+
+}
+
+
+showPage(currentPage);
+
+
+};
+
+
+
+
+
+
+//======================
+// LIGHTBOX
+//======================
+
+
+const items=document.querySelectorAll(".gallery-item");
+
+const lightbox=document.getElementById("lightbox");
+
+const img=document.getElementById("lightboxImage");
+
+const video=document.getElementById("lightboxVideo");
+
+
+let current=0;
+
+
+
+function openItem(index){
+
+
+current=index;
+
+
+let item=items[index];
+
+
+let image=item.querySelector("img");
+
+let vid=item.querySelector("video");
+
+
+
+lightbox.classList.add("active");
+
+
+
+if(image){
+
+
+img.style.display="block";
+
+video.style.display="none";
+
+
+img.src=image.src;
+
+
+}
+
+
+
+if(vid){
+
+
+img.style.display="none";
+
+video.style.display="block";
+
+
+video.src=vid.querySelector("source").src;
+
+
+video.play();
+
+
+}
+
+
+
+}
+
+
+
+
+items.forEach((item,index)=>{
+
+
+item.onclick=()=>openItem(index);
+
+
+});
+
+
+
+
+document.querySelector(".close-lightbox").onclick=()=>{
+
+
+lightbox.classList.remove("active");
+
+
+video.pause();
+
+
+};
+
+
+
+
+document.querySelector(".lightbox-next").onclick=()=>{
+
+
+current++;
+
+
+if(current>=items.length){
+
+current=0;
+
+}
+
+
+openItem(current);
+
+
+};
+
+
+
+
+
+document.querySelector(".lightbox-prev").onclick=()=>{
+
+
+current--;
+
+
+if(current<0){
+
+current=items.length-1;
+
+}
+
+
+openItem(current);
+
+
+};
+
+
+
+
+</script>
+
+
+</body>
+
+</html>
