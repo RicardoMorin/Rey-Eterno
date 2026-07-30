@@ -104,73 +104,7 @@ campModal.onclick = (e)=>{
     }
 
 };
-    // =====================================
-    // COMPARTIR EVENTOS
-    // =====================================
 
-    document.querySelectorAll(".share-event").forEach((boton) => {
-
-        boton.addEventListener("click", async () => {
-
-            const imagen = boton.dataset.image;
-            const titulo = boton.dataset.title;
-
-            try {
-
-                const respuesta = await fetch(imagen);
-                const blob = await respuesta.blob();
-
-                const archivo = new File(
-                    [blob],
-                    imagen,
-                    { type: blob.type }
-                );
-
-                const texto =
-`🙌 ${titulo}
-
-¡Te esperamos!
-
-📍 Iglesia Cristiana Rey Eterno`;
-
-                if (
-                    navigator.canShare &&
-                    navigator.canShare({ files: [archivo] })
-                ) {
-
-                    await navigator.share({
-                        title: titulo,
-                        text: texto,
-                        files: [archivo]
-                    });
-
-                } else if (navigator.share) {
-
-                    await navigator.share({
-                        title: titulo,
-                        text: texto,
-                        url: "https://rey-eterno.com"
-                    });
-
-                } else {
-
-                    navigator.clipboard.writeText(
-                        texto + "\nhttps://rey-eterno.com"
-                    );
-
-                    alert("Información del evento copiada.");
-
-                }
-
-            } catch (e) {
-
-                console.error(e);
-
-            }
-
-        });
-
-    });
 
     // =====================================
     // VIDEO HERO
@@ -1008,5 +942,74 @@ Un espacio para jóvenes donde compartimos la Palabra de Dios, adoramos juntos y
     </button>
 
 </div>
+<script>
+      // =====================================
+    // COMPARTIR EVENTOS
+    // =====================================
+
+    document.querySelectorAll(".share-event").forEach((boton) => {
+
+        boton.addEventListener("click", async () => {
+
+            const imagen = boton.dataset.image;
+            const titulo = boton.dataset.title;
+
+            try {
+
+                const respuesta = await fetch(imagen);
+                const blob = await respuesta.blob();
+
+                const archivo = new File(
+                    [blob],
+                    imagen,
+                    { type: blob.type }
+                );
+
+                const texto =
+`🙌 ${titulo}
+
+¡Te esperamos!
+
+📍 Iglesia Cristiana Rey Eterno`;
+
+                if (
+                    navigator.canShare &&
+                    navigator.canShare({ files: [archivo] })
+                ) {
+
+                    await navigator.share({
+                        title: titulo,
+                        text: texto,
+                        files: [archivo]
+                    });
+
+                } else if (navigator.share) {
+
+                    await navigator.share({
+                        title: titulo,
+                        text: texto,
+                        url: "https://rey-eterno.com"
+                    });
+
+                } else {
+
+                    navigator.clipboard.writeText(
+                        texto + "\nhttps://rey-eterno.com"
+                    );
+
+                    alert("Información del evento copiada.");
+
+                }
+
+            } catch (e) {
+
+                console.error(e);
+
+            }
+
+        });
+
+    });
+</script>
 </body>
 </html>
