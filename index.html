@@ -349,6 +349,84 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
   *{transition-duration:.01ms!important}
   .flot.vivo{animation:none}
 }
+
+/* ===== EXTRAS ÉPICOS ===== */
+.prog{position:fixed;top:0;left:0;width:100%;height:3px;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--oro),var(--oro-claro),#fff);z-index:60;box-shadow:0 0 12px var(--oro)}
+.aura,.chispa{display:none}
+@media (hover:hover) and (pointer:fine){
+  .aura{display:block;position:fixed;left:0;top:0;width:340px;height:340px;border-radius:50%;pointer-events:none;z-index:45;opacity:0;transition:opacity .4s;background:radial-gradient(circle,rgba(210,166,74,.2),transparent 65%)}
+  .aura.on{opacity:1}
+  .chispa{display:block;position:fixed;width:7px;height:7px;border-radius:50%;background:var(--oro-claro);box-shadow:0 0 10px 2px rgba(240,213,143,.8);pointer-events:none;z-index:90}
+}
+/* Logo circular */
+.marca img{width:44px;height:44px;aspect-ratio:1;object-fit:cover;border-radius:50%;background:transparent;box-shadow:0 0 0 2px var(--oro),0 0 20px rgba(210,166,74,.55);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.marca:hover img{transform:rotate(360deg) scale(1.08)}
+.menu a.act:not(.btn){color:var(--oro-claro);text-shadow:0 0 14px rgba(240,213,143,.6)}
+.btn{transition:transform .2s,background .2s,color .2s,border-color .2s,translate .25s cubic-bezier(.2,.7,.2,1)}
+/* Portada */
+.canvas-luz{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.rayos{position:absolute;z-index:-1;right:-30%;top:-55%;width:95vmax;height:95vmax;pointer-events:none;background:repeating-conic-gradient(rgba(240,213,143,.13) 0 5deg,transparent 5deg 17deg);-webkit-mask:radial-gradient(circle,#000 0,transparent 62%);mask:radial-gradient(circle,#000 0,transparent 62%)}
+.corona{width:70px;height:70px;display:block;margin-bottom:.5rem;color:var(--oro-claro);fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 10px rgba(240,213,143,.7))}
+.corona path{stroke-dasharray:1;stroke-dashoffset:0}
+.pal{display:inline-block;white-space:nowrap}
+.let{display:inline-block}
+.pal.oro{filter:drop-shadow(0 0 18px rgba(210,166,74,.55))}
+.pal.oro .let{background:linear-gradient(180deg,#fff3c9,var(--oro) 85%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+/* Palabras que suben */
+.po{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+.po>span{display:inline-block}
+/* Cintas */
+.cinta{background:var(--oro);color:var(--noche);overflow:hidden;white-space:nowrap;padding:.85rem 0;font:700 clamp(1.1rem,2.2vw,1.5rem)/1.2 var(--serif);border-block:2px solid var(--noche)}
+.pista{display:inline-flex;width:max-content}
+.pista span{display:inline-flex;align-items:center;gap:1.6rem;padding-right:1.6rem}
+.pista span::after{content:"✦";color:var(--real)}
+.cinta.inv{background:var(--noche);color:var(--oro-claro);border-color:var(--oro)}
+.cinta.inv .pista span::after{color:var(--oro)}
+/* Versículo sobre la foto */
+.polaroid .foto{position:relative;overflow:hidden;border-radius:3px}
+.polaroid .foto img{display:block}
+.sacerdocio{position:absolute;left:0;right:0;bottom:0;padding:3.4rem 1.1rem .9rem;background:linear-gradient(to top,rgba(27,15,51,.95),rgba(27,15,51,.72) 55%,transparent);color:#fff}
+.sacerdocio p{font:italic 500 clamp(.98rem,1.5vw,1.15rem)/1.3 var(--serif)}
+.sacerdocio p b{color:var(--oro-claro);font-weight:700}
+.sacerdocio cite{display:block;margin-top:.4rem;font:600 .78rem var(--sans);font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:var(--oro)}
+/* Servicios, galería, reels, pie */
+.fila::after{content:"";position:absolute;left:0;bottom:-1px;width:100%;height:2px;background:var(--oro);transform:scaleX(0);transform-origin:0 50%;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.fila{transition:background .25s,padding .35s}
+.fila:hover{background:rgba(74,44,122,.06);padding-left:1.7rem}
+.fila:hover::after{transform:scaleX(1)}
+.fotos button::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 40%,rgba(240,213,143,.38) 50%,transparent 60%);transform:translateX(-120%);transition:transform .8s}
+.fotos button:hover::after{transform:translateX(120%)}
+.reel .th{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .6s}
+.reel:hover .th{transform:scale(1.08)}
+.reel::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to top,rgba(27,15,51,.9),rgba(27,15,51,.05) 55%)}
+.reel.cargado::after{display:none}
+.reel .ic,.reel span{z-index:2}
+.pie .gigante{grid-column:1/-1;margin:0;text-align:center;font:700 clamp(3rem,15vw,11rem)/.9 var(--serif);letter-spacing:-.03em;color:transparent;-webkit-text-stroke:1px rgba(240,213,143,.4);-webkit-user-select:none;user-select:none;transition:color .6s,-webkit-text-stroke-color .6s}
+.pie .gigante:hover{color:rgba(240,213,143,.14)}
+@media (prefers-reduced-motion:no-preference){
+  .corona path{stroke-dashoffset:1;animation:traza 2.4s .3s cubic-bezier(.5,0,.2,1) forwards}
+  .corona{animation:pulso 3.6s 2.7s ease-in-out infinite}
+  .rayos{animation:gira 90s linear infinite}
+  .versiculo{background-size:220% 220%;animation:deriva 16s ease-in-out infinite}
+  .polaroid .foto::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 40%,rgba(255,255,255,.3) 50%,transparent 60%);transform:translateX(-120%);animation:brillo 6s ease-in-out 2s infinite}
+  .pista{animation:cinta 40s linear infinite}
+  .cinta.inv .pista{animation-direction:reverse}
+  .cinta:hover .pista{animation-play-state:paused}
+  .reel .ic{animation:onda 2.2s ease-out infinite}
+  @keyframes traza{to{stroke-dashoffset:0}}
+  @keyframes pulso{50%{filter:drop-shadow(0 0 24px rgba(240,213,143,1))}}
+  @keyframes gira{to{rotate:360deg}}
+  @keyframes deriva{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+  @keyframes brillo{0%,55%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+  @keyframes cinta{to{transform:translateX(-50%)}}
+  @keyframes onda{0%{box-shadow:0 0 0 0 rgba(240,213,143,.65)}100%{box-shadow:0 0 0 24px rgba(240,213,143,0)}}
+}
+
+.reel .red{position:absolute;z-index:2;top:.8rem;left:.8rem;font:700 .72rem/1 var(--sans);font-style:normal;letter-spacing:.08em;text-transform:uppercase;padding:.4rem .65rem;border-radius:999px;background:rgba(27,15,51,.7);border:1px solid rgba(240,213,143,.5);color:var(--oro-claro);backdrop-filter:blur(4px)}
+.reel span{bottom:3.3rem}
+.reel .toca{position:absolute;z-index:2;left:1rem;right:1rem;bottom:1rem;font:700 .85rem/1 var(--sans);font-style:normal;text-align:center;padding:.65rem .5rem;border-radius:999px;background:var(--oro);color:var(--noche)}
+.reel .toca::before{content:"▶ "}
+@media (prefers-reduced-motion:no-preference){.reel .toca{animation:latir 1.8s ease-in-out infinite}@keyframes latir{50%{transform:scale(1.06)}}}
 </style>
 </head>
 <body>
@@ -371,6 +449,8 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
   <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.3l6.1-.7z"/></symbol>
 </svg>
 
+<div class="prog" id="prog"></div>
+<div class="aura" id="aura" aria-hidden="true"></div>
 <header class="top" id="top">
   <div class="wrap">
     <a class="marca" href="#inicio" aria-label="Rey Eterno, inicio">
@@ -395,8 +475,11 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
   <!-- PORTADA -->
   <section class="portada" aria-label="Bienvenida">
     <video id="heroVideo" data-src="hero.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+    <canvas class="canvas-luz" id="luz" aria-hidden="true"></canvas>
+    <div class="rayos" aria-hidden="true"></div>
     <div class="wrap">
       <div>
+        <svg class="corona" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 17 3 7l5 4 4-6 4 6 5-4-1 10zM4 20.5h16"/></svg>
         <h1><small>Iglesia cristiana en Guadalupe, Nuevo León</small>Rey Eterno</h1>
         <p class="lead">Un lugar donde encontrarás esperanza, amor y una familia en Cristo.</p>
         <div class="acciones">
@@ -426,6 +509,8 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
     </div>
   </section>
 
+  <div class="cinta" aria-hidden="true"><div class="pista"><span>Rey de reyes</span><span>Señor de señores</span><span>Digno es el Cordero</span><span>Aleluya</span><span>Santo, Santo, Santo</span><span>Emanuel, Dios con nosotros</span></div></div>
+
   <!-- NOSOTROS -->
   <section class="section nosotros" id="nosotros">
     <div class="wrap">
@@ -434,9 +519,9 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
         <p class="lead">Somos una iglesia cristiana que se reúne para adorar a Dios, escuchar su Palabra y vivir la fe en comunidad. Aquí hay un lugar para ti, para tus hijos y para toda tu familia.</p>
       </div>
       <figure class="polaroid">
-        <img src="img2.webp" alt="Momentos de la congregación de Rey Eterno" width="900" height="600" loading="lazy" decoding="async">
+        <div class="foto"><img src="img2.webp" alt="Momentos de la congregación de Rey Eterno" width="900" height="600" loading="lazy" decoding="async"><div class="sacerdocio"><p>Vosotros sois linaje escogido, <b>real sacerdocio</b>, nación santa, pueblo adquirido por Dios.</p><cite>1 Pedro 2:9</cite></div></div>
         <figcaption>Tu familia en Cristo</figcaption>
-        <span class="flot rosa" aria-hidden="true" style="left:-1rem;bottom:3.3rem;--r:-5deg;--t:7s">Aquí hay un lugar para ti <svg class="ic"><use href="#i-corazon"/></svg></span>
+        <span class="flot rosa" aria-hidden="true" style="right:-.8rem;bottom:-.4rem;--r:-5deg;--t:7s">Aquí hay un lugar para ti <svg class="ic"><use href="#i-corazon"/></svg></span>
         <span class="flot lima p" aria-hidden="true" style="top:-1.5rem;right:-.8rem;--r:4deg;--t:6s;--d:-2s">Él siempre te está <b>buscando</b></span>
       </figure>
       <ul class="pilares">
@@ -537,9 +622,9 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
         <a class="btn btn-real" href="https://www.facebook.com/izliajoram.martinezreyes.52" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-fb"/></svg>Ver transmisiones</a>
       </div>
       <div class="reels" id="reels" aria-label="Mensajes en video">
-        <button class="reel" type="button" data-id="975498985381273" aria-label="Reproducir mensaje en video"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span>Palabra de bendición</span></button>
-        <button class="reel" type="button" data-id="956554253559462" aria-label="Reproducir mensaje en video"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span>Palabra de bendición</span></button>
-        <button class="reel" type="button" data-id="3918172574994024" aria-label="Reproducir mensaje en video"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span>Palabra de bendición</span></button>
+        <button class="reel" type="button" data-id="975498985381273" aria-label="Reproducir mensaje en video"><img class="th" src="reel1.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span>Palabra de bendición</span></button>
+        <button class="reel" type="button" data-id="956554253559462" aria-label="Reproducir mensaje en video"><img class="th" src="reel2.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span>Palabra de bendición</span></button>
+        <button class="reel" type="button" data-id="3918172574994024" aria-label="Reproducir mensaje en video"><img class="th" src="reel3.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span>Palabra de bendición</span></button>
       </div>
     </div>
   
@@ -561,6 +646,8 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
       <span class="flot oval" style="top:calc(clamp(4.5rem,10vw,8rem) - 1rem);right:var(--edge);--r:-4deg;--t:7s">¡Nos encantaría <b>conocerte</b>! <svg class="ic"><use href="#i-flecha"/></svg></span>
     </div>
   </section>
+
+  <div class="cinta inv" aria-hidden="true"><div class="pista"><span>Jesús es el Señor</span><span>Su amor no tiene fin</span><span>Él vive</span><span>Todo es por gracia</span><span>Gloria a Dios</span><span>Su misericordia es para siempre</span></div></div>
 
   <!-- ORACIÓN -->
   <section class="section oracion" id="oracion">
@@ -636,6 +723,7 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
         <li>Guadalupe, Nuevo León</li>
       </ul>
     </div>
+    <p class="gigante" aria-hidden="true">Rey Eterno</p>
     <p class="copy">© <span id="anio">2026</span> Iglesia Cristiana Rey Eterno. Todos los derechos reservados.</p>
   </div>
 </footer>
@@ -796,16 +884,44 @@ var EVENTOS=[
   });
 })();
 
-/* ---------- Reels (se cargan al tocar) ---------- */
-$$(".reel").forEach(function(b){
-  b.addEventListener("click",function(){
-    var u=encodeURIComponent("https://www.facebook.com/reel/"+b.getAttribute("data-id")+"/");
-    var f=document.createElement("iframe");
-    f.src="https://www.facebook.com/plugins/video.php?height=476&href="+u+"&show_text=false&width=267&t=0";
-    f.title="Mensaje en video";f.allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";f.allowFullscreen=true;
-    b.innerHTML="";b.appendChild(f);b.style.cursor="default";
-  },{once:true});
-});
+/* ---------- Videos: TikTok y Facebook (edita esta lista) ----------
+   TikTok: pega el enlace completo del video (el que dice /video/123...).
+   Facebook: usa el id del reel. Se muestran en este orden. */
+var VIDEOS=[
+  {t:"tiktok",url:"https://www.tiktok.com/@iglesiareyetern0/video/7681736700288060680",titulo:"Rey Eterno en TikTok"},
+  {t:"tiktok",url:"https://www.tiktok.com/@iglesiareyetern0/video/7696967396468231445",titulo:"Rey Eterno en TikTok"},
+  {t:"tiktok",url:"https://www.tiktok.com/@iglesiareyetern0/video/7685450340384148744",titulo:"Rey Eterno en TikTok"},
+  {t:"tiktok",url:"https://www.tiktok.com/@iglesiareyetern0/video/7685463509827603719",titulo:"Rey Eterno en TikTok"},
+  {t:"tiktok",url:"https://www.tiktok.com/@iglesiareyetern0/video/7690680271540129044",titulo:"Rey Eterno en TikTok"}
+  // Facebook (opcional): {t:"fb",id:"975498985381273",titulo:"Palabra de bendición"}
+];
+(function(){
+  var box=$("#reels");box.innerHTML="";
+  VIDEOS.forEach(function(v,i){
+    var tk=v.t==="tiktok",idv=tk?(String(v.url).match(/video\/(\d+)/)||[])[1]:v.id;
+    if(!idv)return;
+    var b=document.createElement("button");b.type="button";b.className="reel";
+    b.setAttribute("aria-label","Reproducir: "+(v.titulo||"video"));
+    b.innerHTML='<img class="th" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><em class="red"></em><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span></span><i class="toca">Toca para reproducir</i>';
+    $(".red",b).textContent=tk?"TikTok":"Facebook";
+    $("span",b).textContent=v.titulo||"Mensaje en video";
+    var im=$("img",b),loc="reel"+(i+1)+".jpg",tried=false;
+    im.onerror=function(){if(!tried){tried=true;im.src=loc}else{im.remove()}};
+    if(tk&&window.fetch){
+      fetch("https://www.tiktok.com/oembed?url="+encodeURIComponent(v.url)).then(function(r){return r.json()})
+        .then(function(d){im.src=(d&&d.thumbnail_url)||loc}).catch(function(){im.src=loc});
+    }else{im.src=loc}
+    b.addEventListener("click",function(){
+      var f=document.createElement("iframe");
+      f.src=tk?"https://www.tiktok.com/embed/v2/"+idv
+        :"https://www.facebook.com/plugins/video.php?height=476&href="+encodeURIComponent("https://www.facebook.com/reel/"+idv+"/")+"&show_text=false&width=267&t=0&autoplay=true";
+      f.title=v.titulo||"Mensaje en video";
+      f.allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share; fullscreen";f.allowFullscreen=true;
+      b.innerHTML="";b.classList.add("cargado");b.appendChild(f);b.style.cursor="default";
+    },{once:true});
+    box.appendChild(b);
+  });
+})();
 
 /* ---------- Galería y visor ---------- */
 var FOTOS=["img1.webp","img2.webp"];
@@ -887,6 +1003,138 @@ $("#formOracion").addEventListener("submit",function(e){
       },{margin:"0px 0px -8% 0px"});
     });
   }catch(e){mostrarTodo()}
+})();
+
+/* ---------- Extras épicos ---------- */
+(function(){
+  var M=window.Motion,fino=window.matchMedia&&matchMedia("(hover:hover) and (pointer:fine)").matches;
+  var pr=$("#prog");
+  function prog(){var h=document.documentElement;pr.style.transform="scaleX("+(scrollY/Math.max(1,h.scrollHeight-innerHeight))+")"}
+  addEventListener("scroll",prog,{passive:true});prog();
+  var links=$$("#menu a[href^='#']");
+  if("IntersectionObserver" in window){
+    var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)links.forEach(function(a){a.classList.toggle("act",a.getAttribute("href")==="#"+e.target.id)})})},{rootMargin:"-45% 0px -50% 0px"});
+    $$("main section[id]").forEach(function(x){so.observe(x)});
+  }
+  $$(".pista").forEach(function(p){p.innerHTML+=p.innerHTML;p.innerHTML+=p.innerHTML});
+  if(reduce)return;
+
+  /* Partículas de luz en la portada */
+  var c=$("#luz");
+  if(c&&c.getContext){
+    var x=c.getContext("2d"),W,H,P=[],run=false,dpr=Math.min(devicePixelRatio||1,1.5),N=innerWidth<700?26:60;
+    var size=function(){W=c.width=c.offsetWidth*dpr;H=c.height=c.offsetHeight*dpr};
+    var mk=function(r){return{x:Math.random()*W,y:r?Math.random()*H:H+10,r:(Math.random()*2.2+.6)*dpr,v:(Math.random()*.4+.15)*dpr,a:Math.random()*6.28,s:Math.random()*.02+.005}};
+    size();addEventListener("resize",size);
+    for(var i=0;i<N;i++)P.push(mk(true));
+    var frame=function(){
+      if(!run)return;
+      x.clearRect(0,0,W,H);x.shadowBlur=12*dpr;x.shadowColor="#d2a64a";
+      for(var i=0;i<P.length;i++){
+        var p=P[i];p.y-=p.v;p.a+=p.s;p.x+=Math.sin(p.a)*.3*dpr;
+        if(p.y<-10){P[i]=p=mk()}
+        x.beginPath();x.fillStyle="rgba(240,213,143,"+Math.max(.06,.35+.45*Math.sin(p.a*3))+")";x.arc(p.x,p.y,p.r,0,6.283);x.fill();
+      }
+      requestAnimationFrame(frame);
+    };
+    new IntersectionObserver(function(e){var v=e[0].isIntersecting;if(v&&!run){run=true;frame()}else if(!v)run=false}).observe(c);
+  }
+  if(!M)return;
+  var A=M.animate,V=M.inView,E=[.2,.7,.2,1];
+
+  /* Título de portada: letras que caen con brillo */
+  var h1=$(".portada h1");
+  if(h1){
+    var tn=[].filter.call(h1.childNodes,function(n){return n.nodeType===3&&n.textContent.trim()})[0];
+    if(tn){
+      var fr=document.createDocumentFragment();h1.setAttribute("aria-label","Rey Eterno");
+      tn.textContent.trim().split(" ").forEach(function(w,wi,arr){
+        var ws=document.createElement("span");ws.className="pal"+(wi?" oro":"");ws.setAttribute("aria-hidden","true");
+        w.split("").forEach(function(ch){var l=document.createElement("span");l.className="let";l.textContent=ch;l.style.opacity="0";ws.appendChild(l)});
+        fr.appendChild(ws);if(wi<arr.length-1)fr.appendChild(document.createTextNode(" "));
+      });
+      h1.replaceChild(fr,tn);
+      $$(".let",h1).forEach(function(l,i){
+        A(l,{opacity:[0,1],transform:["perspective(500px) translateY(90px) rotateX(-80deg) scale(.6)","none"],filter:["blur(14px)","blur(0px)"]},{duration:.9,delay:.5+i*.07,ease:[.2,1.2,.3,1]});
+      });
+    }
+  }
+
+  /* Títulos: palabra por palabra */
+  function palabras(el){
+    var t=el.textContent.trim(),ws=[];el.setAttribute("aria-label",t);el.textContent="";
+    t.split(/\s+/).forEach(function(w,i,a){
+      var o=document.createElement("span"),s=document.createElement("span");
+      o.className="po";o.setAttribute("aria-hidden","true");s.textContent=w;s.style.transform="translateY(115%)";
+      o.appendChild(s);el.appendChild(o);if(i<a.length-1)el.appendChild(document.createTextNode(" "));ws.push(s);
+    });
+    return ws;
+  }
+  $$("main h2").filter(function(h){return !h.closest(".proximo")}).concat([$("#vTexto")]).forEach(function(el){
+    var ws=palabras(el);
+    V(el,function(){A(ws,{transform:["translateY(115%)","none"]},{duration:.8,delay:function(i){return i*.06},ease:E})},{margin:"0px 0px -10% 0px"});
+  });
+
+  /* Versículo en la foto */
+  var sc=$(".sacerdocio");
+  if(sc){
+    var ps=[].slice.call(sc.children);ps.forEach(function(p){p.style.opacity="0"});
+    V(sc,function(){A(ps,{opacity:[0,1],transform:["translateY(18px)","none"],filter:["blur(6px)","blur(0px)"]},{duration:.9,delay:function(i){return .6+i*.4},ease:E})},{amount:.6});
+  }
+
+  /* Textos, reels, galería y pie entran con fuerza */
+  [[".lead","translateY(20px)"],[".reel","translateY(40px) scale(.92)"],[".fotos","translateY(30px)"],[".gigante","translateY(60px) scale(.96)"]].forEach(function(r){
+    $$(r[0]).forEach(function(el,i){
+      if(el.closest(".portada"))return;
+      el.style.opacity="0";
+      V(el,function(){A(el,{opacity:[0,1],transform:[r[1],"none"]},{duration:.8,delay:(i%4)*.1,ease:E})},{margin:"0px 0px -8% 0px"});
+    });
+  });
+
+  /* Cuenta regresiva con efecto */
+  ["#cS","#cM","#cH"].forEach(function(q){
+    var el=$(q);if(!el)return;
+    new MutationObserver(function(){A(el,{opacity:[.2,1],transform:["translateY(-45%) scale(.9)","none"]},{duration:.35,ease:E})}).observe(el,{childList:true});
+  });
+
+  /* Parallax de portada */
+  var hw=$(".portada .wrap"),ry=$(".rayos");
+  addEventListener("scroll",function(){
+    var y=scrollY;if(y>innerHeight)return;
+    hw.style.translate="0 "+(y*.18)+"px";hw.style.opacity=Math.max(0,1-y/(innerHeight*.9));ry.style.translate="0 "+(y*.3)+"px";
+  },{passive:true});
+
+  if(!fino)return;
+  /* Luz que sigue al cursor + chispas */
+  var au=$("#aura"),mx=innerWidth/2,my=innerHeight/2,ax=mx,ay=my,ult=0;
+  function chispa(px,py){
+    var s=document.createElement("i");s.className="chispa";s.style.left=px+"px";s.style.top=py+"px";document.body.appendChild(s);
+    var dx=(Math.random()-.5)*50,dy=20+Math.random()*40;
+    A(s,{opacity:[.9,0],transform:["translate(-50%,-50%) scale(1)","translate(calc(-50% + "+dx+"px),calc(-50% + "+dy+"px)) scale(0)"]},{duration:.9,ease:"easeOut"}).finished.then(function(){s.remove()});
+  }
+  addEventListener("pointermove",function(e){
+    mx=e.clientX;my=e.clientY;au.classList.add("on");
+    var n=performance.now();if(n-ult>70){ult=n;chispa(mx,my)}
+  },{passive:true});
+  (function lp(){ax+=(mx-ax)*.12;ay+=(my-ay)*.12;au.style.transform="translate("+(ax-170)+"px,"+(ay-170)+"px)";requestAnimationFrame(lp)})();
+
+  /* Tarjetas 3D */
+  $$(".proximo,.polaroid,.destacado,.reel,.pilares li").forEach(function(el){
+    var max=el.matches(".pilares li")?6:9;
+    el.addEventListener("pointermove",function(e){
+      if(e.pointerType!=="mouse")return;
+      var r=el.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;
+      el.style.transition="transform .1s";
+      el.style.transform="perspective(900px) rotateX("+(-py*max)+"deg) rotateY("+(px*max)+"deg)";
+    });
+    el.addEventListener("pointerleave",function(){el.style.transition="transform .6s cubic-bezier(.2,.7,.2,1)";el.style.transform=""});
+  });
+
+  /* Botones magnéticos */
+  $$(".acciones .btn,.menu .btn-oro").forEach(function(b){
+    b.addEventListener("pointermove",function(e){var r=b.getBoundingClientRect();b.style.translate=((e.clientX-r.left-r.width/2)*.25)+"px "+((e.clientY-r.top-r.height/2)*.35)+"px"});
+    b.addEventListener("pointerleave",function(){b.style.translate=""});
+  });
 })();
 
 $("#anio").textContent=new Date().getFullYear();
