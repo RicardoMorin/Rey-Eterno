@@ -8,6 +8,7 @@
 <meta name="theme-color" content="#4a2c7a">
 <link rel="canonical" href="https://rey-eterno.com/">
 <link rel="icon" href="logo.png">
+<link rel="preload" as="image" href="img1.webp" fetchpriority="high">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Iglesia Cristiana Rey Eterno">
 <meta property="og:description" content="Un lugar donde encontrarás esperanza, amor y una familia en Cristo.">
@@ -17,7 +18,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap">
 
 <script type="application/ld+json">
 {
@@ -43,7 +44,7 @@
   "sameAs": [
     "https://www.facebook.com/izliajoram.martinezreyes.52",
     "https://www.instagram.com/iglesiareyeterno/",
-    "https://www.tiktok.com/@iglesia.rey.etern"
+    "https://www.tiktok.com/@iglesiareyetern0"
   ]
 }
 </script>
@@ -64,10 +65,13 @@
   --pad:clamp(1.25rem,5vw,4rem);
   --max:1180px;
   --radio:18px;
+  --edge:max(var(--pad),calc((100% - var(--max))/2 + var(--pad)));
+  --mano:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --p-lima:#e6f56a;--p-rosa:#f5b8e2;--p-azul:#b8daf7;--p-crema:#ffeeb0;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
-body{margin:0;font-family:var(--sans);font-size:1.0625rem;line-height:1.65;color:var(--tinta);background:var(--blanco);-webkit-font-smoothing:antialiased}
+body{margin:0;font-family:var(--sans);font-size:1.0625rem;line-height:1.65;color:var(--tinta);background:var(--blanco);-webkit-font-smoothing:antialiased;overflow-x:clip}
 img,video,iframe{max-width:100%;display:block}
 a{color:inherit}
 h1,h2,h3{font-family:var(--serif);line-height:1.08;margin:0;font-weight:600;letter-spacing:-.015em}
@@ -82,7 +86,7 @@ p{margin:0}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* Botones */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:.9rem 1.6rem;border-radius:999px;border:2px solid transparent;font:600 1rem/1 var(--sans);text-decoration:none;cursor:pointer;transition:transform .2s,background .2s,color .2s,border-color .2s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:.9rem 1.6rem;border-radius:999px;border:2px solid transparent;background:transparent;font:600 1rem/1 var(--sans);text-decoration:none;cursor:pointer;transition:transform .2s,background .2s,color .2s,border-color .2s}
 .btn:hover{transform:translateY(-2px)}
 .btn-oro{background:var(--oro);color:var(--noche)}
 .btn-oro:hover{background:var(--oro-claro)}
@@ -95,7 +99,7 @@ p{margin:0}
 
 /* Encabezado */
 .top{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,box-shadow .3s}
-.top.solido{background:rgba(27,15,51,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(255,255,255,.08)}
+.top.solido{background:rgba(27,15,51,.97);box-shadow:0 1px 0 rgba(255,255,255,.08)}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
 .marca{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:#fff;font-family:var(--serif);font-weight:600;font-size:1.3rem}
 .marca img{width:40px;height:40px;object-fit:contain}
@@ -122,7 +126,7 @@ p{margin:0}
 .portada .lead{color:rgba(255,255,255,.86);margin-top:1.6rem}
 .acciones{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2.2rem}
 
-.proximo{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:24px;padding:1.8rem;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.proximo{background:rgba(27,15,51,.55);border:1px solid rgba(255,255,255,.22);border-radius:24px;padding:1.8rem;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
 .proximo .tit{font-size:.95rem;color:var(--oro-claro);font-weight:600;margin-bottom:.4rem}
 .proximo h2{font-size:clamp(1.6rem,2.6vw,2.1rem);margin-bottom:.2rem}
 .proximo .cuando{color:rgba(255,255,255,.82);margin-bottom:1.3rem}
@@ -144,17 +148,35 @@ p{margin:0}
 
 /* Nosotros */
 .nosotros{background:var(--niebla)}
-.nosotros .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,6rem);align-items:center}
+.nosotros,.servicios,.eventos,.envivo,.galeria,.oracion,.contacto{position:relative}
+.nosotros .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2.5rem,5vw,4rem) clamp(2rem,5vw,5rem);align-items:center}
 .nosotros h2{margin-bottom:1.3rem}
-.nosotros .lead{margin-bottom:2rem}
-.pilares{list-style:none;margin:0;padding:0;display:grid;gap:1.2rem}
+.pilares{grid-column:1/-1;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem 2.5rem}
 .pilares li{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;padding-top:1.2rem;border-top:1px solid rgba(74,44,122,.18)}
 .pilares .ic{width:2rem;height:2rem;color:var(--real);margin-top:.1rem}
 .pilares h3{font-size:1.2rem;margin-bottom:.15rem}
 .pilares p{color:var(--suave);font-size:1rem}
-.foto-marco{position:relative}
-.foto-marco::before{content:"";position:absolute;inset:auto -1rem -1rem auto;width:70%;height:70%;border-radius:var(--radio);background:var(--oro);z-index:0}
-.foto-marco img{position:relative;z-index:1;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:var(--radio);background:var(--real)}
+.polaroid{position:relative;margin:0;justify-self:center;width:100%;max-width:470px;background:#fff;padding:.75rem .75rem .4rem;border-radius:6px;box-shadow:0 26px 50px -26px rgba(27,15,51,.6);rotate:2deg}
+.polaroid::before{content:"";position:absolute;z-index:2;left:50%;top:-13px;width:96px;height:28px;margin-left:-48px;background:rgba(240,213,143,.85);rotate:-3deg;box-shadow:0 2px 4px rgba(0,0,0,.12)}
+.polaroid img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:3px;background:var(--real)}
+.polaroid figcaption{font-family:var(--mano);font-weight:700;font-size:1.7rem;line-height:1.1;color:var(--real);padding:.6rem .4rem .5rem}
+
+/* Frases flotantes (notas de papel) */
+.frases{position:absolute;inset:0;z-index:3;pointer-events:none}
+.flot{position:absolute;display:block;width:max-content;max-width:min(15rem,72vw);padding:.6rem 1.05rem .7rem;font-family:var(--mano);font-weight:700;font-size:clamp(1.3rem,1.1rem + .45vw,1.6rem);line-height:1.12;color:#231a3d;background:var(--p,var(--p-lima));border-radius:3px 9px 4px 11px/10px 4px 9px 3px;rotate:var(--r,-3deg);box-shadow:0 12px 22px -14px rgba(0,0,0,.55);-webkit-user-select:none;user-select:none;pointer-events:none;z-index:4}
+.flot::before{content:"";position:absolute;left:50%;top:-9px;width:54px;height:17px;margin-left:-27px;background:rgba(255,255,255,.6);rotate:-4deg}
+.flot b{font-weight:700;background:linear-gradient(transparent 60%,rgba(74,44,122,.26) 60% 92%,transparent 92%);padding-inline:.1em}
+.flot .ic{width:1.5rem;height:1.5rem;vertical-align:-.3em;margin-left:.15rem;stroke-width:2.2}
+.flot.rosa{--p:var(--p-rosa)}
+.flot.azul{--p:var(--p-azul)}
+.flot.crema{--p:var(--p-crema)}
+.flot.lima{--p:var(--p-lima)}
+.flot.oval{background:transparent;color:var(--oc,#fff);border:2px solid currentColor;border-radius:50%;padding:1rem 1.7rem;box-shadow:none;text-align:center}
+.flot.oval::before{display:none}
+.flot.oval b{background:linear-gradient(transparent 60%,rgba(230,245,106,.5) 60% 92%,transparent 92%)}
+@keyframes flota{0%,100%{translate:0 0}50%{translate:0 -9px}}
+.flot.vivo{animation:flota var(--t,6.5s) ease-in-out var(--d,0s) infinite}
+.portada .frases{display:none}
 
 /* Servicios */
 .servicios h2{margin-bottom:1rem}
@@ -164,9 +186,9 @@ p{margin:0}
 .fila .hora{font:600 clamp(1.3rem,2.2vw,1.7rem)/1 var(--serif);color:var(--real)}
 .fila h3{font-size:1.2rem;margin-bottom:.2rem}
 .fila p{color:var(--suave);font-size:1rem}
-.fila .marca-prox{display:none;background:var(--oro);color:var(--noche);font-weight:700;font-size:.85rem;padding:.3rem .8rem;border-radius:999px}
+.fila .marca-prox{display:inline-block;visibility:hidden;background:var(--oro);color:var(--noche);font-weight:700;font-size:.85rem;padding:.3rem .8rem;border-radius:999px}
 .fila.next{background:linear-gradient(90deg,rgba(210,166,74,.2),rgba(210,166,74,0));box-shadow:inset 5px 0 0 var(--oro)}
-.fila.next .marca-prox{display:inline-block}
+.fila.next .marca-prox{visibility:visible}
 .nota{margin-top:1.6rem;color:var(--suave);font-size:.98rem}
 .nota a{color:var(--real);font-weight:600}
 
@@ -281,12 +303,13 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
 @media (max-width:980px){
   .portada .wrap,.nosotros .wrap,.ev-grid,.envivo .wrap,.oracion .wrap,.contacto .wrap{grid-template-columns:1fr}
   .portada .wrap{padding-top:120px}
-  .foto-marco{max-width:480px}
+  .polaroid{max-width:520px;margin-top:.6rem}
   .fila{grid-template-columns:1fr auto;gap:.3rem 1rem}
   .fila .dia{grid-column:1}
   .fila .hora{grid-column:2;text-align:right}
   .fila .detalle{grid-column:1/-1}
   .fila .marca-prox{grid-column:1/-1;justify-self:start}
+  .fila:not(.next) .marca-prox{display:none}
   .pie .wrap{grid-template-columns:1fr 1fr}
   .pie .wrap>div:first-child{grid-column:1/-1}
 }
@@ -304,9 +327,27 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
   .cuenta b{font-size:1.5rem}
   .versiculo .acciones .btn{flex:1 1 auto}
 }
+@media (min-width:1100px){
+  .versiculo blockquote{max-width:min(16em,calc(100% - 17rem))}
+}
+@media (min-width:1100px) and (min-height:760px){
+  .portada .frases{display:block}
+}
+@media (max-width:1099px){
+  .frases{position:static;display:flex;flex-wrap:wrap;justify-content:center;gap:1.7rem 1.2rem;padding:0 var(--pad);margin-top:2rem}
+  .frases.d,.flot.d{display:none}
+  .frases .flot{position:relative;top:auto!important;right:auto!important;bottom:auto!important;left:auto!important}
+}
+@media (max-width:700px){
+  .pilares{grid-template-columns:1fr}
+}
+@media (max-width:639px){
+  .flot.p{display:none}
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{transition-duration:.01ms!important}
+  .flot.vivo{animation:none}
 }
 </style>
 </head>
@@ -325,6 +366,9 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
   <symbol id="i-luz" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></symbol>
   <symbol id="i-libro" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M19 19v2H6a2 2 0 0 1-2-2"/></symbol>
   <symbol id="i-gente" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2A5 5 0 0 1 21 19"/></symbol>
+  <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M3 5c9 0 14 4 15.5 13"/><path d="M14.5 15l4 3.8 3-4.3"/></symbol>
+  <symbol id="i-corazon" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></symbol>
+  <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.3l6.1-.7z"/></symbol>
 </svg>
 
 <header class="top" id="top">
@@ -374,23 +418,32 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
         <a class="btn btn-oro" id="pxBtn" href="#servicios">Ver todos los horarios</a>
       </aside>
     </div>
+  
+    <div class="frases d" aria-hidden="true">
+      <span class="flot rosa" style="top:6.4rem;right:var(--edge);--r:-4deg;--t:7s">No es coincidencia que estés aquí <svg class="ic"><use href="#i-flecha"/></svg></span>
+      <span class="flot lima" style="bottom:2.6rem;left:var(--edge);--r:3deg;--t:6s;--d:-1s"><b>Ven como estás</b>, aquí hay un lugar para ti</span>
+      <span class="flot azul" style="bottom:3rem;right:var(--edge);--r:-3deg;--t:7.5s;--d:-3s">Dios aún tiene cosas <b>grandes</b> para ti <svg class="ic"><use href="#i-estrella"/></svg></span>
+    </div>
   </section>
 
   <!-- NOSOTROS -->
   <section class="section nosotros" id="nosotros">
     <div class="wrap">
-      <div>
+      <div class="n-texto">
         <h2>Una familia que camina junta</h2>
         <p class="lead">Somos una iglesia cristiana que se reúne para adorar a Dios, escuchar su Palabra y vivir la fe en comunidad. Aquí hay un lugar para ti, para tus hijos y para toda tu familia.</p>
-        <ul class="pilares">
-          <li><svg class="ic" aria-hidden="true"><use href="#i-luz"/></svg><div><h3>Adoración</h3><p>Nos reunimos para alabar a Dios con gratitud y alegría.</p></div></li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-libro"/></svg><div><h3>La Palabra</h3><p>Escuchamos y aprendemos de la Biblia para vivirla cada día.</p></div></li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-gente"/></svg><div><h3>Comunión</h3><p>Familias y jóvenes que se acompañan, se animan y crecen juntos.</p></div></li>
-        </ul>
       </div>
-      <div class="foto-marco">
-        <img src="familia2.jpg" alt="Momentos de la congregación de Rey Eterno" width="640" height="800" loading="lazy" decoding="async">
-      </div>
+      <figure class="polaroid">
+        <img src="img2.webp" alt="Momentos de la congregación de Rey Eterno" width="900" height="600" loading="lazy" decoding="async">
+        <figcaption>Tu familia en Cristo</figcaption>
+        <span class="flot rosa" aria-hidden="true" style="left:-1rem;bottom:3.3rem;--r:-5deg;--t:7s">Aquí hay un lugar para ti <svg class="ic"><use href="#i-corazon"/></svg></span>
+        <span class="flot lima p" aria-hidden="true" style="top:-1.5rem;right:-.8rem;--r:4deg;--t:6s;--d:-2s">Él siempre te está <b>buscando</b></span>
+      </figure>
+      <ul class="pilares">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-luz"/></svg><div><h3>Adoración</h3><p>Nos reunimos para alabar a Dios con gratitud y alegría.</p></div></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-libro"/></svg><div><h3>La Palabra</h3><p>Escuchamos y aprendemos de la Biblia para vivirla cada día.</p></div></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-gente"/></svg><div><h3>Comunión</h3><p>Familias y jóvenes que se acompañan, se animan y crecen juntos.</p></div></li>
+      </ul>
     </div>
   </section>
 
@@ -421,6 +474,10 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
       </div>
       <p class="nota">Ubicación: 5421 Costa Rica, Guadalupe, Nuevo León. ¿Dudas para llegar? <a href="https://wa.me/528136864731?text=Hola%2C%20quisiera%20visitarlos.%20%C2%BFMe%20pueden%20orientar%3F" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>.</p>
     </div>
+  
+    <div class="frases" aria-hidden="true">
+      <span class="flot lima" style="top:calc(clamp(4.5rem,10vw,8rem) - .2rem);right:var(--edge);--r:3deg;--t:6.4s">Siempre hay una <b>silla</b> para ti</span>
+    </div>
   </section>
 
   <!-- VERSÍCULO -->
@@ -434,6 +491,11 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
         <button class="btn btn-oro" id="vCompartir" type="button">Compartir</button>
       </div>
     </div>
+  
+    <div class="frases" aria-hidden="true">
+      <span class="flot rosa" style="top:40%;right:var(--edge);--r:-4deg;--t:7s">Dios no se ha <b>olvidado</b> de ti <svg class="ic"><use href="#i-corazon"/></svg></span>
+      <span class="flot crema d" style="bottom:3rem;right:calc(var(--edge) + 7rem);--r:3deg;--t:6s;--d:-2s">Guárdalo en tu corazón</span>
+    </div>
   </section>
 
   <!-- EVENTOS -->
@@ -443,7 +505,7 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
       <p class="lead">Encuentros especiales para crecer en fe y compartir en comunidad.</p>
       <div class="ev-grid">
         <article class="destacado">
-          <img src="familia.jpg" alt="" loading="lazy" decoding="async">
+          <img src="img1.webp" alt="" loading="lazy" decoding="async">
           <div>
             <h3>Campamento “Siempre por Amor”</h3>
             <p>Revive los momentos de fe, alegría y comunión que vivimos juntos en una experiencia llena de amor, amistad y la presencia de Dios.</p>
@@ -459,6 +521,10 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
           </div>
         </div>
       </div>
+    </div>
+  
+    <div class="frases d" aria-hidden="true">
+      <span class="flot crema" style="top:calc(clamp(4.5rem,10vw,8rem) - .2rem);right:var(--edge);--r:2.5deg;--t:6.8s">Trae a tu familia y a tu <b>mejor amigo</b></span>
     </div>
   </section>
 
@@ -476,6 +542,10 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
         <button class="reel" type="button" data-id="3918172574994024" aria-label="Reproducir mensaje en video"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span>Palabra de bendición</span></button>
       </div>
     </div>
+  
+    <div class="frases d" aria-hidden="true">
+      <span class="flot azul" style="bottom:2.4rem;left:var(--edge);--r:-3deg;--t:7s">Estés donde estés, <b>Dios te alcanza</b></span>
+    </div>
   </section>
 
   <!-- GALERÍA -->
@@ -485,6 +555,10 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
       <p class="lead">Alabanza, comunión y mucha alegría. Toca una foto para verla completa.</p>
       <div class="fotos" id="fotos"></div>
       <div class="mas"><button class="btn btn-borde" id="masFotos" type="button">Ver más fotos</button><span id="masTxt"></span></div>
+    </div>
+  
+    <div class="frases d" aria-hidden="true">
+      <span class="flot oval" style="top:calc(clamp(4.5rem,10vw,8rem) - 1rem);right:var(--edge);--r:-4deg;--t:7s">¡Nos encantaría <b>conocerte</b>! <svg class="ic"><use href="#i-flecha"/></svg></span>
     </div>
   </section>
 
@@ -506,6 +580,10 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
         <p class="aviso">Al enviar, se abrirá WhatsApp con tu mensaje listo. Tú decides si lo mandas.</p>
       </form>
     </div>
+  
+    <div class="frases" aria-hidden="true">
+      <span class="flot crema" style="bottom:5rem;left:var(--edge);--r:-3deg;--t:6.6s">Nadie ora <b>solo</b> <svg class="ic"><use href="#i-corazon"/></svg></span>
+    </div>
   </section>
 
   <!-- CONTACTO -->
@@ -522,7 +600,7 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
         <div class="redes">
           <a href="https://www.facebook.com/izliajoram.martinezreyes.52" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ic"><use href="#i-fb"/></svg></a>
           <a href="https://www.instagram.com/iglesiareyeterno/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a>
-          <a href="https://www.tiktok.com/@iglesia.rey.etern" target="_blank" rel="noopener" aria-label="TikTok"><svg class="ic"><use href="#i-tt"/></svg></a>
+          <a href="https://www.tiktok.com/@iglesiareyetern0" target="_blank" rel="noopener" aria-label="TikTok"><svg class="ic"><use href="#i-tt"/></svg></a>
           <a href="https://wa.me/528136864731" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ic"><use href="#i-wa"/></svg></a>
           <a href="mailto:contacto@rey-eterno.com" aria-label="Correo"><svg class="ic"><use href="#i-mail"/></svg></a>
         </div>
@@ -573,12 +651,14 @@ dialog.visor::backdrop{background:rgba(10,5,22,.94)}
 
 <div class="aviso-flot" id="aviso" role="status" aria-live="polite"></div>
 
+<script src="motion.min.js"></script>
 <script>
 (function(){
 "use strict";
 var $=function(s,r){return (r||document).querySelector(s)};
 var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 var WA="528136864731";
+var reduce=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
 
 /* ---------- Encabezado y menú ---------- */
 var top=$("#top"),burger=$("#burger"),menu=$("#menu");
@@ -599,7 +679,7 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape")cerrarMenu()
 (function(){
   var v=$("#heroVideo");
   var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var ahorro=navigator.connection&&navigator.connection.saveData;
+  var ahorro=navigator.connection&&(navigator.connection.saveData||/^(slow-)?(2g|3g)$/.test(navigator.connection.effectiveType||""));
   if(!v||reduce||ahorro)return;
   function ir(){
     v.src=v.getAttribute("data-src");
@@ -737,6 +817,7 @@ function pintar(desde,hasta){
       var b=document.createElement("button");b.type="button";b.setAttribute("aria-label","Ver foto "+(i+1)+" de "+FOTOS.length);
       var im=document.createElement("img");im.src=FOTOS[i];im.alt="Momento de la iglesia Rey Eterno";im.loading="lazy";im.decoding="async";
       b.appendChild(im);b.addEventListener("click",function(){abrir(i)});cont.appendChild(b);
+      if(window.Motion&&!reduce&&desde>0){window.Motion.animate(b,{opacity:[0,1],transform:["scale(.9)","none"]},{duration:.4,delay:(i-desde)*.04,ease:[.2,.7,.2,1]})}
     })(i);
   }
 }
@@ -774,6 +855,39 @@ $("#formOracion").addEventListener("submit",function(e){
   var msg="Hola, soy "+nombre+". Quisiera pedir oración por lo siguiente: "+pet;
   window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank","noopener");
 });
+
+/* ---------- Movimiento (Motion) ----------
+   Solo se anima opacity y transform, y solo una vez al entrar en pantalla.
+   Las notas flotan únicamente mientras se ven. Respeta "reducir movimiento". */
+(function(){
+  var M=window.Motion;
+  if(!M||reduce)return;
+  var A=M.animate,V=M.inView,EASE=[.2,.7,.2,1],ocultos=[];
+  function mostrarTodo(){ocultos.forEach(function(e){e.style.opacity="1"})}
+  try{
+    [["#semana .fila","translateX(-26px)"],[".pilares li","translateY(22px)"],[".polaroid","translateY(26px) scale(.96)"],
+     [".destacado","translateY(26px)"],[".datos li","translateY(18px)"],
+     ["#formOracion","translateY(26px)"],[".mapa","translateY(26px)"]].forEach(function(s){
+      $$(s[0]).forEach(function(el,i){
+        el.style.opacity="0";ocultos.push(el);
+        var hecho=false;
+        V(el,function(){
+          if(hecho)return;hecho=true;
+          A(el,{opacity:[0,1],transform:[s[1],"none"]},{duration:.55,delay:(i%4)*.07,ease:EASE});
+        },{margin:"0px 0px -12% 0px"});
+      });
+    });
+    $$(".flot").forEach(function(n,i){
+      n.style.opacity="0";ocultos.push(n);
+      var primera=true,inicio=n.closest(".portada")?.8:.1;
+      V(n,function(){
+        n.classList.add("vivo");
+        if(primera){primera=false;A(n,{opacity:[0,1],transform:["scale(.6)","none"]},{duration:.5,delay:inicio+(i%3)*.12,ease:[.2,1.3,.4,1]})}
+        return function(){n.classList.remove("vivo")};
+      },{margin:"0px 0px -8% 0px"});
+    });
+  }catch(e){mostrarTodo()}
+})();
 
 $("#anio").textContent=new Date().getFullYear();
 })();
