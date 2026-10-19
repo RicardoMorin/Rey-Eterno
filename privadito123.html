@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Panel privado | Rey Eterno</title>
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap">
+<style>
+:root{--noche:#1b0f33;--real:#4a2c7a;--real-2:#6a45a3;--oro:#d2a64a;--oro-claro:#f0d58f;--niebla:#f5f2fa;--ok:#4cc38a;--mal:#ff7a7a;
+--serif:"Fraunces",Georgia,serif;--sans:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:var(--sans);color:#fff;line-height:1.55;background:radial-gradient(circle at 20% 0,#3a2169,transparent 55%),radial-gradient(circle at 90% 100%,#2a1650,transparent 50%),var(--noche);-webkit-font-smoothing:antialiased}
+h1,h2{font-family:var(--serif);margin:0;line-height:1.1;font-weight:600}
+button{font-family:inherit}
+.wrap{max-width:1000px;margin:0 auto;padding:0 1.25rem}
+header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0}
+.marca{display:flex;align-items:center;gap:.7rem;font-family:var(--serif);font-weight:600;font-size:1.25rem}
+.marca img{width:44px;height:44px;border-radius:50%;object-fit:cover;aspect-ratio:1;box-shadow:0 0 0 2px var(--oro),0 0 20px rgba(210,166,74,.5)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.8rem 1.4rem;border-radius:999px;border:2px solid transparent;font:600 1rem/1 var(--sans);cursor:pointer;text-decoration:none;transition:transform .2s,background .2s,opacity .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.oro{background:var(--oro);color:var(--noche)}.oro:hover{background:var(--oro-claro)}
+.borde{border-color:rgba(255,255,255,.4);color:#fff;background:transparent}.borde:hover{background:rgba(255,255,255,.12)}
+.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:clamp(1.2rem,3vw,2rem);backdrop-filter:blur(8px);margin-bottom:1.4rem}
+.aviso{padding:.9rem 1.1rem;border-radius:12px;background:rgba(255,122,122,.12);border:1px solid var(--mal);color:#ffd0d0;margin-bottom:1rem}
+.msg{min-height:1.4em;font-size:.95rem;margin-top:.8rem}
+.msg.ok{color:var(--ok)}.msg.mal{color:var(--mal)}
+/* login */
+#login{max-width:420px;margin:8vh auto 0}
+#login h1{font-size:2rem;margin-bottom:.4rem}
+#login p{color:rgba(255,255,255,.7);margin:0 0 1.2rem}
+label{display:block;font-weight:600;font-size:.9rem;margin:.9rem 0 .35rem}
+input[type=email],input[type=password]{width:100%;padding:.85rem 1rem;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.25);color:#fff;font:1rem var(--sans)}
+input:focus-visible{outline:3px solid var(--oro);outline-offset:2px}
+#login .btn{width:100%;margin-top:1.3rem}
+/* subida */
+.zona{border:2px dashed rgba(240,213,143,.55);border-radius:18px;padding:2.4rem 1rem;text-align:center;cursor:pointer;transition:background .2s,border-color .2s}
+.zona:hover,.zona.sobre{background:rgba(240,213,143,.08);border-color:var(--oro-claro)}
+.zona b{display:block;font-family:var(--serif);font-size:1.4rem;margin-bottom:.3rem}
+.zona span{color:rgba(255,255,255,.7);font-size:.95rem}
+.zona input{display:none}
+.cola,.subidas{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.7rem;margin-top:1.2rem}
+.it{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#2a1650}
+.it img{width:100%;height:100%;object-fit:cover;display:block}
+.it .est{position:absolute;left:0;right:0;bottom:0;padding:.35rem .5rem;font-size:.75rem;font-weight:600;background:rgba(27,15,51,.82);text-align:center}
+.it.ok .est{color:var(--ok)}.it.mal .est{color:var(--mal)}
+.it .quita,.it .borra{position:absolute;top:.4rem;right:.4rem;width:30px;height:30px;border-radius:50%;border:0;background:rgba(27,15,51,.85);color:#fff;font-size:1.1rem;line-height:1;cursor:pointer;display:grid;place-items:center}
+.it .quita:hover,.it .borra:hover{background:var(--mal);color:#fff}
+.it.sube::after{content:"";position:absolute;inset:0;background:rgba(27,15,51,.55)}
+.acciones{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;margin-top:1.2rem}
+.prog{flex:1;min-width:160px;height:8px;border-radius:8px;background:rgba(255,255,255,.15);overflow:hidden;opacity:0;transition:opacity .3s}
+.prog.on{opacity:1}
+.prog i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--oro),var(--oro-claro));transition:transform .25s}
+.cuenta{color:rgba(255,255,255,.7);font-size:.95rem}
+h2{font-size:1.5rem;margin-bottom:.3rem}
+.sub{color:rgba(255,255,255,.7);margin:0 0 .4rem;font-size:.95rem}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Inicio de sesión -->
+  <section id="login" class="card" hidden>
+    <div class="marca" style="margin-bottom:1.2rem"><img src="logo.png" alt="" width="44" height="44">Rey Eterno</div>
+    <h1>Panel privado</h1>
+    <p>Solo para administradores.</p>
+    <div class="aviso" id="sinConfig" hidden>Falta configurar <b>reyconfig.js</b> con los datos de Supabase.</div>
+    <form id="formLogin" autocomplete="on">
+      <label for="em">Correo</label>
+      <input id="em" type="email" required autocomplete="username">
+      <label for="pw">Contraseña</label>
+      <input id="pw" type="password" required autocomplete="current-password">
+      <button class="btn oro" id="btnEntrar" type="submit">Entrar</button>
+      <div class="msg" id="msgLogin" role="status"></div>
+    </form>
+  </section>
+
+  <!-- Panel -->
+  <div id="panel" hidden>
+    <header>
+      <div class="marca"><img src="logo.png" alt="" width="44" height="44">Panel de fotos</div>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+        <a class="btn borde" href="index.html#galeria" target="_blank" rel="noopener">Ver galería</a>
+        <button class="btn borde" id="salir" type="button">Salir</button>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>Subir fotos nuevas</h2>
+      <p class="sub">Aparecerán al inicio de “Momentos de nuestra iglesia”. Se reducen solas para que la página cargue rápido.</p>
+      <label class="zona" id="zona" for="archivos">
+        <b>Toca aquí o arrastra tus fotos</b>
+        <span>Puedes elegir varias a la vez (JPG, PNG, WEBP)</span>
+        <input id="archivos" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+      </label>
+      <div class="cola" id="cola"></div>
+      <div class="acciones">
+        <button class="btn oro" id="subir" type="button" disabled>Subir fotos</button>
+        <button class="btn borde" id="limpiar" type="button" hidden>Quitar todas</button>
+        <div class="prog" id="prog"><i id="progBar"></i></div>
+        <span class="cuenta" id="cuentaCola"></span>
+      </div>
+      <div class="msg" id="msgSubir" role="status"></div>
+    </section>
+
+    <section class="card">
+      <h2>Fotos subidas por ti</h2>
+      <p class="sub" id="totalSubidas">Cargando…</p>
+      <div class="subidas" id="subidas"></div>
+    </section>
+  </div>
+</div>
+
+<script src="reyconfig.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)};
+var C=window.REY||{},OK=!!(C.url&&C.key&&C.url.indexOf("TU-")<0&&C.key.indexOf("TU-")<0);
+var BUCKET="galeria",MAXLADO=1800,CLAVE="rey_admin_sesion";
+var sesion=null,cola=[];
+
+/* ---------- Sesión ---------- */
+function guardar(d){sesion={at:d.access_token,rt:d.refresh_token,exp:Math.floor(Date.now()/1000)+(d.expires_in||3600)};try{localStorage.setItem(CLAVE,JSON.stringify(sesion))}catch(_){}}
+function cargarSesion(){try{sesion=JSON.parse(localStorage.getItem(CLAVE)||"null")}catch(_){sesion=null}}
+function cerrar(){sesion=null;try{localStorage.removeItem(CLAVE)}catch(_){}vista()}
+function auth(cuerpo,tipo){
+  return fetch(C.url+"/auth/v1/token?grant_type="+tipo,{method:"POST",headers:{apikey:C.key,"Content-Type":"application/json"},body:JSON.stringify(cuerpo)})
+    .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error_description||j.msg||"Error de acceso");return j})});
+}
+function token(){
+  if(!sesion)return Promise.reject(new Error("Sin sesión"));
+  if(sesion.exp-60>Date.now()/1000)return Promise.resolve(sesion.at);
+  return auth({refresh_token:sesion.rt},"refresh_token").then(function(d){guardar(d);return sesion.at}).catch(function(e){cerrar();throw e});
+}
+function api(ruta,op){
+  return token().then(function(t){
+    op=op||{};op.headers=Object.assign({apikey:C.key,Authorization:"Bearer "+t},op.headers||{});
+    return fetch(C.url+ruta,op);
+  });
+}
+function vista(){
+  var dentro=!!sesion;
+  $("#login").hidden=dentro;$("#panel").hidden=!dentro;
+  $("#sinConfig").hidden=OK;
+  if(dentro)listar();
+}
+
+$("#formLogin").addEventListener("submit",function(e){
+  e.preventDefault();
+  var m=$("#msgLogin"),b=$("#btnEntrar");
+  if(!OK){m.className="msg mal";m.textContent="Configura primero reyconfig.js";return}
+  b.disabled=true;m.className="msg";m.textContent="Entrando…";
+  auth({email:$("#em").value.trim(),password:$("#pw").value},"password")
+    .then(function(d){guardar(d);$("#pw").value="";m.textContent="";vista()})
+    .catch(function(err){m.className="msg mal";m.textContent=/invalid/i.test(err.message)?"Correo o contraseña incorrectos":err.message})
+    .then(function(){b.disabled=false});
+});
+$("#salir").addEventListener("click",cerrar);
+
+/* ---------- Cola de fotos ---------- */
+function actualizarCola(){
+  var n=cola.length;
+  $("#subir").disabled=!n;$("#limpiar").hidden=!n;
+  $("#cuentaCola").textContent=n?n+(n===1?" foto lista":" fotos listas"):"";
+}
+function agregar(files){
+  Array.prototype.forEach.call(files,function(f){
+    if(!/^image\/(jpeg|png|webp)$/.test(f.type)){return}
+    var it={file:f,prev:URL.createObjectURL(f),el:null};
+    var d=document.createElement("div");d.className="it";
+    d.innerHTML='<img alt=""><button class="quita" type="button" aria-label="Quitar">&times;</button><div class="est">Lista</div>';
+    d.querySelector("img").src=it.prev;
+    d.querySelector(".quita").addEventListener("click",function(){URL.revokeObjectURL(it.prev);cola.splice(cola.indexOf(it),1);d.remove();actualizarCola()});
+    it.el=d;cola.push(it);$("#cola").appendChild(d);
+  });
+  $("#msgSubir").textContent="";actualizarCola();
+}
+$("#archivos").addEventListener("change",function(e){agregar(e.target.files);e.target.value=""});
+var zona=$("#zona");
+["dragenter","dragover"].forEach(function(t){zona.addEventListener(t,function(e){e.preventDefault();zona.classList.add("sobre")})});
+["dragleave","drop"].forEach(function(t){zona.addEventListener(t,function(e){e.preventDefault();zona.classList.remove("sobre")})});
+zona.addEventListener("drop",function(e){agregar(e.dataTransfer.files)});
+$("#limpiar").addEventListener("click",function(){cola.forEach(function(i){URL.revokeObjectURL(i.prev);i.el.remove()});cola=[];actualizarCola()});
+
+/* ---------- Reducir foto antes de subir ---------- */
+function reducir(file){
+  return createImageBitmap(file,{imageOrientation:"from-image"}).then(function(bm){
+    var k=Math.min(1,MAXLADO/Math.max(bm.width,bm.height)),w=Math.round(bm.width*k),h=Math.round(bm.height*k);
+    var c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(bm,0,0,w,h);
+    if(bm.close)bm.close();
+    return new Promise(function(res,rej){
+      c.toBlob(function(b){
+        if(b&&b.type==="image/webp")return res({blob:b,ext:"webp"});
+        c.toBlob(function(j){j?res({blob:j,ext:"jpg"}):rej(new Error("No se pudo procesar"))},"image/jpeg",.86);
+      },"image/webp",.85);
+    });
+  });
+}
+function nombre(ext){return Date.now()+"-"+Math.random().toString(36).slice(2,8)+"."+ext}
+
+/* ---------- Subir ---------- */
+function subirUna(it){
+  it.el.classList.add("sube");it.el.querySelector(".est").textContent="Subiendo…";
+  var ruta;
+  return reducir(it.file).then(function(r){
+    ruta=nombre(r.ext);
+    return api("/storage/v1/object/"+BUCKET+"/"+ruta,{method:"POST",headers:{"Content-Type":r.blob.type,"x-upsert":"false"},body:r.blob});
+  }).then(function(r){
+    if(!r.ok)return r.text().then(function(t){throw new Error(r.status===401||r.status===403?"Sin permiso":"Error "+r.status)});
+    return api("/rest/v1/fotos",{method:"POST",headers:{"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({ruta:ruta})});
+  }).then(function(r){
+    if(!r.ok)throw new Error("No se registró");
+    it.el.classList.remove("sube");it.el.classList.add("ok");it.el.querySelector(".est").textContent="¡Subida!";
+    it.el.querySelector(".quita").remove();it.hecha=true;
+  }).catch(function(e){
+    it.el.classList.remove("sube");it.el.classList.add("mal");it.el.querySelector(".est").textContent=(e&&e.message)||"Falló";
+  });
+}
+$("#subir").addEventListener("click",function(){
+  var pend=cola.filter(function(i){return !i.hecha}),total=pend.length,hechas=0;
+  if(!total)return;
+  var b=$("#subir"),m=$("#msgSubir"),pg=$("#prog"),bar=$("#progBar");
+  b.disabled=true;m.className="msg";m.textContent="";pg.classList.add("on");bar.style.transform="scaleX(.03)";
+  var p=Promise.resolve();
+  pend.forEach(function(it){
+    p=p.then(function(){return subirUna(it)}).then(function(){hechas++;bar.style.transform="scaleX("+(hechas/total)+")"});
+  });
+  p.then(function(){
+    var ok=pend.filter(function(i){return i.hecha}).length,mal=total-ok;
+    m.className="msg "+(mal?"mal":"ok");
+    m.textContent=ok+" "+(ok===1?"foto subida":"fotos subidas")+(mal?" · "+mal+" con error (puedes volver a intentar)":" y ya aparecen en la galería");
+    cola=cola.filter(function(i){return !i.hecha});
+    setTimeout(function(){$("#cola").querySelectorAll(".it.ok").forEach(function(e){e.remove()});pg.classList.remove("on");bar.style.transform="scaleX(0)"},1200);
+    b.disabled=false;actualizarCola();listar();
+  });
+});
+
+/* ---------- Fotos ya subidas ---------- */
+function publica(r){return C.url+"/storage/v1/object/public/"+BUCKET+"/"+r}
+function listar(){
+  var box=$("#subidas"),t=$("#totalSubidas");
+  api("/rest/v1/fotos?select=id,ruta&order=created_at.desc&limit=500").then(function(r){
+    if(!r.ok)throw new Error("No se pudo cargar la lista");return r.json();
+  }).then(function(rows){
+    box.innerHTML="";
+    t.textContent=rows.length?rows.length+(rows.length===1?" foto subida":" fotos subidas")+" · la más nueva aparece primero":"Todavía no has subido fotos desde aquí.";
+    rows.forEach(function(f){
+      var d=document.createElement("div");d.className="it";
+      d.innerHTML='<img alt="Foto subida" loading="lazy"><button class="borra" type="button" aria-label="Borrar foto" title="Borrar">&times;</button>';
+      d.querySelector("img").src=publica(f.ruta);
+      d.querySelector(".borra").addEventListener("click",function(){
+        if(!confirm("¿Borrar esta foto de la galería? No se puede deshacer."))return;
+        d.style.opacity=".4";
+        api("/storage/v1/object/"+BUCKET+"/"+f.ruta,{method:"DELETE"}).then(function(){
+          return api("/rest/v1/fotos?id=eq."+f.id,{method:"DELETE"});
+        }).then(function(){listar()}).catch(function(){d.style.opacity="1";alert("No se pudo borrar. Intenta de nuevo.")});
+      });
+      box.appendChild(d);
+    });
+  }).catch(function(e){t.textContent=e.message});
+}
+
+cargarSesion();vista();
+})();
+</script>
+</body>
+</html>
