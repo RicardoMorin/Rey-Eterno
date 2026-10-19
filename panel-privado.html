@@ -75,6 +75,7 @@ h2{font-size:1.5rem;margin-bottom:.3rem}
       <input id="em" type="email" required autocomplete="username">
       <label for="pw">Contraseña</label>
       <input id="pw" type="password" required autocomplete="current-password">
+      <label style="display:flex;align-items:center;gap:.5rem;font-weight:500;margin-top:.7rem"><input id="verPw" type="checkbox"> Mostrar contraseña</label>
       <button class="btn oro" id="btnEntrar" type="submit">Entrar</button>
       <div class="msg" id="msgLogin" role="status"></div>
     </form>
@@ -121,7 +122,7 @@ h2{font-size:1.5rem;margin-bottom:.3rem}
 (function(){
 "use strict";
 var $=function(s){return document.querySelector(s)};
-var C=window.REY||{},OK=!!(C.url&&C.key&&C.url.indexOf("TU-")<0&&C.key.indexOf("TU-")<0);
+var C=window.REY||{};if(C.url)C.url=C.url.replace(/\/rest\/v1\/?$/,"").replace(/\/+$/,"");var OK=!!(C.url&&C.key&&C.url.indexOf("TU-")<0&&C.key.indexOf("TU-")<0);
 var BUCKET="galeria",MAXLADO=1800,CLAVE="rey_admin_sesion";
 var sesion=null,cola=[];
 
@@ -131,7 +132,7 @@ function cargarSesion(){try{sesion=JSON.parse(localStorage.getItem(CLAVE)||"null
 function cerrar(){sesion=null;try{localStorage.removeItem(CLAVE)}catch(_){}vista()}
 function auth(cuerpo,tipo){
   return fetch(C.url+"/auth/v1/token?grant_type="+tipo,{method:"POST",headers:{apikey:C.key,"Content-Type":"application/json"},body:JSON.stringify(cuerpo)})
-    .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error_description||j.msg||"Error de acceso");return j})});
+    .then(function(r){return r.json().then(function(j){if(!r.ok){var e=new Error(j.msg||j.error_description||j.message||"Error de acceso");e.codigo=j.error_code||j.error||"";e.estado=r.status;throw e}return j})});
 }
 function token(){
   if(!sesion)return Promise.reject(new Error("Sin sesión"));
@@ -158,10 +159,18 @@ $("#formLogin").addEventListener("submit",function(e){
   b.disabled=true;m.className="msg";m.textContent="Entrando…";
   auth({email:$("#em").value.trim(),password:$("#pw").value},"password")
     .then(function(d){guardar(d);$("#pw").value="";m.textContent="";vista()})
-    .catch(function(err){m.className="msg mal";m.textContent=/invalid/i.test(err.message)?"Correo o contraseña incorrectos":err.message})
+    .catch(function(err){
+      m.className="msg mal";
+      if(!err.estado){m.textContent="No se pudo conectar con Supabase. Revisa que la URL de reyconfig.js sea solo https://xxxx.supabase.co"}
+      else if(/invalid login|invalid_credentials/i.test(err.message+err.codigo)){m.textContent="Supabase dice que ese correo y contraseña no existen en ESTE proyecto ("+C.url.replace("https://","")+"). Revisa Authentication → Users: el correo debe aparecer ahí, o restablece su contraseña."}
+      else if(/not confirmed|email_not_confirmed/i.test(err.message+err.codigo)){m.textContent="Tu correo no está confirmado. En Authentication → Users, abre tu usuario y confirma el correo (o créalo de nuevo con Auto Confirm User)."}
+      else{m.textContent="Supabase dice: "+err.message+" (código "+err.estado+")"}
+    })
     .then(function(){b.disabled=false});
 });
 $("#salir").addEventListener("click",cerrar);
+$("#verPw").addEventListener("change",function(e){$("#pw").type=e.target.checked?"text":"password"});
+if(OK){var cx=document.createElement("p");cx.style.cssText="font-size:.8rem;color:rgba(255,255,255,.5);margin:1rem 0 0";cx.textContent="Conectado a: "+C.url.replace("https://","");$("#formLogin").appendChild(cx)}
 
 /* ---------- Cola de fotos ---------- */
 function actualizarCola(){
