@@ -257,6 +257,14 @@ p{margin:0}
 .oracion textarea{min-height:130px;resize:vertical}
 .oracion input:focus,.oracion textarea:focus{outline:3px solid var(--oro);border-color:var(--real)}
 .oracion .aviso{font-size:.9rem;color:var(--suave)}
+.oracion .aviso.error{color:#a3262f;font-weight:600}
+.oracion form{position:relative}
+.oracion .o-ok{display:grid;gap:.8rem;text-align:center;justify-items:center;padding:1.2rem 0}
+.oracion .o-ok[hidden]{display:none}
+.oracion .o-ok h3{font-family:var(--serif,inherit);font-size:1.7rem;color:var(--real)}
+.oracion .o-ok p{color:var(--suave)}
+.oracion form.enviado>label,.oracion form.enviado>.btn-real,.oracion form.enviado>.aviso{display:none}
+.oracion .btn[disabled]{opacity:.7;cursor:progress}
 
 /* Contacto */
 .contacto{background:var(--niebla)}
@@ -734,17 +742,20 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
     <div class="wrap">
       <div>
         <h2>¿Por qué quieres que oremos?</h2>
-        <p class="lead">Cuéntanos tu petición y la llevaremos en oración. Se envía por WhatsApp directamente a nuestro equipo.</p>
+        <p class="lead">Cuéntanos tu petición y la llevaremos en oración. Es anónima: no te pedimos tu nombre. Llega por correo directamente a nuestro equipo.</p>
       </div>
       <form id="formOracion" novalidate>
-        <label>Tu nombre
-          <input type="text" id="oNombre" name="nombre" autocomplete="given-name" required maxlength="60">
-        </label>
         <label>Tu petición
-          <textarea id="oPeticion" name="peticion" required maxlength="600"></textarea>
+          <textarea id="oPeticion" name="peticion" required maxlength="600" placeholder="Escribe aquí por quién o por qué quieres que oremos"></textarea>
         </label>
-        <button class="btn btn-real" type="submit"><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>Enviar por WhatsApp</button>
-        <p class="aviso">Al enviar, se abrirá WhatsApp con tu mensaje listo. Tú decides si lo mandas.</p>
+        <input type="text" id="oMiel" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+        <button class="btn btn-real" type="submit" id="oEnviar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4z"/></svg><span>Enviar petición</span></button>
+        <p class="aviso" id="oAviso">Tu petición es anónima. No guardamos tu nombre ni te pedimos ningún dato.</p>
+        <div class="o-ok" id="oOk" role="status" aria-live="polite" hidden>
+          <h3>¡Recibimos tu petición!</h3>
+          <p>La llevaremos en oración. Dios te bendiga.</p>
+          <button class="btn btn-linea" type="button" id="oOtra">Enviar otra petición</button>
+        </div>
       </form>
     </div>
   
@@ -843,7 +854,7 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
     <ol id="guiaPasos"></ol>
     <div class="ayuda-ios" id="guiaAyuda" hidden>
       <p><b>¿No ves “Agregar a inicio”?</b> Casi siempre es porque no estás en Safari. Abre rey-eterno.com directo en Safari.</p>
-      <p><b>¿No ves el botón Compartir?</b> Toca una vez la parte de abajo de la pantalla para que aparezca la barra de Safari. En iPad está arriba a la derecha.</p>
+      <p><b>¿No ves el botón Compartir?</b> Toca el menú de las tres rayitas en la barra de abajo de Safari y ahí aparece. En iPad está arriba a la derecha.</p>
     </div>
     <button class="btn btn-linea" type="button" id="guiaCopiar" hidden>Copiar enlace</button>
     <button class="btn btn-real" type="button" id="guiaOk">Entendido</button>
@@ -1244,15 +1255,48 @@ escena.addEventListener("pointerup",soltar);
 escena.addEventListener("pointercancel",soltar);
 
 
-/* ---------- Petición de oración → WhatsApp ---------- */
-$("#formOracion").addEventListener("submit",function(e){
-  e.preventDefault();
-  var nombre=$("#oNombre").value.trim(),pet=$("#oPeticion").value.trim();
-  if(!nombre){$("#oNombre").focus();aviso("Escribe tu nombre");return}
-  if(!pet){$("#oPeticion").focus();aviso("Escribe tu petición");return}
-  var msg="Hola, soy "+nombre+". Quisiera pedir oración por lo siguiente: "+pet;
-  window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(msg),"_blank","noopener");
-});
+/* ---------- Petición de oración anónima → correo (contacto@rey-eterno.com) ----------
+   Se envía con FormSubmit (sin servidor propio). La primera vez que alguien la use,
+   FormSubmit manda un correo de activación a esa dirección: hay que confirmarlo una sola vez. */
+(function(){
+  var CORREO="contacto@rey-eterno.com";
+  var form=$("#formOracion"),txt=$("#oPeticion"),btn=$("#oEnviar"),av=$("#oAviso"),ok=$("#oOk");
+  var etiqueta=btn.querySelector("span"),avisoBase=av.textContent;
+
+  function fallo(){
+    av.classList.add("error");
+    av.innerHTML='No se pudo enviar. Intenta de nuevo en un momento o escríbenos por <a href="https://wa.me/'+WA+'" target="_blank" rel="noopener">WhatsApp</a>.';
+  }
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var pet=txt.value.trim();
+    if(!pet){txt.focus();aviso("Escribe tu petición");return}
+    if($("#oMiel").value)return;                       /* trampa para robots */
+    if(!window.fetch){fallo();return}
+    btn.disabled=true;etiqueta.textContent="Enviando…";av.classList.remove("error");av.textContent=avisoBase;
+    fetch("https://formsubmit.co/ajax/"+CORREO,{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify({
+        "Petición de oración":pet,
+        _subject:"Nueva petición de oración (anónima)",
+        _template:"table",
+        _captcha:"false",
+        _honey:""
+      })
+    }).then(function(r){return r.json().catch(function(){return {}})})
+      .then(function(j){
+        if(j&&(j.success===true||j.success==="true")){
+          txt.value="";form.classList.add("enviado");ok.hidden=false;
+        }else{fallo()}
+      })
+      .catch(fallo)
+      .then(function(){btn.disabled=false;etiqueta.textContent="Enviar petición"});
+  });
+  $("#oOtra").addEventListener("click",function(){
+    form.classList.remove("enviado");ok.hidden=true;av.classList.remove("error");av.textContent=avisoBase;txt.focus();
+  });
+})();
 
 /* ---------- Movimiento (Motion) ----------
    Solo se anima opacity y transform, y solo una vez al entrar en pantalla.
@@ -1444,7 +1488,7 @@ $("#formOracion").addEventListener("submit",function(e){
     if(tipo==="ios"){
       sub.textContent="Instalar en iPhone toma menos de un minuto. Hazlo desde Safari (el navegador azul con la brújula).";
       li=['Abre <b>rey-eterno.com</b> en Safari.',
-          'Toca el botón <b>Compartir</b> '+SHARE+', el cuadrito con una flecha hacia arriba, abajo en el centro.',
+          'Toca el botón <b>Compartir</b> '+SHARE+', el cuadrito con una flecha hacia arriba. Si no lo ves, toca el menú de las tres rayitas en la barra de abajo y ahí aparece.',
           'Desliza el menú hacia arriba y toca <b>Agregar a inicio</b> '+MAS+' (en algunas versiones dice <b>Agregar a pantalla de inicio</b>).',
           'Toca <b>Agregar</b>, arriba a la derecha. Si aparece la opción <b>Abrir como app</b>, déjala activada.',
           'Listo. Busca el ícono de <b>Rey Eterno</b> en tu pantalla de inicio y ábrelo como cualquier app.'];
