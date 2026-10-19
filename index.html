@@ -8,6 +8,12 @@
 <meta name="theme-color" content="#4a2c7a">
 <link rel="canonical" href="https://rey-eterno.com/">
 <link rel="icon" href="logo.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Rey Eterno">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="preload" as="image" href="familia2.jpg" fetchpriority="high">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Iglesia Cristiana Rey Eterno">
@@ -475,6 +481,31 @@ dialog.visor::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur
   .visor .nav{width:42px;height:42px}
   .visor .ant{left:.5rem}.visor .sig{right:.5rem}
 }
+
+/* Instalar como app */
+.btn-instalar[hidden]{display:none!important}
+.menu .btn-instalar{color:#fff}
+@media (min-width:821px){.menu .btn-instalar{display:none!important}}
+.pie .btn-instalar{display:inline-flex;align-items:center;gap:.5rem;padding:0;border:0;background:none;color:var(--oro-claro);font:600 .98rem var(--sans);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.pie .btn-instalar:hover{color:#fff}
+dialog.guia{border:0;padding:0;background:transparent;color:var(--tinta);width:min(440px,92vw);max-width:none;margin:auto;overflow:visible}
+dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
+.guia .caja{background:var(--blanco);border-radius:24px;padding:1.8rem 1.6rem 1.5rem;box-shadow:0 30px 70px -20px rgba(0,0,0,.6)}
+.guia[open] .caja{animation:abre .28s cubic-bezier(.2,.8,.2,1)}
+.guia h2{font-size:1.7rem;margin-bottom:.4rem}
+.guia .sub{color:var(--suave);font-size:.98rem;margin-bottom:1.2rem}
+.guia ol{list-style:none;counter-reset:p;margin:0 0 1.4rem;padding:0;display:grid;gap:.85rem}
+.guia li{counter-increment:p;display:grid;grid-template-columns:2rem 1fr;gap:.8rem;align-items:start;font-size:1rem;line-height:1.45}
+.guia li::before{content:counter(p);width:2rem;height:2rem;border-radius:50%;background:var(--real);color:#fff;display:grid;place-items:center;font-weight:700;font-size:.95rem}
+.guia li svg{display:inline-block;vertical-align:-.3em;width:1.25em;height:1.25em;color:var(--real);fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.guia .caja{max-height:90vh;max-height:90dvh;overflow:auto}
+.guia .btn{width:100%}
+.guia .btn+.btn{margin-top:.6rem}
+.guia .aviso-app{background:#fff4d6;border:1px solid var(--oro);border-radius:14px;padding:.8rem 1rem;margin-bottom:1.1rem;font-size:.95rem;line-height:1.45}
+.guia .aviso-app[hidden],.guia .btn[hidden]{display:none}
+.guia .ayuda-ios{border-top:1px solid rgba(31,22,54,.12);padding-top:1rem;margin-bottom:1.3rem;font-size:.92rem;color:var(--suave)}
+.guia .ayuda-ios b{color:var(--tinta)}
+.guia .ayuda-ios p+p{margin-top:.5rem}
 </style>
 </head>
 <body>
@@ -514,6 +545,7 @@ dialog.visor::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur
       <a href="#oracion">Oración</a>
       <a href="#contacto">Contacto</a>
       <a class="btn btn-oro" href="#contacto">Visítanos</a>
+      <button class="btn btn-borde btn-instalar" type="button" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>Instalar app</button>
     </nav>
   </div>
 </header>
@@ -761,6 +793,7 @@ dialog.visor::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#eventos">Eventos</a></li>
         <li><a href="#galeria">Galería</a></li>
+        <li><button class="btn-instalar" type="button" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>Instalar app</button></li>
       </ul>
     </div>
     <div>
@@ -799,6 +832,21 @@ dialog.visor::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur
       <button class="nav sig" id="vSig" type="button" aria-label="Foto siguiente">&#8250;</button>
     </div>
     <p class="ayuda">Rueda del mouse o pellizco para acercar · arrastra para mover · doble toque para zoom</p>
+  </div>
+</dialog>
+
+<dialog class="guia" id="guia" aria-labelledby="guiaTit">
+  <div class="caja">
+    <h2 id="guiaTit">Instala la app</h2>
+    <p class="sub" id="guiaSub"></p>
+    <div class="aviso-app" id="guiaApp" hidden><b>Ábrelo en Safari.</b> Desde WhatsApp, Facebook o Instagram no se puede instalar. Copia el enlace y pégalo en Safari.</div>
+    <ol id="guiaPasos"></ol>
+    <div class="ayuda-ios" id="guiaAyuda" hidden>
+      <p><b>¿No ves “Agregar a inicio”?</b> Casi siempre es porque no estás en Safari. Abre rey-eterno.com directo en Safari.</p>
+      <p><b>¿No ves el botón Compartir?</b> Toca una vez la parte de abajo de la pantalla para que aparezca la barra de Safari. En iPad está arriba a la derecha.</p>
+    </div>
+    <button class="btn btn-linea" type="button" id="guiaCopiar" hidden>Copiar enlace</button>
+    <button class="btn btn-real" type="button" id="guiaOk">Entendido</button>
   </div>
 </dialog>
 
@@ -1369,6 +1417,76 @@ $("#formOracion").addEventListener("submit",function(e){
     b.addEventListener("pointermove",function(e){var r=b.getBoundingClientRect();b.style.translate=((e.clientX-r.left-r.width/2)*.25)+"px "+((e.clientY-r.top-r.height/2)*.35)+"px"});
     b.addEventListener("pointerleave",function(){b.style.translate=""});
   });
+})();
+
+/* ---------- Instalar como app (iPhone y Android) ---------- */
+(function(){
+  var btns=$$(".btn-instalar"),dlg=$("#guia"),pasos=$("#guiaPasos"),sub=$("#guiaSub");
+  var ua=navigator.userAgent||"";
+  var iOS=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  var android=/Android/i.test(ua);
+  var instalada=function(){return (window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true};
+  var evento=null;
+
+  function mostrar(v){btns.forEach(function(b){b.hidden=!v})}
+  var SHARE='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>';
+  var MAS='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg>';
+  var DOTS='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="12" cy="19" r="1.2" fill="currentColor"/></svg>';
+
+  var enApp=iOS&&(!/Safari\//.test(ua)||/FBAN|FBAV|Instagram|TikTok|Line\/|MicroMessenger/.test(ua));
+  var aviso=$("#guiaApp"),ayuda=$("#guiaAyuda"),copiar=$("#guiaCopiar");
+
+  function guia(tipo){
+    var li;
+    aviso.hidden=!(tipo==="ios"&&enApp);
+    copiar.hidden=!(tipo==="ios"&&enApp);
+    ayuda.hidden=tipo!=="ios";
+    if(tipo==="ios"){
+      sub.textContent="Instalar en iPhone toma menos de un minuto. Hazlo desde Safari (el navegador azul con la brújula).";
+      li=['Abre <b>rey-eterno.com</b> en Safari.',
+          'Toca el botón <b>Compartir</b> '+SHARE+', el cuadrito con una flecha hacia arriba, abajo en el centro.',
+          'Desliza el menú hacia arriba y toca <b>Agregar a inicio</b> '+MAS+' (en algunas versiones dice <b>Agregar a pantalla de inicio</b>).',
+          'Toca <b>Agregar</b>, arriba a la derecha. Si aparece la opción <b>Abrir como app</b>, déjala activada.',
+          'Listo. Busca el ícono de <b>Rey Eterno</b> en tu pantalla de inicio y ábrelo como cualquier app.'];
+    }else{
+      sub.textContent="En Android se agrega desde el menú del navegador:";
+      li=['Toca el menú <b>⋮</b> '+DOTS+' (arriba a la derecha).',
+          'Elige <b>Instalar app</b> o <b>Agregar a la pantalla de inicio</b>.',
+          'Confirma con <b>Instalar</b>. El ícono aparecerá en tu pantalla.'];
+    }
+    pasos.innerHTML=li.map(function(t){return "<li><span>"+t+"</span></li>"}).join("");
+    if(dlg.showModal)dlg.showModal();else dlg.setAttribute("open","");
+  }
+  copiar.addEventListener("click",function(){
+    var url=location.origin+"/";
+    var ok=function(){copiar.textContent="¡Enlace copiado!"};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(ok,function(){copiar.textContent=url})}
+    else{copiar.textContent=url}
+  });
+
+  window.addEventListener("beforeinstallprompt",function(e){
+    e.preventDefault();evento=e;if(!instalada())mostrar(true);
+  });
+  window.addEventListener("appinstalled",function(){evento=null;mostrar(false);if(dlg.open)dlg.close()});
+
+  if(!instalada()&&(iOS||android))mostrar(true);   /* iPhone y Android siempre ven el botón */
+
+  btns.forEach(function(b){
+    b.addEventListener("click",function(){
+      if(typeof cerrarMenu==="function")cerrarMenu();
+      if(evento){
+        evento.prompt();
+        evento.userChoice.then(function(){evento=null;if(!instalada())mostrar(iOS||android)});
+      }else if(iOS){guia("ios")}
+      else{guia("android")}
+    });
+  });
+  $("#guiaOk").addEventListener("click",function(){dlg.close()});
+  dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
+
+  if("serviceWorker" in navigator){
+    window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});
+  }
 })();
 
 $("#anio").textContent=new Date().getFullYear();

@@ -1,0 +1,18 @@
+{
+  "id": "./",
+  "name": "Iglesia Cristiana Rey Eterno",
+  "short_name": "Rey Eterno",
+  "description": "Horarios de servicios, eventos, transmisiones en vivo, galería y contacto de la Iglesia Cristiana Rey Eterno.",
+  "start_url": "./?origen=app",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1b0f33",
+  "theme_color": "#4a2c7a",
+  "lang": "es-MX",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
