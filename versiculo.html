@@ -62,6 +62,9 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--oro-claro);outline-
 #instalar[hidden],#ayuda[hidden]{display:none}
 #ayuda{position:relative;z-index:1;max-width:34rem;margin:.9rem auto 0;background:rgba(255,255,255,.12);border:1px solid rgba(210,166,74,.5);border-radius:16px;padding:1rem 1.1rem;font-size:.95rem;line-height:1.5}
 #ayuda ol{margin:.5rem 0 0 1.2rem;padding:0}
+#calendario{display:flex;align-items:center;justify-content:center;gap:.5rem;max-width:34rem;margin:1rem auto 0;padding:.8rem 1rem;border-radius:16px;text-decoration:none;color:#fff;font-weight:600;font-size:.95rem;background:rgba(255,255,255,.09);border:1px solid rgba(240,213,143,.45);position:relative;z-index:1;text-align:center}
+#calendario svg{width:1.25rem;height:1.25rem;flex:none;fill:none;stroke:var(--oro-claro);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#calendario:active{background:rgba(255,255,255,.18)}
 #aviso{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 5.5rem);transform:translate(-50%,20px);background:var(--oro);color:var(--noche);font-weight:600;padding:.6rem 1.1rem;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:5}
 #aviso.ver{opacity:1;transform:translate(-50%,0)}
 </style>
@@ -88,6 +91,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--oro-claro);outline-
 
   <div id="ayuda" hidden></div>
   <button id="instalar" type="button" hidden>Instalar versículo diario en mi celular</button>
+  <a id="calendario" href="webcal://rey-eterno.com/versiculos.ics"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>Recibirlo cada día en mi calendario</a>
   <p class="pie"><a href="./">Abrir la página de Rey Eterno</a></p>
 </main>
 <div id="aviso" role="status"></div>
@@ -156,6 +160,13 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--oro-claro);outline-
       :"<b>En Android, desde Chrome:</b><ol><li>Toca el menú <b>⋮</b> (arriba a la derecha).</li><li>Elige <b>Instalar app</b> o <b>Agregar a la pantalla de inicio</b>.</li><li>Confirma con <b>Instalar</b>.</li></ol>";
     ayuda.hidden=!ayuda.hidden;
   });
+
+
+  /* Calendario: iPhone/Mac usan webcal://, el resto se suscribe con Google Calendar */
+  (function(){
+    var a=$("#calendario"),apple=/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent||"")||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+    if(!apple)a.href="https://calendar.google.com/calendar/r?cid="+encodeURIComponent("webcal://rey-eterno.com/versiculos.ics");
+  })();
 
   if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
 })();
