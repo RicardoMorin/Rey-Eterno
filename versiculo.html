@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Versículo del día | Rey Eterno</title>
+<meta name="description" content="Un versículo nuevo cada día, de la Iglesia Cristiana Rey Eterno.">
+<meta name="theme-color" content="#1b0f33">
+<link rel="icon" href="icon-versiculo-192.png">
+<link rel="manifest" href="manifest-versiculo.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon-versiculo.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Versículo">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap">
+<style>
+:root{
+  --noche:#1b0f33;--real:#4a2c7a;--oro:#d2a64a;--oro-claro:#f0d58f;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:var(--sans);color:#fff;background:var(--noche);-webkit-text-size-adjust:100%}
+.pantalla{
+  position:relative;min-height:100%;display:flex;flex-direction:column;overflow:hidden;
+  padding:calc(env(safe-area-inset-top,0px) + 1.1rem) 1.5rem calc(env(safe-area-inset-bottom,0px) + 1.4rem);
+  background:radial-gradient(120% 80% at 50% 0%,#6a45a3 0%,var(--real) 38%,var(--noche) 100%);
+}
+.pantalla::before{ /* comilla decorativa */
+  content:"\201C";position:absolute;left:.6rem;top:3.2rem;font:700 17rem/1 var(--serif);
+  color:rgba(210,166,74,.15);pointer-events:none}
+.pantalla::after{ /* resplandor */
+  content:"";position:absolute;left:50%;top:38%;width:130vmin;height:130vmin;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(240,213,143,.14),transparent 62%);pointer-events:none}
+header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.marca{display:flex;align-items:center;gap:.6rem;color:#fff;text-decoration:none;font:600 1.05rem var(--serif)}
+.marca img{width:36px;height:36px;border-radius:10px}
+#fecha{font-size:.88rem;color:rgba(255,255,255,.72);text-transform:capitalize;text-align:right}
+.centro{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;justify-content:center;padding:1.5rem 0;max-width:34rem;width:100%;margin:0 auto}
+.etq{font-weight:600;color:var(--oro-claro);margin-bottom:1.2rem;font-size:1.02rem}
+blockquote{font:500 clamp(1.7rem,7vw,2.7rem)/1.22 var(--serif);text-wrap:balance}
+blockquote.largo{font-size:clamp(1.3rem,5.2vw,2.05rem);line-height:1.3}
+cite{display:block;margin-top:1.4rem;font-style:normal;font-weight:600;font-size:1.1rem;color:var(--oro-claro)}
+.cambia{animation:entra .5s cubic-bezier(.2,.7,.2,1)}
+@keyframes entra{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.cambia{animation:none}}
+.acciones{position:relative;z-index:1;display:flex;gap:.6rem;justify-content:center;align-items:center;max-width:34rem;width:100%;margin:0 auto}
+button,.btn{font:600 1rem var(--sans);border:0;cursor:pointer;border-radius:999px;color:#fff;-webkit-tap-highlight-color:transparent}
+.flecha{width:48px;height:48px;flex:none;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.32);font-size:1.3rem;line-height:1}
+.flecha:disabled{opacity:.35;cursor:default}
+.btn{flex:1;min-height:48px;padding:.7rem 1rem}
+.btn-borde{background:transparent;border:1.5px solid rgba(255,255,255,.55)}
+.btn-oro{background:var(--oro);color:var(--noche)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--oro-claro);outline-offset:3px}
+.pie{position:relative;z-index:1;text-align:center;margin-top:1.1rem;font-size:.95rem}
+.pie a{color:var(--oro-claro);text-underline-offset:3px}
+#instalar{display:block;margin:.9rem auto 0;background:none;color:var(--oro-claro);text-decoration:underline;text-underline-offset:3px;font-size:.95rem}
+#instalar[hidden],#ayuda[hidden]{display:none}
+#ayuda{position:relative;z-index:1;max-width:34rem;margin:.9rem auto 0;background:rgba(255,255,255,.12);border:1px solid rgba(210,166,74,.5);border-radius:16px;padding:1rem 1.1rem;font-size:.95rem;line-height:1.5}
+#ayuda ol{margin:.5rem 0 0 1.2rem;padding:0}
+#aviso{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 5.5rem);transform:translate(-50%,20px);background:var(--oro);color:var(--noche);font-weight:600;padding:.6rem 1.1rem;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:5}
+#aviso.ver{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<main class="pantalla">
+  <header>
+    <a class="marca" href="./" aria-label="Ir a la página de Rey Eterno"><img src="icon-192.png" alt="" width="36" height="36"><span>Rey Eterno</span></a>
+    <time id="fecha"></time>
+  </header>
+
+  <section class="centro" aria-live="polite">
+    <p class="etq" id="etq">Palabra para hoy</p>
+    <blockquote id="texto">Jehová es mi pastor; nada me faltará.</blockquote>
+    <cite id="ref">Salmo 23:1</cite>
+  </section>
+
+  <nav class="acciones" aria-label="Acciones del versículo">
+    <button class="flecha" id="ant" type="button" aria-label="Versículo anterior">&#8249;</button>
+    <button class="btn btn-borde" id="copiar" type="button">Copiar</button>
+    <button class="btn btn-oro" id="compartir" type="button">Compartir</button>
+    <button class="flecha" id="sig" type="button" aria-label="Siguiente versículo">&#8250;</button>
+  </nav>
+
+  <div id="ayuda" hidden></div>
+  <button id="instalar" type="button" hidden>Instalar versículo diario en mi celular</button>
+  <p class="pie"><a href="./">Abrir la página de Rey Eterno</a></p>
+</main>
+<div id="aviso" role="status"></div>
+
+<script src="versiculos.js"></script>
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var hoy=hoyMty(),base=numeroDia(hoy),off=0,n=VERS.length;
+
+  /* Fecha del día en español */
+  var fecha=new Intl.DateTimeFormat("es-MX",{weekday:"long",day:"numeric",month:"long",timeZone:"America/Monterrey"}).format(new Date());
+  $("#fecha").textContent=fecha;
+
+  function pintar(animar){
+    var v=VERS[((base+off)%n+n)%n];
+    var t=$("#texto"),r=$("#ref");
+    t.textContent=v[0];r.textContent=v[1];
+    t.classList.toggle("largo",v[0].length>110);
+    $("#etq").textContent=off===0?"Palabra para hoy":"Otro versículo";
+    $("#sig").disabled=false;$("#ant").disabled=false;
+    if(animar){[t,r].forEach(function(e){e.classList.remove("cambia");void e.offsetWidth;e.classList.add("cambia")})}
+  }
+  pintar(false);
+  $("#sig").addEventListener("click",function(){off++;pintar(true)});
+  $("#ant").addEventListener("click",function(){off--;pintar(true)});
+  /* Deslizar para cambiar */
+  var x0=null;
+  document.addEventListener("touchstart",function(e){x0=e.touches[0].clientX},{passive:true});
+  document.addEventListener("touchend",function(e){
+    if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;x0=null;
+    if(Math.abs(dx)>70){off+=dx<0?1:-1;pintar(true)}
+  },{passive:true});
+
+  /* Copiar / compartir */
+  var avisoEl=$("#aviso"),avisoT;
+  function aviso(t){avisoEl.textContent=t;avisoEl.classList.add("ver");clearTimeout(avisoT);avisoT=setTimeout(function(){avisoEl.classList.remove("ver")},2200)}
+  function texto(){return "“"+$("#texto").textContent+"” — "+$("#ref").textContent+" | Iglesia Rey Eterno"}
+  function copiar(t){
+    if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t);
+    return new Promise(function(ok,no){
+      var a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();
+      try{document.execCommand("copy")?ok():no()}catch(e){no(e)}document.body.removeChild(a);
+    });
+  }
+  $("#copiar").addEventListener("click",function(){copiar(texto()).then(function(){aviso("Versículo copiado")},function(){aviso("No se pudo copiar")})});
+  $("#compartir").addEventListener("click",function(){
+    var t=texto();
+    if(navigator.share){navigator.share({title:"Palabra para hoy",text:t,url:"https://rey-eterno.com/"}).catch(function(){})}
+    else{window.open("https://wa.me/?text="+encodeURIComponent(t+" https://rey-eterno.com/"),"_blank","noopener")}
+  });
+
+  /* Instalar como app */
+  var btn=$("#instalar"),ayuda=$("#ayuda"),evento=null;
+  var ua=navigator.userAgent||"";
+  var iOS=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  var android=/Android/i.test(ua);
+  var instalada=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
+  if(!instalada&&(iOS||android))btn.hidden=false;
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();evento=e;if(!instalada)btn.hidden=false});
+  window.addEventListener("appinstalled",function(){btn.hidden=true;ayuda.hidden=true});
+  btn.addEventListener("click",function(){
+    if(evento){evento.prompt();evento.userChoice.then(function(){evento=null});return}
+    ayuda.innerHTML=iOS
+      ?"<b>En iPhone, desde Safari:</b><ol><li>Toca <b>Compartir</b> (el cuadrito con flecha hacia arriba). Si no lo ves, toca el menú de las tres rayitas en la barra de abajo.</li><li>Elige <b>Agregar a inicio</b>.</li><li>Toca <b>Agregar</b>.</li></ol>"
+      :"<b>En Android, desde Chrome:</b><ol><li>Toca el menú <b>⋮</b> (arriba a la derecha).</li><li>Elige <b>Instalar app</b> o <b>Agregar a la pantalla de inicio</b>.</li><li>Confirma con <b>Instalar</b>.</li></ol>";
+    ayuda.hidden=!ayuda.hidden;
+  });
+
+  if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+})();
+</script>
+</body>
+</html>

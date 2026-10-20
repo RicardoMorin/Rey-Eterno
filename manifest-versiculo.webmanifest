@@ -1,0 +1,18 @@
+{
+  "id": "./versiculo.html",
+  "name": "Versículo del día · Rey Eterno",
+  "short_name": "Versículo",
+  "description": "Un versículo nuevo cada día, de la Iglesia Cristiana Rey Eterno.",
+  "start_url": "./versiculo.html?origen=app",
+  "scope": "./versiculo.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1b0f33",
+  "theme_color": "#1b0f33",
+  "lang": "es-MX",
+  "icons": [
+    { "src": "icon-versiculo-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-versiculo-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-versiculo-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
