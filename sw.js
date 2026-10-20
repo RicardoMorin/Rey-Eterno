@@ -1,6 +1,6 @@
 /* Service worker de Rey Eterno.
    Sube el número de VERSION cuando quieras forzar que todos refresquen la caché. */
-var VERSION = "rey-eterno-v1";
+var VERSION = "rey-eterno-v3";
 var BASE = [
   "./", "index.html", "manifest.webmanifest",
   "logo.png", "familia2.jpg", "motion.min.js", "reyconfig.js",
