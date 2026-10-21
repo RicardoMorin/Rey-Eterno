@@ -6,6 +6,8 @@
 <title>Iglesia Cristiana Rey Eterno | Guadalupe, Nuevo León</title>
 <meta name="description" content="Iglesia en Guadalupe, Nuevo León para toda la familia: papás, jóvenes y niños. Horarios de servicios, eventos y transmisión en vivo.">
 <meta name="theme-color" content="#4a2c7a">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="canonical" href="https://rey-eterno.com/">
 <link rel="icon" href="logo.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -21,6 +23,12 @@
 <meta property="og:image" content="https://rey-eterno.com/logo.png">
 <meta property="og:url" content="https://rey-eterno.com/">
 <meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="Iglesia Cristiana Rey Eterno">
+<meta property="og:image:alt" content="Logotipo de la Iglesia Cristiana Rey Eterno">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Iglesia Cristiana Rey Eterno">
+<meta name="twitter:description" content="Una iglesia en Guadalupe, Nuevo León para toda la familia. Ven como estás.">
+<meta name="twitter:image" content="https://rey-eterno.com/logo.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,13 +38,18 @@
 {
   "@context": "https://schema.org",
   "@type": "Church",
+  "@id": "https://rey-eterno.com/#iglesia",
   "name": "Iglesia Cristiana Rey Eterno",
+  "inLanguage": "es-MX",
+  "areaServed": "Guadalupe, Nuevo León, México",
   "description": "Iglesia en Guadalupe, Nuevo León para toda la familia: papás, jóvenes y niños. Horarios de servicios, eventos y transmisión en vivo.",
   "url": "https://rey-eterno.com/",
   "logo": "https://rey-eterno.com/logo.png",
   "image": "https://rey-eterno.com/logo.png",
   "email": "contacto@rey-eterno.com",
   "telephone": "+528136864731",
+  "hasMap": "https://www.google.com/maps/search/?api=1&query=Iglesia+Rey+Eterno+5421+Costa+Rica+Guadalupe+Nuevo+Leon",
+  "geo": { "@type": "GeoCoordinates", "latitude": 25.645865, "longitude": -100.209654 },
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "5421 Costa Rica",
@@ -515,6 +528,26 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
 .guia .ayuda-ios{border-top:1px solid rgba(31,22,54,.12);padding-top:1rem;margin-bottom:1.3rem;font-size:.92rem;color:var(--suave)}
 .guia .ayuda-ios b{color:var(--tinta)}
 .guia .ayuda-ios p+p{margin-top:.5rem}
+
+/* Saltar al contenido (accesibilidad) */
+.salto{position:absolute;left:1rem;top:-4rem;z-index:1000;background:var(--oro);color:var(--noche);font-weight:700;padding:.7rem 1.1rem;border-radius:999px;text-decoration:none;transition:top .2s}
+.salto:focus{top:1rem}
+
+/* Agregar al calendario (solo celulares) */
+.cal-todos{margin-top:1.6rem}
+.btn-cal{padding:.6rem 1.1rem;font-size:.92rem;gap:.45rem}
+.btn-cal .ic{width:1.15em;height:1.15em}
+
+/* Tu primera visita */
+.visita{background:var(--niebla)}
+.visita h2{margin-bottom:1rem}
+.visita .tarjetas{list-style:none;margin:2.6rem 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.visita .tarjetas li{background:#fff;border-radius:var(--radio);padding:1.8rem 1.6rem 1.7rem;box-shadow:0 18px 36px -26px rgba(27,15,51,.55);border-top:4px solid var(--oro)}
+.visita .tarjetas .ic{width:2rem;height:2rem;color:var(--real);margin-bottom:.9rem}
+.visita .tarjetas h3{font-size:1.3rem;margin-bottom:.45rem}
+.visita .tarjetas p{color:var(--suave);font-size:1rem}
+.visita .tarjetas a{color:var(--real);font-weight:600}
+@media (max-width:860px){.visita .tarjetas{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -537,6 +570,7 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
   <symbol id="i-estrella" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.3l6.1-.7z"/></symbol>
 </svg>
 
+<a class="salto" href="#inicio">Saltar al contenido</a>
 <div class="prog" id="prog"></div>
 <div class="aura" id="aura" aria-hidden="true"></div>
 <header class="top" id="top">
@@ -646,11 +680,25 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
           <span class="marca-prox">Próximo</span>
         </article>
       </div>
+      <div class="cal-todos" id="calWrap" hidden><button class="btn btn-linea btn-cal" type="button" id="btnCal"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M12 13v4M10 15h4"/></svg>Agregar a mi calendario</button></div>
       <p class="nota">Ubicación: 5421 Costa Rica, Guadalupe, Nuevo León. ¿Dudas para llegar? <a href="https://wa.me/528136864731?text=Hola%2C%20quisiera%20visitarlos.%20%C2%BFMe%20pueden%20orientar%3F" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>.</p>
     </div>
   
     <div class="frases" aria-hidden="true">
       <span class="flot lima" style="top:calc(clamp(4.5rem,10vw,8rem) - .2rem);right:var(--edge);--r:3deg;--t:6.4s">Siempre hay una <b>silla</b> para ti</span>
+    </div>
+  </section>
+
+  <!-- TU PRIMERA VISITA -->
+  <section class="section visita" id="visita" aria-labelledby="visitaTit">
+    <div class="wrap">
+      <h2 id="visitaTit">Tu primera visita</h2>
+      <p class="lead">Si nunca has venido, no tienes que preparar nada especial. Solo ven.</p>
+      <ul class="tarjetas">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-corazon"/></svg><h3>Ven como estás</h3><p>No hay código de vestimenta. Ven con la ropa con la que te sientas cómodo; lo que importa es que vengas.</p></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-gente"/></svg><h3>Todos son bienvenidos</h3><p>En Rey Eterno nadie es discriminado ni rechazado. Seas quien seas y vengas de donde vengas, aquí hay un lugar para ti y para tu familia.</p></li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg><h3>¿Dudas antes de venir?</h3><p>Escríbenos por <a href="https://wa.me/528136864731?text=Hola%2C%20quisiera%20visitarlos.%20%C2%BFMe%20pueden%20orientar%3F" target="_blank" rel="noopener">WhatsApp</a> y te orientamos. También puedes ver <a href="#contacto">cómo llegar</a>.</p></li>
+      </ul>
     </div>
   </section>
 
@@ -679,7 +727,7 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
       <p class="lead">Encuentros especiales para crecer en fe y compartir en comunidad.</p>
       <div class="ev-grid">
         <article class="destacado">
-          <img src="familia.jpg" alt="" loading="lazy" decoding="async">
+          <img src="familia.jpg" alt="Congregación de Rey Eterno en el campamento “Siempre por Amor”" loading="lazy" decoding="async">
           <div>
             <h3>Campamento “Siempre por Amor”</h3>
             <p>Revive los momentos de fe, alegría y comunión que vivimos juntos en una experiencia llena de amor, amistad y la presencia de Dios.</p>
@@ -947,6 +995,75 @@ function tick(){
   }
 }
 tick();setInterval(tick,1000);
+
+/* ---------- Agregar al calendario (.ics y Google Calendar) ---------- */
+var DIRECCION="Iglesia Rey Eterno, 5421 Costa Rica, Guadalupe, Nuevo León, México";
+var CODIGO=["SU","MO","TU","WE","TH","FR","SA"];
+function calInfo(sv){
+  var vivo=sv.i===0;
+  return {
+    titulo:"Rey Eterno · "+sv.n,
+    lugar:vivo?"En vivo por Facebook Live":DIRECCION,
+    nota:"Ven como estás, aquí hay un lugar para ti."+(vivo&&sv.btn?" Transmisión: "+sv.btn[1]:"")+" Más información: https://rey-eterno.com/"
+  };
+}
+function proximaFecha(sv){
+  var now=ahoraMty(),t=new Date(now);t.setHours(sv.h,sv.m,0,0);
+  var k=(sv.d-now.getDay()+7)%7;if(k===0&&t<now)k=7;
+  t.setDate(now.getDate()+k);return t;
+}
+function fLocal(t){return t.getFullYear()+pad(t.getMonth()+1)+pad(t.getDate())+"T"+pad(t.getHours())+pad(t.getMinutes())+"00"}
+function fUTC(){var n=new Date();return n.getUTCFullYear()+pad(n.getUTCMonth()+1)+pad(n.getUTCDate())+"T"+pad(n.getUTCHours())+pad(n.getUTCMinutes())+pad(n.getUTCSeconds())+"Z"}
+function esc(t){return String(t).replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\r?\n/g,"\\n")}
+function plegar(l){var o=[];while(l.length>60){o.push(l.slice(0,60));l=" "+l.slice(60)}o.push(l);return o.join("\r\n")}
+function veventos(sv){
+  var inf=calInfo(sv),ini=proximaFecha(sv),fin=new Date(ini);fin.setHours(ini.getHours()+2);
+  return ["BEGIN:VEVENT",
+    "UID:servicio-"+sv.i+"@rey-eterno.com",
+    "DTSTAMP:"+fUTC(),
+    "DTSTART;TZID=America/Monterrey:"+fLocal(ini),
+    "DTEND;TZID=America/Monterrey:"+fLocal(fin),
+    "RRULE:FREQ=WEEKLY;BYDAY="+CODIGO[sv.d],
+    "SUMMARY:"+esc(inf.titulo),
+    "LOCATION:"+esc(inf.lugar),
+    "DESCRIPTION:"+esc(inf.nota),
+    "URL:https://rey-eterno.com/",
+    "BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:"+esc(inf.titulo),"TRIGGER:-PT1H","END:VALARM",
+    "END:VEVENT"];
+}
+function construirICS(lista){
+  var l=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Iglesia Rey Eterno//Servicios//ES","CALSCALE:GREGORIAN","METHOD:PUBLISH",
+    "X-WR-CALNAME:Rey Eterno","X-WR-TIMEZONE:America/Monterrey",
+    "BEGIN:VTIMEZONE","TZID:America/Monterrey","BEGIN:STANDARD","DTSTART:19700101T000000","TZOFFSETFROM:-0600","TZOFFSETTO:-0600","TZNAME:CST","END:STANDARD","END:VTIMEZONE"];
+  lista.forEach(function(sv){l=l.concat(veventos(sv))});
+  l.push("END:VCALENDAR");
+  return l.map(plegar).join("\r\n")+"\r\n";
+}
+function bajarICS(lista,nombre){
+  var ics=construirICS(lista);
+  var blob=new Blob([ics],{type:"text/calendar;charset=utf-8"});
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download=nombre;
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500);
+}
+/* Solo celulares: iPhone/iPod o Android con "Mobile" (se excluyen iPad y tabletas) */
+var UA=navigator.userAgent||"";
+var ES_IOS=/iPhone|iPod/.test(UA);
+var ES_ANDROID=/Android/i.test(UA)&&/Mobile/i.test(UA);
+if(ES_IOS||ES_ANDROID){var cw=$("#calWrap");if(cw)cw.hidden=false}
+var bc=$("#btnCal");
+if(bc)bc.addEventListener("click",function(){
+  var ics=construirICS(SERV);
+  if(ES_IOS){
+    /* iPhone: Safari abre directo la hoja "Agregar al calendario" (funciona también en la app instalada) */
+    window.location.href="data:text/calendar;charset=utf-8,"+encodeURIComponent(ics);
+  }else{
+    /* Android: se descarga el archivo y al tocarlo se abre en Google Calendar */
+    bajarICS(SERV,"rey-eterno-servicios.ics");
+    aviso("Abre el archivo descargado para agregarlo a tu calendario");
+  }
+});
 
 /* ---------- Versículo del día ---------- */
 var VERS=[
@@ -1530,7 +1647,7 @@ escena.addEventListener("pointercancel",soltar);
   dlg.addEventListener("click",function(e){if(e.target===dlg)dlg.close()});
 
   if("serviceWorker" in navigator){
-    window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});
+    window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(r){r.update&&r.update()}).catch(function(){})});
   }
 })();
 

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rey-eterno.com/sitemap.xml
