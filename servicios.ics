@@ -1,0 +1,71 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Iglesia Rey Eterno//Servicios//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Rey Eterno
+X-WR-TIMEZONE:America/Monterrey
+BEGIN:VTIMEZONE
+TZID:America/Monterrey
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0600
+TZNAME:CST
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:servicio-0@rey-eterno.com
+DTSTAMP:20261021T000000Z
+DTSTART;TZID=America/Monterrey:20261021T190000
+DTEND;TZID=America/Monterrey:20261021T210000
+RRULE:FREQ=WEEKLY;BYDAY=WE
+SUMMARY:Rey Eterno · Servicio en vivo
+LOCATION:En vivo por Facebook Live
+DESCRIPTION:Ven como estás\, aquí hay un lugar para ti. Tran
+ smisión: https://www.facebook.com/izliajoram.martinezreyes.
+ 52 Más información: https://rey-eterno.com/
+URL:https://rey-eterno.com/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Rey Eterno · Servicio en vivo
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:servicio-1@rey-eterno.com
+DTSTAMP:20261021T000000Z
+DTSTART;TZID=America/Monterrey:20261024T190000
+DTEND;TZID=America/Monterrey:20261024T210000
+RRULE:FREQ=WEEKLY;BYDAY=SA
+SUMMARY:Rey Eterno · Servicio juvenil
+LOCATION:Iglesia Rey Eterno\, 5421 Costa Rica\, Guadalupe\, 
+ Nuevo León\, México
+DESCRIPTION:Ven como estás\, aquí hay un lugar para ti. Más 
+ información: https://rey-eterno.com/
+URL:https://rey-eterno.com/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Rey Eterno · Servicio juvenil
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:servicio-2@rey-eterno.com
+DTSTAMP:20261021T000000Z
+DTSTART;TZID=America/Monterrey:20261025T120000
+DTEND;TZID=America/Monterrey:20261025T140000
+RRULE:FREQ=WEEKLY;BYDAY=SU
+SUMMARY:Rey Eterno · Servicio general
+LOCATION:Iglesia Rey Eterno\, 5421 Costa Rica\, Guadalupe\, 
+ Nuevo León\, México
+DESCRIPTION:Ven como estás\, aquí hay un lugar para ti. Más 
+ información: https://rey-eterno.com/
+URL:https://rey-eterno.com/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Rey Eterno · Servicio general
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

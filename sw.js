@@ -4,7 +4,7 @@
    - Imágenes y fuentes se muestran al instante desde la copia y se actualizan en segundo plano.
    - Videos, Facebook, Google Maps y formularios NO se tocan.
    Para forzar que todos descarguen todo de nuevo, cambia el número de VERSION. */
-const VERSION = 'rey-eterno-v1';
+const VERSION = 'rey-eterno-v2';
 const SHELL = VERSION + '-shell';
 const RUNTIME = VERSION + '-runtime';
 const MAX_RUNTIME = 80; // máximo de archivos guardados además de lo básico
@@ -101,7 +101,7 @@ self.addEventListener('fetch', (event) => {
   const mismoOrigen = url.origin === self.location.origin;
   const esFuente = FUENTES.includes(url.hostname);
   if (!mismoOrigen && !esFuente) return;                      // Facebook, Maps, etc.: no se tocan
-  if (mismoOrigen && /\.(mp4|webm|mov|mp3|m4a)$/i.test(url.pathname)) return;
+  if (mismoOrigen && /\.(mp4|webm|mov|mp3|m4a|ics)$/i.test(url.pathname)) return;
 
   // Páginas
   if (request.mode === 'navigate') {

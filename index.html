@@ -1054,10 +1054,10 @@ var ES_ANDROID=/Android/i.test(UA)&&/Mobile/i.test(UA);
 if(ES_IOS||ES_ANDROID){var cw=$("#calWrap");if(cw)cw.hidden=false}
 var bc=$("#btnCal");
 if(bc)bc.addEventListener("click",function(){
-  var ics=construirICS(SERV);
   if(ES_IOS){
-    /* iPhone: Safari abre directo la hoja "Agregar al calendario" (funciona también en la app instalada) */
-    window.location.href="data:text/calendar;charset=utf-8,"+encodeURIComponent(ics);
+    /* iPhone: se abre el archivo real servicios.ics; Safari muestra "Agregar todo" al calendario */
+    var u=new URL("servicios.ics",location.href).href;
+    if(navigator.standalone===true)window.open(u,"_blank");else window.location.href=u;
   }else{
     /* Android: se descarga el archivo y al tocarlo se abre en Google Calendar */
     bajarICS(SERV,"rey-eterno-servicios.ics");
