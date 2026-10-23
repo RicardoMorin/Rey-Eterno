@@ -538,6 +538,16 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
 .btn-cal{padding:.6rem 1.1rem;font-size:.92rem;gap:.45rem}
 .btn-cal .ic{width:1.15em;height:1.15em}
 
+/* Escuchar versículo / Cómo llegar */
+.versiculo .btn .ic{width:1.35em;height:1.35em;margin:0}
+.btn[aria-pressed="true"]{background:rgba(255,255,255,.16)}
+.datos .ruta{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;margin-top:.7rem}
+.datos .btn-ruta{padding:.62rem 1.2rem;font-size:.95rem;color:var(--noche);text-decoration:none}
+.datos .btn-ruta:hover{color:var(--noche);text-decoration:none}
+.datos .btn-ruta .ic{width:1.15em;height:1.15em;margin:0;color:currentColor}
+.datos .otras{font-size:.92rem;color:var(--suave)}
+.datos .otras a{font-weight:600;color:var(--real);margin-left:.3rem}
+
 /* Tu primera visita */
 .visita{background:var(--niebla)}
 .visita h2{margin-bottom:1rem}
@@ -709,8 +719,9 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
       <blockquote id="vTexto">Jehová es mi pastor; nada me faltará.</blockquote>
       <cite id="vRef">Salmo 23:1</cite>
       <div class="acciones">
+        <button class="btn btn-borde" id="vEscuchar" type="button" aria-pressed="false" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><span class="t">Escuchar versículo</span></button>
         <button class="btn btn-borde" id="vCopiar" type="button">Copiar versículo</button>
-        <button class="btn btn-oro" id="vCompartir" type="button">Compartir</button>
+        <button class="btn btn-oro" id="vCompartir" type="button">Compartir imagen</button>
       </div>
     </div>
   
@@ -819,7 +830,7 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
       <div>
         <h2>Encuéntranos</h2>
         <ul class="datos">
-          <li><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><div><strong>Dirección</strong><span>5421 Costa Rica, Guadalupe, Nuevo León</span><br><a href="https://www.google.com/maps/search/?api=1&query=Iglesia+Rey+Eterno+5421+Costa+Rica+Guadalupe+Nuevo+Leon" target="_blank" rel="noopener">Cómo llegar</a></div></li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><div><strong>Dirección</strong><span>5421 Costa Rica, Guadalupe, Nuevo León</span><div class="ruta"><a class="btn btn-oro btn-ruta" id="comoLlegar" href="https://www.google.com/maps/dir/?api=1&destination=25.645865,-100.209654&travelmode=driving" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 20.5 12 16.5l7.5 4z"/></svg>Cómo llegar</a><span class="otras" id="otrasRutas"></span></div></div></li>
           <li><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg><div><strong>WhatsApp</strong><a href="https://wa.me/528136864731" target="_blank" rel="noopener">81 3686 4731</a></div></li>
           <li><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg><div><strong>Correo</strong><a href="mailto:contacto@rey-eterno.com">contacto@rey-eterno.com</a></div></li>
           <li><svg class="ic" aria-hidden="true"><use href="#i-luz"/></svg><div><strong>Horarios</strong><span>Miércoles 7:00 PM (en vivo) · Sábado 7:00 PM · Domingo 12:00 PM</span></div></li>
@@ -1098,11 +1109,141 @@ function copiar(t){
   });
 }
 $("#vCopiar").addEventListener("click",function(){copiar(textoVers()).then(function(){aviso("Versículo copiado")},function(){aviso("No se pudo copiar")})});
-$("#vCompartir").addEventListener("click",function(){
+/* ---------- Escuchar versículo (voz del celular) ---------- */
+(function(){
+  var b=$("#vEscuchar"),ss=window.speechSynthesis;
+  if(!b||!ss||!window.SpeechSynthesisUtterance)return;
+  b.hidden=false;
+  var lab=$(".t",b),voz=null,habla=false;
+  function elegir(){
+    var v=ss.getVoices()||[];
+    voz=v.filter(function(x){return /^es[-_]MX/i.test(x.lang)})[0]||v.filter(function(x){return /^es[-_]US/i.test(x.lang)})[0]||v.filter(function(x){return /^es/i.test(x.lang)})[0]||null;
+  }
+  elegir();if(ss.addEventListener)ss.addEventListener("voiceschanged",elegir);
+  function estado(on){habla=on;b.setAttribute("aria-pressed",on?"true":"false");lab.textContent=on?"Detener":"Escuchar versículo"}
+  b.addEventListener("click",function(){
+    if(habla){ss.cancel();estado(false);return}
+    var ref=$("#vRef").textContent.replace(/(\d+):(\d+)/,"$1, versículo $2");
+    var u=new SpeechSynthesisUtterance($("#vTexto").textContent+". "+ref+".");
+    u.lang=voz?voz.lang:"es-MX";if(voz)u.voice=voz;u.rate=.92;
+    u.onend=u.onerror=function(){estado(false)};
+    ss.cancel();ss.speak(u);estado(true);
+  });
+  addEventListener("pagehide",function(){ss.cancel()});
+})();
+
+/* ---------- Versículo como imagen (para estados e historias) ---------- */
+var imgVers=null;
+function compartirTexto(){
   var t=textoVers();
   if(navigator.share){navigator.share({title:"Palabra para hoy",text:t,url:location.href}).catch(function(){})}
   else{window.open("https://wa.me/?text="+encodeURIComponent(t+" "+location.href),"_blank","noopener")}
+}
+function dibujarVersiculo(logo,fam,sans){
+  var W=1080,H=1920,c=document.createElement("canvas");c.width=W;c.height=H;
+  var x=c.getContext("2d");
+  var g=x.createLinearGradient(0,0,W*.6,H);g.addColorStop(0,"#1b0f33");g.addColorStop(1,"#4a2c7a");
+  x.fillStyle=g;x.fillRect(0,0,W,H);
+  function brillo(cx,cy,r,col){var q=x.createRadialGradient(cx,cy,0,cx,cy,r);q.addColorStop(0,col);q.addColorStop(1,"rgba(0,0,0,0)");x.fillStyle=q;x.fillRect(0,0,W,H)}
+  brillo(W*.82,H*.16,W*.95,"rgba(210,166,74,.34)");
+  brillo(W*.08,H*.9,W*.85,"rgba(139,98,214,.42)");
+  var sd=ahoraMty().getDate()*977+ahoraMty().getMonth()*131+7;
+  function rnd(){sd=(sd*9301+49297)%233280;return sd/233280}
+  for(var i=0;i<80;i++){
+    x.fillStyle="rgba(240,213,143,"+(.12+rnd()*.5).toFixed(2)+")";
+    x.beginPath();x.arc(rnd()*W,rnd()*H,1+rnd()*3.4,0,6.283);x.fill();
+  }
+  x.strokeStyle="rgba(210,166,74,.5)";x.lineWidth=3;
+  if(x.roundRect){x.beginPath();x.roundRect(54,54,W-108,H-108,44);x.stroke()}else{x.strokeRect(54,54,W-108,H-108)}
+  /* corona */
+  x.save();x.translate(W/2-90,190);x.scale(7.5,7.5);
+  x.strokeStyle="#d2a64a";x.lineWidth=1.25;x.lineJoin="round";x.lineCap="round";
+  x.stroke(new Path2D("M4 17 3 7l5 4 4-6 4 6 5-4-1 10zM4 20.5h16"));x.restore();
+  x.textAlign="center";x.textBaseline="alphabetic";
+  /* título y fecha */
+  var MES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],d=ahoraMty();
+  x.fillStyle="#f0d58f";x.font="700 40px "+sans;
+  if("letterSpacing" in x)x.letterSpacing="9px";
+  x.fillText("PALABRA PARA HOY",W/2,500);
+  if("letterSpacing" in x)x.letterSpacing="0px";
+  x.fillStyle="rgba(255,255,255,.7)";x.font="600 36px "+sans;
+  x.fillText(d.getDate()+" de "+MES[d.getMonth()],W/2,556);
+  /* versículo: se ajusta el tamaño para que siempre quepa */
+  var texto="“"+$("#vTexto").textContent.trim()+"”",ancho=W-2*130,alto=640,tam=96,lin;
+  for(;tam>=46;tam-=4){
+    x.font="500 "+tam+"px "+fam;
+    var pal=texto.split(" "),a="";lin=[];
+    pal.forEach(function(w){var t=a?a+" "+w:w;if(x.measureText(t).width>ancho&&a){lin.push(a);a=w}else a=t});
+    if(a)lin.push(a);
+    if(lin.length*tam*1.26<=alto)break;
+  }
+  var h=lin.length*tam*1.26,y0=(H*.5)-h/2+tam*.2;
+  x.fillStyle="#ffffff";x.font="500 "+tam+"px "+fam;
+  lin.forEach(function(l,i){x.fillText(l,W/2,y0+i*tam*1.26+tam)});
+  /* referencia */
+  x.fillStyle="#f0d58f";x.font="700 50px "+sans;
+  x.fillText("— "+$("#vRef").textContent,W/2,y0+h+tam*.2+96);
+  /* pie */
+  var cy=H-410;
+  if(logo){
+    var lh=120,lw=logo.width*lh/logo.height;
+    x.fillStyle="#ffffff";x.beginPath();x.arc(W/2,cy,lh/2+16,0,6.283);x.fill();
+    x.strokeStyle="#d2a64a";x.lineWidth=5;x.stroke();
+    x.drawImage(logo,W/2-lw/2,cy-lh/2,lw,lh);
+  }
+  x.fillStyle="#ffffff";x.font="700 46px "+fam;x.fillText("Iglesia Cristiana Rey Eterno",W/2,cy+138);
+  x.fillStyle="rgba(255,255,255,.78)";x.font="600 36px "+sans;x.fillText("rey-eterno.com",W/2,cy+192);
+  x.fillStyle="#f0d58f";x.font="italic 500 34px "+fam;x.fillText("Ven como estás, aquí hay un lugar para ti",W/2,cy+250);
+  return c;
+}
+function crearImagen(){
+  var fam=getComputedStyle($("#vTexto")).fontFamily,sans=getComputedStyle(document.body).fontFamily;
+  var f=(document.fonts&&document.fonts.load)?Promise.all([document.fonts.load("500 60px "+fam),document.fonts.load("700 40px "+fam),document.fonts.load("700 40px "+sans)]).catch(function(){}):Promise.resolve();
+  var l=new Promise(function(ok){var i=new Image();i.onload=function(){ok(i)};i.onerror=function(){ok(null)};i.src="logo.png"});
+  return Promise.all([f,l]).then(function(r){
+    var c=dibujarVersiculo(r[1],fam,sans);
+    return new Promise(function(ok,no){c.toBlob(function(b){b?ok(b):no(new Error("sin imagen"))},"image/png")});
+  });
+}
+function bajarImagen(b){
+  var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="palabra-para-hoy.png";
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500);
+  aviso("Imagen guardada, ya puedes compartirla");
+}
+function enviarImagen(b){
+  var f=null;try{f=new File([b],"palabra-para-hoy.png",{type:"image/png"})}catch(e){}
+  if(f&&navigator.canShare&&navigator.canShare({files:[f]})){
+    navigator.share({files:[f],title:"Palabra para hoy",text:textoVers()+" "+location.href}).catch(function(e){if(!e||e.name!=="AbortError")bajarImagen(b)});
+  }else bajarImagen(b);
+}
+$("#vCompartir").addEventListener("click",function(){
+  if(imgVers){enviarImagen(imgVers);return}
+  aviso("Preparando imagen…");
+  crearImagen().then(function(b){imgVers=b;enviarImagen(b)}).catch(compartirTexto);
 });
+/* Se deja lista de antemano para que Compartir responda al instante */
+window.addEventListener("load",function(){setTimeout(function(){crearImagen().then(function(b){imgVers=b}).catch(function(){})},2500)});
+
+/* ---------- Cómo llegar: abre el mapa que use tu celular ---------- */
+(function(){
+  var a=$("#comoLlegar"),otras=$("#otrasRutas");if(!a||!otras)return;
+  var LAT=25.645865,LNG=-100.209654,ua=navigator.userAgent||"";
+  var ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  var R={
+    apple:{n:"Apple Maps",u:"https://maps.apple.com/?daddr="+LAT+","+LNG+"&q="+encodeURIComponent("Iglesia Rey Eterno")+"&dirflg=d"},
+    google:{n:"Google Maps",u:"https://www.google.com/maps/dir/?api=1&destination="+LAT+","+LNG+"&travelmode=driving"},
+    waze:{n:"Waze",u:"https://waze.com/ul?ll="+LAT+"%2C"+LNG+"&navigate=yes&zoom=17"}
+  };
+  var prin=ios?"apple":"google",orden=ios?["apple","google","waze"]:["google","waze"];
+  a.href=R[prin].u;a.setAttribute("aria-label","Cómo llegar con "+R[prin].n);
+  var resto=orden.filter(function(k){return k!==prin});
+  otras.appendChild(document.createTextNode("También en"));
+  resto.forEach(function(k,i){
+    if(i>0)otras.appendChild(document.createTextNode(" ·"));
+    var l=document.createElement("a");l.href=R[k].u;l.target="_blank";l.rel="noopener";l.textContent=R[k].n;otras.appendChild(l);
+  });
+})();
 
 /* ---------- Eventos (edita esta lista) ----------
    Para agregar un evento, copia una línea y cambia los datos.
@@ -1579,6 +1720,42 @@ escena.addEventListener("pointercancel",soltar);
     b.addEventListener("pointermove",function(e){var r=b.getBoundingClientRect();b.style.translate=((e.clientX-r.left-r.width/2)*.25)+"px "+((e.clientY-r.top-r.height/2)*.35)+"px"});
     b.addEventListener("pointerleave",function(){b.style.translate=""});
   });
+})();
+
+/* ---------- Más movimiento: textos que aparecen despacio y parallax suave ---------- */
+(function(){
+  var M=window.Motion;if(reduce||!M)return;
+  var A=M.animate,V=M.inView,E=[.2,.7,.2,1],tocados=[];
+  try{
+    var EXCL=".portada,.frases,.pilares li,.fila,.polaroid,.destacado,.datos li,#formOracion,.proximo,.reel,.tarjetas li,.pie,.lead,.sacerdocio,#eventosVacio,dialog,[aria-hidden='true']";
+    $$("main .section p").forEach(function(p){
+      if(p.closest(EXCL)||p.hidden)return;
+      p.style.opacity="0";tocados.push(p);
+      V(p,function(){A(p,{opacity:[0,1],transform:["translateY(16px)","none"],filter:["blur(5px)","blur(0px)"]},{duration:1.1,delay:.05,ease:E})},{margin:"0px 0px -8% 0px"});
+    });
+    $$(".visita .tarjetas li").forEach(function(el,i){
+      el.style.opacity="0";tocados.push(el);
+      V(el,function(){A(el,{opacity:[0,1],transform:["translateY(34px) scale(.96)","none"]},{duration:.7,delay:i*.12,ease:E})},{margin:"0px 0px -10% 0px"});
+    });
+  }catch(e){tocados.forEach(function(el){el.style.opacity="1"})}
+
+  /* Parallax: cada capa se mueve a distinta velocidad (solo la propiedad translate) */
+  var it=[];
+  $$(".frases").forEach(function(el,i){if(!el.closest(".portada"))it.push({el:el,k:i%2?.09:-.11})});
+  $$(".polaroid").forEach(function(el,i){it.push({el:el,k:i%2?-.05:.05})});
+  var bq=$("#vTexto");if(bq)it.push({el:bq,k:-.04});
+  var tk=false;
+  function upd(){
+    tk=false;var vh=innerHeight;
+    it.forEach(function(o){
+      var r=o.el.parentElement.getBoundingClientRect();
+      if(r.bottom<-300||r.top>vh+300)return;
+      var d=Math.max(-vh,Math.min(vh,r.top+r.height/2-vh/2))*o.k;
+      o.el.style.translate="0 "+Math.max(-34,Math.min(34,d)).toFixed(1)+"px";
+    });
+  }
+  addEventListener("scroll",function(){if(!tk){tk=true;requestAnimationFrame(upd)}},{passive:true});
+  addEventListener("resize",upd);upd();
 })();
 
 /* ---------- Instalar como app (iPhone y Android) ---------- */
