@@ -540,6 +540,7 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
 
 /* Escuchar versículo / Cómo llegar */
 .versiculo .btn .ic{width:1.35em;height:1.35em;margin:0}
+#vEscuchar[hidden]{display:none!important}
 .btn[aria-pressed="true"]{background:rgba(255,255,255,.16)}
 .datos .ruta{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;margin-top:.7rem}
 .datos .btn-ruta{padding:.62rem 1.2rem;font-size:.95rem;color:var(--noche);text-decoration:none}
@@ -1102,6 +1103,8 @@ var vIdx=0;
 })();
 var avisoEl=$("#aviso"),avisoT;
 function aviso(t){avisoEl.textContent=t;avisoEl.classList.add("ver");clearTimeout(avisoT);avisoT=setTimeout(function(){avisoEl.classList.remove("ver")},2200)}
+var LINK="https://rey-eterno.com/";
+function citaVers(){return $("#vRef").textContent+" | Iglesia Rey Eterno"}
 function textoVers(){return "“"+$("#vTexto").textContent+"” — "+$("#vRef").textContent+" | Iglesia Rey Eterno"}
 function copiar(t){
   if(navigator.clipboard&&navigator.clipboard.writeText){return navigator.clipboard.writeText(t)}
@@ -1117,7 +1120,8 @@ $("#vCopiar").addEventListener("click",function(){copiar(textoVers()).then(funct
 (function(){
   var b=$("#vEscuchar"),ss=window.speechSynthesis,hayVoz=!!(ss&&window.SpeechSynthesisUtterance);
   if(!b)return;
-  b.hidden=false;
+  /* Oculto por ahora. Para activarlo: quitar el atributo hidden del botón en el HTML y descomentar la línea siguiente */
+  /* b.hidden=false; */
   var lab=$(".t",b),voz=null,habla=false,audio=null,usoVoz=false;
   function puntaje(v){
     var n=(v.name||"").toLowerCase(),l=(v.lang||"").replace("_","-"),p=0;
@@ -1166,9 +1170,9 @@ $("#vCopiar").addEventListener("click",function(){copiar(textoVers()).then(funct
 /* ---------- Versículo como imagen (para estados e historias) ---------- */
 var imgVers=null;
 function compartirTexto(){
-  var t=textoVers();
-  if(navigator.share){navigator.share({title:"Palabra para hoy",text:t,url:location.href}).catch(function(){})}
-  else{window.open("https://wa.me/?text="+encodeURIComponent(t+" "+location.href),"_blank","noopener")}
+  var t=citaVers();
+  if(navigator.share){navigator.share({title:"Palabra para hoy",text:t,url:LINK}).catch(function(){})}
+  else{window.open("https://wa.me/?text="+encodeURIComponent(t+" "+LINK),"_blank","noopener")}
 }
 function dibujarVersiculo(logo,fam,sans){
   var W=1080,H=1920,c=document.createElement("canvas");c.width=W;c.height=H;
@@ -1248,7 +1252,7 @@ function bajarImagen(b){
 function enviarImagen(b){
   var f=null;try{f=new File([b],"palabra-para-hoy.png",{type:"image/png"})}catch(e){}
   if(f&&navigator.canShare&&navigator.canShare({files:[f]})){
-    navigator.share({files:[f],title:"Palabra para hoy",text:textoVers()+" "+location.href}).catch(function(e){if(!e||e.name!=="AbortError")bajarImagen(b)});
+    navigator.share({files:[f],title:"Palabra para hoy",text:citaVers()+" "+LINK}).catch(function(e){if(!e||e.name!=="AbortError")bajarImagen(b)});
   }else bajarImagen(b);
 }
 $("#vCompartir").addEventListener("click",function(){
