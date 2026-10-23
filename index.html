@@ -721,7 +721,7 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
       <div class="acciones">
         <button class="btn btn-borde" id="vEscuchar" type="button" aria-pressed="false" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><span class="t">Escuchar versículo</span></button>
         <button class="btn btn-borde" id="vCopiar" type="button">Copiar versículo</button>
-        <button class="btn btn-oro" id="vCompartir" type="button">Compartir imagen</button>
+        <button class="btn btn-oro" id="vCompartir" type="button">Compartir</button>
       </div>
     </div>
   
@@ -1093,9 +1093,11 @@ var VERS=[
   ["Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal, para daros el fin que esperáis.","Jeremías 29:11"],
   ["Clama a mí, y yo te responderé, y te enseñaré cosas grandes y ocultas que tú no conoces.","Jeremías 33:3"]
 ];
+var vIdx=0;
 (function(){
   var d=ahoraMty(),dia=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5);
-  var v=VERS[dia%VERS.length];
+  vIdx=dia%VERS.length;
+  var v=VERS[vIdx];
   $("#vTexto").textContent=v[0];$("#vRef").textContent=v[1];
 })();
 var avisoEl=$("#aviso"),avisoT;
@@ -1109,27 +1111,56 @@ function copiar(t){
   });
 }
 $("#vCopiar").addEventListener("click",function(){copiar(textoVers()).then(function(){aviso("Versículo copiado")},function(){aviso("No se pudo copiar")})});
-/* ---------- Escuchar versículo (voz del celular) ---------- */
+/* ---------- Escuchar versículo ----------
+   1) Si existe la grabación audio/versiculo-NN.mp3 (voz de un pastor o voz de IA), la reproduce.
+   2) Si no, usa la mejor voz en español que tenga el celular (naturales / mejoradas primero). */
 (function(){
-  var b=$("#vEscuchar"),ss=window.speechSynthesis;
-  if(!b||!ss||!window.SpeechSynthesisUtterance)return;
+  var b=$("#vEscuchar"),ss=window.speechSynthesis,hayVoz=!!(ss&&window.SpeechSynthesisUtterance);
+  if(!b)return;
   b.hidden=false;
-  var lab=$(".t",b),voz=null,habla=false;
-  function elegir(){
-    var v=ss.getVoices()||[];
-    voz=v.filter(function(x){return /^es[-_]MX/i.test(x.lang)})[0]||v.filter(function(x){return /^es[-_]US/i.test(x.lang)})[0]||v.filter(function(x){return /^es/i.test(x.lang)})[0]||null;
+  var lab=$(".t",b),voz=null,habla=false,audio=null,usoVoz=false;
+  function puntaje(v){
+    var n=(v.name||"").toLowerCase(),l=(v.lang||"").replace("_","-"),p=0;
+    if(/^es-mx/i.test(l))p+=40;else if(/^es-(us|419)/i.test(l))p+=25;else if(/^es/i.test(l))p+=10;else return -1;
+    if(/natural|neural|online/.test(n))p+=60;
+    if(/premium|enhanced|mejorad|siri/.test(n))p+=50;
+    if(/google/.test(n))p+=30;
+    if(/dalia|jorge|paulina|sabina|helena|marisol|mónica|monica/.test(n))p+=8;
+    if(/compact|espeak|eloquence|novelty/.test(n))p-=40;
+    return p;
   }
-  elegir();if(ss.addEventListener)ss.addEventListener("voiceschanged",elegir);
+  function elegir(){
+    if(!hayVoz)return;
+    var m=-1;voz=null;
+    (ss.getVoices()||[]).forEach(function(v){var q=puntaje(v);if(q>m){m=q;voz=v}});
+  }
+  if(hayVoz){elegir();if(ss.addEventListener)ss.addEventListener("voiceschanged",elegir)}
   function estado(on){habla=on;b.setAttribute("aria-pressed",on?"true":"false");lab.textContent=on?"Detener":"Escuchar versículo"}
-  b.addEventListener("click",function(){
-    if(habla){ss.cancel();estado(false);return}
+  function detener(){
+    if(audio){try{audio.pause()}catch(e){}audio=null}
+    if(hayVoz)ss.cancel();
+    estado(false);
+  }
+  function hablar(){
+    if(!hayVoz){aviso("Tu navegador no tiene voz disponible");estado(false);return}
     var ref=$("#vRef").textContent.replace(/(\d+):(\d+)/,"$1, versículo $2");
-    var u=new SpeechSynthesisUtterance($("#vTexto").textContent+". "+ref+".");
-    u.lang=voz?voz.lang:"es-MX";if(voz)u.voice=voz;u.rate=.92;
+    var u=new SpeechSynthesisUtterance($("#vTexto").textContent.trim().replace(/[.\s]+$/,"")+". "+ref+".");
+    u.lang=voz?voz.lang:"es-MX";if(voz)u.voice=voz;u.rate=.9;u.pitch=1;
     u.onend=u.onerror=function(){estado(false)};
     ss.cancel();ss.speak(u);estado(true);
+  }
+  b.addEventListener("click",function(){
+    if(habla){detener();return}
+    var n=vIdx+1,src="audio/versiculo-"+(n<10?"0":"")+n+".mp3",fallo=false;
+    function caer(){if(fallo)return;fallo=true;audio=null;hablar()}
+    estado(true);
+    audio=new Audio(src);audio.preload="auto";
+    audio.addEventListener("error",caer);
+    audio.addEventListener("ended",function(){audio=null;estado(false)});
+    var pr=audio.play();
+    if(pr&&pr.catch)pr.catch(caer);
   });
-  addEventListener("pagehide",function(){ss.cancel()});
+  addEventListener("pagehide",detener);
 })();
 
 /* ---------- Versículo como imagen (para estados e historias) ---------- */
@@ -1169,7 +1200,7 @@ function dibujarVersiculo(logo,fam,sans){
   x.fillStyle="rgba(255,255,255,.7)";x.font="600 36px "+sans;
   x.fillText(d.getDate()+" de "+MES[d.getMonth()],W/2,556);
   /* versículo: se ajusta el tamaño para que siempre quepa */
-  var texto="“"+$("#vTexto").textContent.trim()+"”",ancho=W-2*130,alto=640,tam=96,lin;
+  var texto="“"+$("#vTexto").textContent.trim()+"”",ancho=W-2*130,alto=600,tam=96,lin;
   for(;tam>=46;tam-=4){
     x.font="500 "+tam+"px "+fam;
     var pal=texto.split(" "),a="";lin=[];
@@ -1177,23 +1208,26 @@ function dibujarVersiculo(logo,fam,sans){
     if(a)lin.push(a);
     if(lin.length*tam*1.26<=alto)break;
   }
-  var h=lin.length*tam*1.26,y0=(H*.5)-h/2+tam*.2;
+  var h=lin.length*tam*1.26,y0=(H*.46)-h/2+tam*.2;
   x.fillStyle="#ffffff";x.font="500 "+tam+"px "+fam;
   lin.forEach(function(l,i){x.fillText(l,W/2,y0+i*tam*1.26+tam)});
   /* referencia */
   x.fillStyle="#f0d58f";x.font="700 50px "+sans;
   x.fillText("— "+$("#vRef").textContent,W/2,y0+h+tam*.2+96);
-  /* pie */
-  var cy=H-410;
+  /* pie: logo recortado en círculo (sirve aunque la imagen sea cuadrada o tenga fondo negro en las esquinas) */
+  var cy=H-450;
   if(logo){
-    var lh=120,lw=logo.width*lh/logo.height;
-    x.fillStyle="#ffffff";x.beginPath();x.arc(W/2,cy,lh/2+16,0,6.283);x.fill();
-    x.strokeStyle="#d2a64a";x.lineWidth=5;x.stroke();
-    x.drawImage(logo,W/2-lw/2,cy-lh/2,lw,lh);
+    var D=200,R=D/2,iw=logo.naturalWidth||logo.width,ih=logo.naturalHeight||logo.height,m=Math.min(iw,ih);
+    x.save();x.shadowColor="rgba(210,166,74,.6)";x.shadowBlur=44;x.fillStyle="#1b0f33";
+    x.beginPath();x.arc(W/2,cy,R+4,0,6.283);x.fill();x.restore();
+    x.save();x.beginPath();x.arc(W/2,cy,R,0,6.283);x.closePath();x.clip();
+    x.drawImage(logo,(iw-m)/2,(ih-m)/2,m,m,W/2-R*1.03,cy-R*1.03,D*1.03,D*1.03);
+    x.restore();
+    x.strokeStyle="#d2a64a";x.lineWidth=6;x.beginPath();x.arc(W/2,cy,R+3,0,6.283);x.stroke();
   }
-  x.fillStyle="#ffffff";x.font="700 46px "+fam;x.fillText("Iglesia Cristiana Rey Eterno",W/2,cy+138);
-  x.fillStyle="rgba(255,255,255,.78)";x.font="600 36px "+sans;x.fillText("rey-eterno.com",W/2,cy+192);
-  x.fillStyle="#f0d58f";x.font="italic 500 34px "+fam;x.fillText("Ven como estás, aquí hay un lugar para ti",W/2,cy+250);
+  x.fillStyle="#ffffff";x.font="700 46px "+fam;x.fillText("Iglesia Cristiana Rey Eterno",W/2,cy+160);
+  x.fillStyle="rgba(255,255,255,.78)";x.font="600 36px "+sans;x.fillText("rey-eterno.com",W/2,cy+214);
+  x.fillStyle="#f0d58f";x.font="italic 500 34px "+fam;x.fillText("Ven como estás, aquí hay un lugar para ti",W/2,cy+272);
   return c;
 }
 function crearImagen(){
