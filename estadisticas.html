@@ -124,7 +124,7 @@ input{font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--li
     var q = new URLSearchParams(params).toString();
     return fetch("https://"+cfg.codigo+".goatcounter.com/api/v0"+ruta+"?"+q, {
       headers:{"Authorization":"Bearer "+cfg.token,"Accept":"application/json"}
-    }, function(){ throw new Error("red|"+ruta); }).then(function(r){
+    }).catch(function(){ throw new Error("red|"+ruta); }).then(function(r){
       if(r.status===401||r.status===403) throw new Error("token|"+r.status+"|"+ruta);
       if(!r.ok) throw new Error("http|"+r.status+"|"+ruta);
       return r.json();
@@ -212,7 +212,7 @@ input{font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--li
       $("#estado").textContent =
         p[0]==="token" ? "GoatCounter rechazó el token (error "+p[1]+"). ¿Ya verificaste tu correo y copiaste el token completo?" :
         p[0]==="http"  ? "GoatCounter respondió con error "+p[1]+" en "+p[2]+"." :
-        p[0]==="red"   ? "El navegador no pudo llegar a GoatCounter (petición "+p[1]+"). Puede ser internet, un bloqueador de anuncios o una restricción del navegador." :
+        p[0]==="red"   ? "El navegador bloqueó la conexión con la API de GoatCounter (petición "+p[1]+"). Si tu internet funciona, es una restricción de seguridad del navegador al abrir el archivo desde tu computadora, o un bloqueador de anuncios." :
         "Error: "+e.message;
     });
   }
