@@ -156,14 +156,19 @@ input{font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--li
     $("#estado").textContent = "Cargando…";
     var r = rango();
     var base = {start:r.start, end:r.end, limit:100};
+    var fallos = [], primerError = null;
+    function seguro(ruta, params){
+      return api(ruta, params).catch(function(e){ fallos.push(ruta); if(!primerError) primerError=e; return null; });
+    }
     Promise.all([
-      api("/stats/total", {start:r.start, end:r.end, daily:true}),
-      api("/stats/hits", base),
-      api("/stats/toprefs", {start:r.start, end:r.end, limit:8}),
-      api("/stats/locations", {start:r.start, end:r.end, limit:8}),
-      api("/stats/systems", {start:r.start, end:r.end, limit:6})
+      seguro("/stats/total", {start:r.start, end:r.end, daily:true}),
+      seguro("/stats/hits", base),
+      seguro("/stats/toprefs", {start:r.start, end:r.end}),
+      seguro("/stats/locations", {start:r.start, end:r.end}),
+      seguro("/stats/systems", {start:r.start, end:r.end})
     ]).then(function(res){
-      var total=res[0], hits=lista(res[1]), refs=lista(res[2]), locs=lista(res[3]), sis=lista(res[4]);
+      if(fallos.length===5) throw primerError;
+      var total=res[0]||{}, hits=lista(res[1]), refs=lista(res[2]), locs=lista(res[3]), sis=lista(res[4]);
 
       /* cifras */
       $("#nVis").textContent = total.total_utm!==undefined||total.total!==undefined ? (total.total||0) : "0";
@@ -206,7 +211,8 @@ input{font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--li
       $("#ejeA").textContent = ds.length?ds[0].d:"";
       $("#ejeB").textContent = ds.length?ds[ds.length-1].d:"";
 
-      $("#estado").textContent = "Actualizado " + new Date().toLocaleTimeString("es-MX",{hour:"2-digit",minute:"2-digit"});
+      $("#estado").textContent = "Actualizado " + new Date().toLocaleTimeString("es-MX",{hour:"2-digit",minute:"2-digit"}) +
+        (fallos.length ? " · no pude cargar: " + fallos.join(", ") : "");
     }).catch(function(e){
       var p=(e.message||"").split("|");
       $("#estado").textContent =
