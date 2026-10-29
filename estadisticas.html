@@ -124,9 +124,9 @@ input{font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--li
     var q = new URLSearchParams(params).toString();
     return fetch("https://"+cfg.codigo+".goatcounter.com/api/v0"+ruta+"?"+q, {
       headers:{"Authorization":"Bearer "+cfg.token,"Accept":"application/json"}
-    }).then(function(r){
-      if(r.status===401||r.status===403) throw new Error("token");
-      if(!r.ok) throw new Error("http"+r.status);
+    }, function(){ throw new Error("red|"+ruta); }).then(function(r){
+      if(r.status===401||r.status===403) throw new Error("token|"+r.status+"|"+ruta);
+      if(!r.ok) throw new Error("http|"+r.status+"|"+ruta);
       return r.json();
     });
   }
@@ -208,9 +208,12 @@ input{font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--li
 
       $("#estado").textContent = "Actualizado " + new Date().toLocaleTimeString("es-MX",{hour:"2-digit",minute:"2-digit"});
     }).catch(function(e){
-      $("#estado").textContent = e.message==="token"
-        ? "El token no es válido. Revisa el código y el token."
-        : "No pude conectar con GoatCounter. Revisa tu internet y tu código.";
+      var p=(e.message||"").split("|");
+      $("#estado").textContent =
+        p[0]==="token" ? "GoatCounter rechazó el token (error "+p[1]+"). ¿Ya verificaste tu correo y copiaste el token completo?" :
+        p[0]==="http"  ? "GoatCounter respondió con error "+p[1]+" en "+p[2]+"." :
+        p[0]==="red"   ? "El navegador no pudo llegar a GoatCounter (petición "+p[1]+"). Puede ser internet, un bloqueador de anuncios o una restricción del navegador." :
+        "Error: "+e.message;
     });
   }
 
