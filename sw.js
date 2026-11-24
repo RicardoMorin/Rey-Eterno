@@ -4,7 +4,7 @@
    - Imágenes y fuentes se muestran al instante desde la copia y se actualizan en segundo plano.
    - Videos, Facebook, Google Maps y formularios NO se tocan.
    Para forzar que todos descarguen todo de nuevo, cambia el número de VERSION. */
-const VERSION = 'rey-eterno-v2';
+const VERSION = 'rey-eterno-v6';
 const SHELL = VERSION + '-shell';
 const RUNTIME = VERSION + '-runtime';
 const MAX_RUNTIME = 80; // máximo de archivos guardados además de lo básico
@@ -16,11 +16,9 @@ const PRECACHE = [
   'manifest.webmanifest',
   'logo.png',
   'apple-touch-icon.png',
-  'motion.min.js',
   'reyconfig.js',
-  'familia2.jpg',
-  'familia3.jpg',
-  'familia.jpg'
+  'img/portada-960.webp',
+  'img/logo-96.webp'
 ];
 
 const FUENTES = ['fonts.googleapis.com', 'fonts.gstatic.com'];
