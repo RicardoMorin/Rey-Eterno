@@ -797,6 +797,120 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
   .pildora button:active{transform:scale(.94)}
 }
 </style>
+<style id="movil3">
+/* ===== MÓVIL 3: sueño, brillo y la invitación (solo celular) ===== */
+.invita{display:none}
+@property --ang{syntax:"<angle>";initial-value:0deg;inherits:false}
+@media (max-width:640px){
+  main>section>.wrap{position:relative;z-index:1}
+  main>section.section{overflow:clip}
+  /* Orbes de luz que flotan detrás de cada sección */
+  main>section.section::before,main>section.section::after{content:"";position:absolute;z-index:0;pointer-events:none;border-radius:50%;will-change:transform}
+  main>section.section::before{width:78vw;height:78vw;left:-30vw;top:4%;background:radial-gradient(circle,var(--o1,#d8c6f7),transparent 68%);opacity:.75}
+  main>section.section::after{width:68vw;height:68vw;right:-26vw;bottom:2%;background:radial-gradient(circle,var(--o2,#ffd9bd),transparent 68%);opacity:.7}
+  .servicios{--o1:#c9b3f5;--o2:#ffc9a3}.visita{--o1:#ffc2d4;--o2:#bfe3ff}.envivo{--o1:#b9a4ff;--o2:#ffe3a0}
+  .eventos{--o1:#ffd0a8;--o2:#d3b8ff}.galeria{--o1:#bfe9d0;--o2:#e1c8ff}.oracion{--o1:#ffb877;--o2:#ffd6e6}
+  .ubicacion{--o1:#ffe08a;--o2:#c9b3f5}.contacto.solo{--o1:#ffc2d4;--o2:#c9b3f5}
+  /* Títulos con brillo dorado */
+  .sec-cab h2,.env-texto h2,.o-texto h2{background:linear-gradient(100deg,var(--real-osc) 38%,#c98a1c 50%,var(--real-osc) 62%) 100% 0/260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+  .eyebrow{box-shadow:0 0 0 1px rgba(212,162,76,.35),0 8px 18px -10px rgba(91,58,142,.6)}
+  /* Portada flotando */
+  .p-visual{will-change:transform}
+  .arco{box-shadow:0 40px 70px -36px rgba(91,58,142,.85),0 0 0 6px rgba(255,255,255,.55)}
+  .proximo{background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.9)}
+  /* Horarios: tarjetas luminosas */
+  .fila{background:linear-gradient(120deg,#fff,rgba(255,255,255,.78));-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .fila::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.85) 50%,transparent 65%) -160% 0/60% 100% no-repeat}
+  .fila .dia{background:linear-gradient(90deg,var(--real-osc) 35%,var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .fila.next::after{content:"";position:absolute;inset:-2px;border-radius:inherit;border:2px solid var(--oro);pointer-events:none}
+  .js .fila[data-rv]{transform:translate3d(-38px,22px,0) rotate(-2.5deg) scale(.95)}
+  .js .fila[data-rv]:nth-child(even){transform:translate3d(38px,22px,0) rotate(2.5deg) scale(.95)}
+  .js .fila[data-rv].in{transform:none}
+  /* Primera visita: cartas con borde que gira */
+  .tarjetas li{border:2px solid transparent;background:linear-gradient(#fff,#fff) padding-box,conic-gradient(from var(--ang),#f8d6de,#d6c3f5,#fbeab5,#d6ebdb,#f8d6de) border-box}
+  .tarjetas .burbuja{box-shadow:0 12px 22px -10px rgba(91,58,142,.55)}
+  /* Mensajes */
+  .alabanza .play::before,.alabanza .play::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #fff;pointer-events:none}
+  .reel::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 1.5px rgba(240,213,143,.55)}
+  /* Galería escalonada */
+  .fotos{padding-bottom:18px}
+  .fotos .gft:nth-child(odd){border-radius:28px 10px 28px 10px}
+  .fotos .gft:nth-child(even){border-radius:10px 28px 10px 28px;translate:0 18px}
+  /* Oración: respira */
+  .oracion form{isolation:isolate}
+  .oracion form::before{content:"";position:absolute;inset:-16px;z-index:-1;border-radius:40px;background:radial-gradient(circle,rgba(255,184,119,.75),transparent 70%);pointer-events:none}
+  /* Contacto */
+  .datos .burbuja{box-shadow:0 0 0 0 rgba(91,58,142,.0)}
+  .redes a{background:rgba(255,255,255,.7)}.redes a:active{transform:scale(.86) rotate(-8deg)}
+  /* Botón Visítanos del encabezado llama la atención */
+  .top .btn-visita{position:relative}
+  .top .btn-visita::after{content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid var(--real-2);pointer-events:none}
+  /* ===== La invitación ===== */
+  .invita{display:block;position:relative;margin:0 0 1.5rem;padding-top:1.7rem;text-align:center;perspective:900px}
+  .inv-carta{position:relative;padding:2.8rem 1.3rem 1.4rem;border-radius:30px;color:#fff;overflow:hidden;isolation:isolate;background:radial-gradient(120% 90% at 50% 0%,#7655ab,#2d1b4e 72%);box-shadow:0 34px 54px -30px rgba(45,27,78,.95),inset 0 0 0 1.5px rgba(240,213,143,.75)}
+  .inv-carta::before{content:"";position:absolute;inset:-70%;z-index:-1;pointer-events:none;background:repeating-conic-gradient(rgba(240,213,143,.17) 0 8deg,transparent 8deg 18deg);-webkit-mask:radial-gradient(circle,#000 8%,transparent 55%);mask:radial-gradient(circle,#000 8%,transparent 55%)}
+  .inv-sello{position:absolute;left:50%;top:0;translate:-50% 0;z-index:3;width:3.4rem;height:3.4rem;border-radius:50%;display:grid;place-items:center;font-size:1.5rem;color:#5a3a06;background:radial-gradient(circle at 35% 30%,#fff3c2,#e9b94f 55%,#b8821f);box-shadow:0 10px 20px -8px rgba(143,98,16,.9),0 0 0 5px #fbf6ee}
+  .inv-sello::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #e9b94f;pointer-events:none;opacity:0}
+  .inv-mini{font:700 .72rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--oro-claro);margin-bottom:.7rem}
+  .inv-carta h3{font:600 2.4rem/1 var(--serif);margin-bottom:.7rem;background:linear-gradient(100deg,#fff 38%,#f0d58f 50%,#fff 62%) 100% 0/260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+  .inv-txt{color:rgba(255,255,255,.88);font-size:1.02rem;margin-bottom:1rem}
+  .inv-cuando{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1rem;border-radius:999px;margin-bottom:1.1rem;background:rgba(255,255,255,.12);border:1px solid rgba(240,213,143,.55);color:var(--oro-claro);font-weight:600;font-size:.92rem}
+  .inv-cuando .ic{width:1.1em;height:1.1em}
+  .inv-carta .btn{display:flex;width:100%}
+  .chp{position:fixed;z-index:95;pointer-events:none;font:700 1.25rem/1 var(--serif);color:#d4a24c;text-shadow:0 0 8px rgba(255,216,106,.9)}
+}
+@media (max-width:640px) and (prefers-reduced-motion:no-preference){
+  main>section:not(.viva),main>section:not(.viva) *,main>section:not(.viva)::before,main>section:not(.viva)::after,main>section:not(.viva) *::before,main>section:not(.viva) *::after{animation-play-state:paused!important}
+  main>section.section::before{animation:m3-oa 15s ease-in-out infinite alternate}
+  main>section.section::after{animation:m3-ob 18s ease-in-out infinite alternate}
+  .sec-cab h2,.env-texto h2,.o-texto h2,.inv-carta h3{animation:m3-br 5.5s ease-in-out infinite}
+  .p-visual{animation:m3-fl 6s ease-in-out infinite alternate}
+  .arco-halo{animation:m3-re 4s ease-in-out infinite}
+  .fila::before{animation:m3-bar 5s ease-in-out infinite}
+  .fila:nth-child(2)::before{animation-delay:1.2s}.fila:nth-child(3)::before{animation-delay:2.4s}
+  .fila.next::after{animation:m3-on 2.2s ease-out infinite}
+  .tarjetas li{animation:m3-ang 7s linear infinite}
+  .tarjetas .burbuja{animation:m3-fl 3.6s ease-in-out infinite alternate}
+  .tarjetas li:nth-child(2) .burbuja{animation-delay:-1.2s}.tarjetas li:nth-child(3) .burbuja{animation-delay:-2.4s}
+  .alabanza .play::before{animation:m3-onp 2.6s ease-out infinite}
+  .alabanza .play::after{animation:m3-onp 2.6s ease-out 1.3s infinite}
+  .reel{animation:m3-fl 5s ease-in-out infinite alternate}
+  .reel:nth-child(2){animation-delay:-1.7s}.reel:nth-child(3){animation-delay:-3.2s}
+  .vista #listaEventos li{animation:m3-su .8s var(--ease) both}
+  .vista #listaEventos li:nth-child(2){animation-delay:.12s}.vista #listaEventos li:nth-child(3){animation-delay:.24s}.vista #listaEventos li:nth-child(n+4){animation-delay:.36s}
+  #listaEventos .fecha{animation:m3-fl 4s ease-in-out infinite alternate}
+  .fotos .gft.in{animation:m3-fl 6s ease-in-out infinite alternate}
+  .fotos .gft:nth-child(3n+2).in{animation-delay:-2s}.fotos .gft:nth-child(3n).in{animation-delay:-4s}
+  .oracion form::before{animation:m3-re 3.8s ease-in-out infinite}
+  .vista .redes a{animation:m3-pop .6s cubic-bezier(.3,1.6,.5,1) both}
+  .vista .redes a:nth-child(2){animation-delay:.07s}.vista .redes a:nth-child(3){animation-delay:.14s}.vista .redes a:nth-child(4){animation-delay:.21s}.vista .redes a:nth-child(5){animation-delay:.28s}
+  .datos .burbuja{animation:m3-pu 2.8s ease-out infinite}
+  .top .btn-visita::after{animation:m3-onp 2.6s ease-out infinite}
+  /* Invitación: la carta se abre */
+  .js .invita:not(.abre) .inv-carta{opacity:0;transform:translateY(54px) scale(.86) rotateX(28deg)}
+  .js .invita .inv-carta{transition:opacity .8s var(--ease) .25s,transform 1.2s cubic-bezier(.2,.9,.25,1.12) .25s}
+  .js .invita:not(.abre) .inv-sello{scale:0;rotate:-200deg}
+  .js .invita .inv-sello{transition:scale .8s cubic-bezier(.3,1.7,.5,1) .7s,rotate .9s ease .7s}
+  .invita.abre .inv-sello::after{animation:m3-onp 2.2s ease-out 1.5s infinite}
+  .invita.abre .inv-carta{animation:m3-glow 3.2s ease-in-out 1.6s infinite}
+  .inv-carta::before{animation:rayos 50s linear infinite}
+  @keyframes m3-oa{to{transform:translate3d(22vw,12vw,0) scale(1.25)}}
+  @keyframes m3-ob{to{transform:translate3d(-20vw,-14vw,0) scale(1.2)}}
+  @keyframes m3-br{0%,55%{background-position:100% 0}100%{background-position:0 0}}
+  @keyframes m3-fl{to{transform:translate3d(0,-7px,0)}}
+  @keyframes m3-re{0%,100%{opacity:.45;transform:scale(.97)}50%{opacity:1;transform:scale(1.03)}}
+  @keyframes m3-bar{to{background-position:260% 0}}
+  @keyframes m3-on{from{opacity:.9;transform:scale(1)}to{opacity:0;transform:scale(1.05,1.22)}}
+  @keyframes m3-onp{from{opacity:.9;transform:scale(1)}to{opacity:0;transform:scale(1.8)}}
+  @keyframes m3-ang{to{--ang:360deg}}
+  @keyframes m3-su{from{opacity:0;transform:translate3d(0,26px,0)}to{opacity:1;transform:none}}
+  @keyframes m3-pop{from{opacity:0;transform:scale(.3) rotate(-30deg)}to{opacity:1;transform:none}}
+  @keyframes m3-pu{0%{box-shadow:0 0 0 0 rgba(91,58,142,.35)}100%{box-shadow:0 0 0 14px rgba(91,58,142,0)}}
+  @keyframes m3-glow{0%,100%{box-shadow:0 34px 54px -30px rgba(45,27,78,.95),inset 0 0 0 1.5px rgba(240,213,143,.75),0 0 0 rgba(240,213,143,0)}50%{box-shadow:0 34px 54px -30px rgba(45,27,78,.95),inset 0 0 0 1.5px rgba(240,213,143,1),0 0 34px rgba(240,213,143,.55)}}
+  @keyframes m3-ch{from{opacity:1;transform:translate(0,0) scale(.5)}to{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--rr)) scale(1.4)}}
+  .chp{animation:m3-ch 1.3s ease-out forwards}
+}
+</style>
 </head>
 <body>
 
@@ -1050,6 +1164,17 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
   <!-- UBICACIÓN (antes "Visítanos") -->
   <section class="section contacto ubicacion" id="ubicacion" aria-labelledby="ubiTit">
     <div class="wrap">
+        <aside class="invita" id="invita" aria-label="Invitación a visitarnos">
+          <span class="inv-sello" aria-hidden="true">✦</span>
+          <div class="inv-carta">
+            <p class="inv-mini">Una invitación especial</p>
+            <h3>Estás invitado</h3>
+            <p class="inv-txt">Hay un lugar guardado para ti y para tu familia. Ven como estás, aquí nadie es un extraño.</p>
+            <p class="inv-cuando"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg><span id="invCuando">Próximo servicio: Domingo, 12:00 PM</span></p>
+            <a class="btn btn-oro" href="https://wa.me/528136864731?text=Hola%2C%20%C2%A1quiero%20visitarlos%20en%20el%20pr%C3%B3ximo%20servicio!" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>Avísanos que vienes</a>
+          </div>
+        </aside>
+
       <div class="c-datos" data-rv>
         <p class="eyebrow">Ubicación</p>
         <h2 id="ubiTit">Te esperamos</h2>
@@ -2141,6 +2266,43 @@ $("#anio").textContent=new Date().getFullYear();
     [[8,34,0],[30,26,-9],[52,38,-17],[70,30,-4],[86,42,-22]].forEach(function(a){var e=document.createElement("div");e.className="rb";e.style.top=a[0]+"%";e.style.setProperty("--t",a[1]+"s");e.style.setProperty("--d",a[2]+"s");e.innerHTML=S;rb.appendChild(e)});
     ga.insertBefore(rb,ga.firstChild);
     addEventListener("scroll",function(){var r=ga.getBoundingClientRect(),q=1-(r.top+r.height*.3)/(innerHeight+r.height*.3);rb.style.setProperty("--p",Math.max(0,Math.min(1,q)).toFixed(2))},{passive:true})}
+})();
+</script>
+<script id="movil3-js">
+(function(){
+  if(!("IntersectionObserver" in window))return;
+  var mq=matchMedia("(max-width:640px)"),red=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  function $(s){return document.querySelector(s)}
+  /* Las animaciones solo corren en la sección que se está viendo */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    e.target.classList.toggle("viva",e.isIntersecting);
+    if(e.isIntersecting)e.target.classList.add("vista")
+  })},{rootMargin:"0px 0px -12% 0px"});
+  document.querySelectorAll("main>section").forEach(function(s){io.observe(s)});
+  /* Chispas al tocar (como los farolitos, pero chiquitas) */
+  function chispas(x,y,g,n){
+    if(red||!mq.matches)return;
+    for(var i=0;i<n;i++){var s=document.createElement("span"),a=Math.random()*6.283,d=45+Math.random()*75;
+      s.className="chp";s.textContent=g[i%g.length];s.style.left=x+"px";s.style.top=y+"px";
+      s.style.setProperty("--dx",Math.cos(a)*d+"px");s.style.setProperty("--dy",(Math.sin(a)*d-34)+"px");
+      s.style.setProperty("--rr",(Math.random()*160-80)+"deg");s.style.fontSize=(.9+Math.random()*.9)+"rem";
+      document.body.appendChild(s);(function(el){setTimeout(function(){el.remove()},1400)})(s)}
+    try{navigator.vibrate&&navigator.vibrate(16)}catch(e){}
+  }
+  var MAP=[[".fila",["✦","✧","✦"]],[".tarjetas li",["♥","✦","♥"]],[".alabanza,.reel",["♪","♫","✦"]],[".gft",["✦","✧"]],[".inv-carta,.inv-sello",["✦","♥","✧"]],[".redes a",["✦","♥"]]];
+  document.addEventListener("click",function(e){
+    for(var i=0;i<MAP.length;i++){var t=e.target.closest&&e.target.closest(MAP[i][0]);if(t){chispas(e.clientX,e.clientY,MAP[i][1],9);break}}
+  },true);
+  /* Invitación: se abre sola al llegar y suelta farolitos una vez */
+  var inv=$("#invita");
+  function texto(){var n=$("#pxNombre"),c=$("#pxCuando"),o=$("#invCuando");if(n&&c&&o)o.textContent=n.textContent+" · "+c.textContent}
+  if(inv){new IntersectionObserver(function(es,ob){
+    if(!es[0].isIntersecting)return;ob.disconnect();texto();
+    setTimeout(function(){inv.classList.add("abre");
+      if(mq.matches&&!red){var r=inv.getBoundingClientRect();chispas(r.left+r.width/2,r.top+40,["✦","✧","♥"],14);dispatchEvent(new Event("farol"))}
+    },300)
+  },{threshold:.35}).observe(inv);
+  if(red)inv.classList.add("abre")}
 })();
 </script>
 </body>
