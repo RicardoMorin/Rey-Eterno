@@ -58,6 +58,24 @@ input:focus-visible{outline:3px solid var(--oro);outline-offset:2px}
 .cuenta{color:rgba(255,255,255,.7);font-size:.95rem}
 h2{font-size:1.5rem;margin-bottom:.3rem}
 .sub{color:rgba(255,255,255,.7);margin:0 0 .4rem;font-size:.95rem}
+/* eventos */
+textarea,input[type=text],input[type=date]{width:100%;padding:.85rem 1rem;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.25);color:#fff;font:1rem var(--sans);color-scheme:dark}
+textarea{resize:vertical}
+input[type=file]{width:100%;color:rgba(255,255,255,.8);font:.95rem var(--sans)}
+textarea:focus-visible,input[type=text]:focus-visible,input[type=date]:focus-visible{outline:3px solid var(--oro);outline-offset:2px}
+.fila2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media (max-width:520px){.fila2{grid-template-columns:1fr}}
+.evprev{margin-top:.8rem;display:grid;gap:.6rem;justify-items:start}
+.evprev img{width:100%;max-width:420px;aspect-ratio:16/9;object-fit:cover;border-radius:12px;display:block}
+.evlista{display:grid;gap:.8rem;margin-top:1rem}
+.ev{display:grid;grid-template-columns:120px 1fr auto;gap:.9rem;align-items:center;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:.6rem}
+.ev img,.ev .sinimg{width:120px;aspect-ratio:16/9;object-fit:cover;border-radius:10px;background:#2a1650;display:grid;place-items:center;font-size:.7rem;color:rgba(255,255,255,.5)}
+.ev b{display:block;font-family:var(--serif);font-size:1.05rem;line-height:1.2}
+.ev small{color:rgba(255,255,255,.7);display:block;margin-top:.2rem}
+.ev .pas{color:var(--mal);font-weight:600}
+.ev .borra{width:34px;height:34px;border-radius:50%;border:0;background:rgba(27,15,51,.85);color:#fff;font-size:1.2rem;cursor:pointer}
+.ev .borra:hover{background:var(--mal)}
+@media (max-width:520px){.ev{grid-template-columns:90px 1fr auto}.ev img,.ev .sinimg{width:90px}}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -84,8 +102,9 @@ h2{font-size:1.5rem;margin-bottom:.3rem}
   <!-- Panel -->
   <div id="panel" hidden>
     <header>
-      <div class="marca"><img src="logo.png" alt="" width="44" height="44">Panel de fotos</div>
+      <div class="marca"><img src="logo.png" alt="" width="44" height="44">Panel privado</div>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+        <a class="btn borde" href="index.html#eventos" target="_blank" rel="noopener">Ver eventos</a>
         <a class="btn borde" href="index.html#galeria" target="_blank" rel="noopener">Ver galería</a>
         <button class="btn borde" id="salir" type="button">Salir</button>
       </div>
@@ -113,6 +132,32 @@ h2{font-size:1.5rem;margin-bottom:.3rem}
       <h2>Fotos subidas por ti</h2>
       <p class="sub" id="totalSubidas">Cargando…</p>
       <div class="subidas" id="subidas"></div>
+    </section>
+
+    <section class="card" id="seccEventos">
+      <h2>Eventos</h2>
+      <p class="sub">Lo que publiques aparece en “Próximos eventos” del inicio. Cuando pasa la fecha se oculta solo de la página.</p>
+      <form id="formEv" autocomplete="off">
+        <label for="evTit">Título</label>
+        <input id="evTit" type="text" maxlength="80" required placeholder="Ej. Noche de alabanza">
+        <div class="fila2">
+          <div><label for="evFecha">Fecha</label><input id="evFecha" type="date" required></div>
+          <div><label for="evHora">Hora (opcional)</label><input id="evHora" type="text" maxlength="20" placeholder="7:00 PM"></div>
+        </div>
+        <label for="evDesc">Descripción</label>
+        <textarea id="evDesc" rows="4" maxlength="500" placeholder="Cuenta de qué trata el evento"></textarea>
+        <label for="evImg">Imagen o banner (opcional)</label>
+        <input id="evImg" type="file" accept="image/jpeg,image/png,image/webp">
+        <div class="evprev" id="evPrev" hidden><img alt="" id="evPrevImg"><button class="btn borde" id="evQuitaImg" type="button">Quitar imagen</button></div>
+        <div class="acciones"><button class="btn oro" id="evPublicar" type="submit">Publicar evento</button></div>
+        <div class="msg" id="msgEv" role="status"></div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Eventos publicados</h2>
+      <p class="sub" id="totalEv">Cargando…</p>
+      <div class="evlista" id="evLista"></div>
     </section>
   </div>
 </div>
@@ -149,7 +194,7 @@ function vista(){
   var dentro=!!sesion;
   $("#login").hidden=dentro;$("#panel").hidden=!dentro;
   $("#sinConfig").hidden=OK;
-  if(dentro)listar();
+  if(dentro){listar();listarEv()}
 }
 
 $("#formLogin").addEventListener("submit",function(e){
@@ -198,9 +243,9 @@ zona.addEventListener("drop",function(e){agregar(e.dataTransfer.files)});
 $("#limpiar").addEventListener("click",function(){cola.forEach(function(i){URL.revokeObjectURL(i.prev);i.el.remove()});cola=[];actualizarCola()});
 
 /* ---------- Reducir foto antes de subir ---------- */
-function reducir(file){
+function reducir(file,max){
   return createImageBitmap(file,{imageOrientation:"from-image"}).then(function(bm){
-    var k=Math.min(1,MAXLADO/Math.max(bm.width,bm.height)),w=Math.round(bm.width*k),h=Math.round(bm.height*k);
+    var k=Math.min(1,(max||MAXLADO)/Math.max(bm.width,bm.height)),w=Math.round(bm.width*k),h=Math.round(bm.height*k);
     var c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(bm,0,0,w,h);
     if(bm.close)bm.close();
     return new Promise(function(res,rej){
@@ -269,6 +314,65 @@ function listar(){
         api("/storage/v1/object/"+BUCKET+"/"+f.ruta,{method:"DELETE"}).then(function(){
           return api("/rest/v1/fotos?id=eq."+f.id,{method:"DELETE"});
         }).then(function(){listar()}).catch(function(){d.style.opacity="1";alert("No se pudo borrar. Intenta de nuevo.")});
+      });
+      box.appendChild(d);
+    });
+  }).catch(function(e){t.textContent=e.message});
+}
+
+/* ---------- Eventos ---------- */
+var evImg=null;
+function hoyStr(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function fechaBonita(f){var M=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],p=f.split("-");return +p[2]+" "+M[+p[1]-1]+" "+p[0]}
+function evLimpiarImg(){evImg=null;$("#evImg").value="";$("#evPrev").hidden=true}
+$("#evImg").addEventListener("change",function(e){
+  var f=e.target.files[0];if(!f)return;
+  if(!/^image\/(jpeg|png|webp)$/.test(f.type)){evLimpiarImg();return}
+  evImg=f;$("#evPrevImg").src=URL.createObjectURL(f);$("#evPrev").hidden=false;
+});
+$("#evQuitaImg").addEventListener("click",evLimpiarImg);
+$("#formEv").addEventListener("submit",function(e){
+  e.preventDefault();
+  var m=$("#msgEv"),b=$("#evPublicar"),tit=$("#evTit").value.trim(),fecha=$("#evFecha").value;
+  if(!tit||!fecha){m.className="msg mal";m.textContent="Pon el título y la fecha";return}
+  b.disabled=true;m.className="msg";m.textContent="Publicando…";
+  var ruta=null;
+  var paso=evImg?reducir(evImg,1600).then(function(r){
+    ruta="eventos/"+nombre(r.ext);
+    return api("/storage/v1/object/"+BUCKET+"/"+ruta,{method:"POST",headers:{"Content-Type":r.blob.type,"x-upsert":"false"},body:r.blob});
+  }).then(function(r){if(!r.ok)throw new Error("No se pudo subir la imagen ("+r.status+")")}):Promise.resolve();
+  paso.then(function(){
+    return api("/rest/v1/eventos",{method:"POST",headers:{"Content-Type":"application/json",Prefer:"return=minimal"},
+      body:JSON.stringify({titulo:tit,descripcion:$("#evDesc").value.trim(),fecha:fecha,hora:$("#evHora").value.trim(),imagen:ruta})});
+  }).then(function(r){
+    if(!r.ok)return r.text().then(function(t){throw new Error(r.status===404?"Falta crear la tabla “eventos” (corre eventos.sql en Supabase)":"No se pudo guardar ("+r.status+")")});
+    m.className="msg ok";m.textContent="Evento publicado: ya aparece en el inicio";
+    $("#formEv").reset();evLimpiarImg();listarEv();
+  }).catch(function(err){m.className="msg mal";m.textContent=err.message||"Falló"}).then(function(){b.disabled=false});
+});
+function listarEv(){
+  var box=$("#evLista"),t=$("#totalEv");
+  api("/rest/v1/eventos?select=id,titulo,descripcion,fecha,hora,imagen&order=fecha.desc&limit=200").then(function(r){
+    if(r.status===404)throw new Error("Falta crear la tabla “eventos” (corre eventos.sql en Supabase)");
+    if(!r.ok)throw new Error("No se pudo cargar la lista");return r.json();
+  }).then(function(rows){
+    box.innerHTML="";var hoy=hoyStr();
+    t.textContent=rows.length?rows.length+(rows.length===1?" evento":" eventos"):"Todavía no has publicado eventos.";
+    rows.forEach(function(ev){
+      var d=document.createElement("div");d.className="ev";
+      d.innerHTML='<div class="im"></div><div><b></b><small class="f"></small></div><button class="borra" type="button" aria-label="Borrar evento" title="Borrar">&times;</button>';
+      var im=d.querySelector(".im");
+      if(ev.imagen){var i=document.createElement("img");i.alt="";i.loading="lazy";i.src=publica(ev.imagen);im.replaceWith(i)}
+      else{im.className="sinimg";im.textContent="Sin imagen"}
+      d.querySelector("b").textContent=ev.titulo;
+      var f=d.querySelector(".f");f.textContent=fechaBonita(ev.fecha)+(ev.hora?" · "+ev.hora:"");
+      if(ev.fecha<hoy){var s=document.createElement("span");s.className="pas";s.textContent=" · ya pasó (oculto en la página)";f.appendChild(s)}
+      d.querySelector(".borra").addEventListener("click",function(){
+        if(!confirm("¿Borrar este evento? No se puede deshacer."))return;
+        d.style.opacity=".4";
+        var q=ev.imagen?api("/storage/v1/object/"+BUCKET+"/"+ev.imagen,{method:"DELETE"}):Promise.resolve();
+        q.then(function(){return api("/rest/v1/eventos?id=eq."+ev.id,{method:"DELETE"})}).then(function(){listarEv()})
+         .catch(function(){d.style.opacity="1";alert("No se pudo borrar. Intenta de nuevo.")});
       });
       box.appendChild(d);
     });
