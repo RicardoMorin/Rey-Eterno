@@ -1863,8 +1863,8 @@ function precargar(f){
   });
 }
 function textoMas(){
-  if(mostradas>=FOTOS.length){masBtn.hidden=true;masTxt.textContent="Ya viste las "+(FOTOS.length-ROTAS.size)+" fotos de la galería"}
-  else{masBtn.hidden=false;var q=Math.min(LOTE,FOTOS.length-mostradas);masBtn.textContent="Ver "+q+" fotos más";masTxt.textContent="Mostrando "+mostradas+" de "+FOTOS.length}
+  if(mostradas>=FOTOS.length){masBtn.hidden=true;masTxt.textContent="Ya viste las "+mostradas+" fotos de la galería"}
+  else{masBtn.hidden=false;masBtn.textContent="Ver más fotos";masTxt.textContent="Mostrando "+mostradas+" fotos"}
 }
 function pintar(){
   if(cargando||mostradas>=FOTOS.length)return;
@@ -1872,12 +1872,15 @@ function pintar(){
   var ini=mostradas,fin=Math.min(ini+LOTE,FOTOS.length),hechas=0;
   masBtn.disabled=true;masTxt.textContent="Cargando fotos "+(ini+1)+" a "+fin+"…";
   barraWrap.classList.add("on");barra.style.transform="scaleX(.05)";
-  Promise.all(FOTOS.slice(ini,fin).map(function(f){
+  var lote=FOTOS.slice(ini,fin);
+  Promise.all(lote.map(function(f){
     return precargar(f).then(function(r){hechas++;barra.style.transform="scaleX("+(hechas/(fin-ini))+")";return r});
   })).then(function(res){
-    var frag=document.createDocumentFragment(),tiles=[];
-    res.forEach(function(im,k){
-      if(!im)return;
+    var frag=document.createDocumentFragment(),tiles=[],buenas=[],ims=[];
+    /* las fotos que no cargan se quitan de la lista: así los números y el visor siempre cuadran */
+    res.forEach(function(im,k){if(im){buenas.push(lote[k]);ims.push(im)}});
+    FOTOS.splice.apply(FOTOS,[ini,fin-ini].concat(buenas));
+    ims.forEach(function(im,k){
       var i=ini+k,b=document.createElement("button");
       b.type="button";b.className="gft";b.setAttribute("aria-label","Ver foto "+(i+1)+" de "+FOTOS.length);
       var g=document.createElement("img");g.alt="Foto del campamento "+(i+1);g.decoding="async";g.src=im.src;
@@ -1886,8 +1889,9 @@ function pintar(){
       frag.appendChild(b);tiles.push(b);
     });
     muro.appendChild(frag);
-    mostradas=fin;cargando=false;masBtn.disabled=false;textoMas();
-    setTimeout(function(){barraWrap.classList.remove("on");barra.style.transform="scaleX(0)"},400);
+    mostradas=ini+buenas.length;cargando=false;masBtn.disabled=false;
+    if(buenas.length<lote.length&&mostradas<FOTOS.length){pintar()}else textoMas();
+    setTimeout(function(){if(cargando)return;barraWrap.classList.remove("on");barra.style.transform="scaleX(0)"},400);
     requestAnimationFrame(function(){requestAnimationFrame(function(){
       tiles.forEach(function(t,k){setTimeout(function(){t.classList.add("in")},k*80)});
     })});
