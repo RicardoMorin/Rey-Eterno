@@ -322,6 +322,15 @@ function listar(){
 
 /* ---------- Eventos ---------- */
 var evImg=null;
+function errEv(est,txt,acc){
+  var j={};try{j=JSON.parse(txt)||{}}catch(_){}
+  var cod=j.code||"",msg=j.message||txt||"";
+  if(cod==="PGRST205"||cod==="42P01"||/schema cache|does not exist/i.test(msg))
+    return "La tabla “eventos” no existe todavía en Supabase (o no se ha actualizado). Abre SQL Editor, pega todo eventos.sql y pulsa Run; espera unos segundos y recarga esta página.";
+  if(est===401||est===403||cod==="42501"||/row-level security|permission denied/i.test(msg))
+    return "Supabase no te deja "+acc+" eventos (permisos). Vuelve a correr eventos.sql completo y entra otra vez al panel. Detalle: "+msg;
+  return "No se pudo "+acc+" ("+est+")"+(msg?": "+msg:"");
+}
 function hoyStr(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
 function fechaBonita(f){var M=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],p=f.split("-");return +p[2]+" "+M[+p[1]-1]+" "+p[0]}
 function evLimpiarImg(){evImg=null;$("#evImg").value="";$("#evPrev").hidden=true}
@@ -345,7 +354,7 @@ $("#formEv").addEventListener("submit",function(e){
     return api("/rest/v1/eventos",{method:"POST",headers:{"Content-Type":"application/json",Prefer:"return=minimal"},
       body:JSON.stringify({titulo:tit,descripcion:$("#evDesc").value.trim(),fecha:fecha,hora:$("#evHora").value.trim(),imagen:ruta})});
   }).then(function(r){
-    if(!r.ok)return r.text().then(function(t){throw new Error(r.status===404?"Falta crear la tabla “eventos” (corre eventos.sql en Supabase)":"No se pudo guardar ("+r.status+")")});
+    if(!r.ok)return r.text().then(function(t){throw new Error(errEv(r.status,t,"guardar"))});
     m.className="msg ok";m.textContent="Evento publicado: ya aparece en el inicio";
     $("#formEv").reset();evLimpiarImg();listarEv();
   }).catch(function(err){m.className="msg mal";m.textContent=err.message||"Falló"}).then(function(){b.disabled=false});
@@ -353,8 +362,8 @@ $("#formEv").addEventListener("submit",function(e){
 function listarEv(){
   var box=$("#evLista"),t=$("#totalEv");
   api("/rest/v1/eventos?select=id,titulo,descripcion,fecha,hora,imagen&order=fecha.desc&limit=200").then(function(r){
-    if(r.status===404)throw new Error("Falta crear la tabla “eventos” (corre eventos.sql en Supabase)");
-    if(!r.ok)throw new Error("No se pudo cargar la lista");return r.json();
+    if(!r.ok)return r.text().then(function(t){throw new Error(errEv(r.status,t,"cargar"))});
+    return r.json();
   }).then(function(rows){
     box.innerHTML="";var hoy=hoyStr();
     t.textContent=rows.length?rows.length+(rows.length===1?" evento":" eventos"):"Todavía no has publicado eventos.";

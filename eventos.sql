@@ -26,3 +26,11 @@ create policy "eventos admin edita" on public.eventos
 drop policy if exists "eventos admin borra" on public.eventos;
 create policy "eventos admin borra" on public.eventos
   for delete to authenticated using (true);
+
+-- Permisos de la API (por si el proyecto no los da por defecto)
+grant usage on schema public to anon, authenticated;
+grant select on public.eventos to anon, authenticated;
+grant insert, update, delete on public.eventos to authenticated;
+
+-- Refresca la API para que reconozca la tabla nueva sin esperar
+notify pgrst, 'reload schema';
