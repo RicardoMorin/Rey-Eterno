@@ -957,6 +957,16 @@ dialog.guia::backdrop{background:rgba(14,7,30,.82);-webkit-backdrop-filter:blur(
 .redes a[aria-label="WhatsApp"]{background:#25D366;box-shadow:-2px 2px 0 #0B8F42,2px -2px 0 #A8F0C4}
 .redes a[aria-label="Correo"]{background:#EA4335;box-shadow:-2px 2px 0 #B3261E,2px -2px 0 #FBBC05}
 @media (hover:hover){.redes a[aria-label]:hover{transform:translateY(-3px);color:#fff}}
+/* Botones y enlaces con el color de cada app */
+a.btn[href*="wa.me"],a.btn[href*="wa.me"]:hover{background:#25D366;border-color:transparent;color:#fff;box-shadow:-2px 2px 0 #0B8F42,2px -2px 0 #A8F0C4}
+a.btn[href*="facebook.com"],a.btn[href*="facebook.com"]:hover{background:#1877F2;border-color:transparent;color:#fff;box-shadow:-2px 2px 0 #0A4FB4,2px -2px 0 #7DB4FF}
+a.btn#comoLlegar,a.btn#comoLlegar:hover{background:#1A73E8;border-color:transparent;color:#fff;box-shadow:-2px 2px 0 #EA4335,2px -2px 0 #FBBC05}
+a.btn[href*="wa.me"],a.btn[href*="facebook.com"],a.btn#comoLlegar{transition:transform .2s}
+@media (hover:hover){a.btn[href*="wa.me"]:hover,a.btn[href*="facebook.com"]:hover,a.btn#comoLlegar:hover{transform:translateY(-2px)}}
+.nota-pie a[href*="wa.me"]{color:#128C4A;font-weight:700}
+.otras a.rt-waze{color:#0A9AD1;font-weight:700}
+.otras a.rt-google{color:#1A73E8;font-weight:700}
+.otras a.rt-apple{color:#1d1d1f;font-weight:700}
 </style>
 </head>
 <body>
@@ -1728,7 +1738,7 @@ window.addEventListener("load",function(){setTimeout(function(){crearImagen().th
   otras.appendChild(document.createTextNode("También en"));
   resto.forEach(function(k,i){
     if(i>0)otras.appendChild(document.createTextNode(" ·"));
-    var l=document.createElement("a");l.href=R[k].u;l.target="_blank";l.rel="noopener";l.textContent=R[k].n;otras.appendChild(l);
+    var l=document.createElement("a");l.className="rt-"+k;l.href=R[k].u;l.target="_blank";l.rel="noopener";l.textContent=R[k].n;otras.appendChild(l);
   });
 })();
 
