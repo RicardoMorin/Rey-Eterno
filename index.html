@@ -994,7 +994,7 @@ a.btn[href*="wa.me"],a.btn[href*="facebook.com"],a.btn#comoLlegar{transition:tra
 .sobre-carta{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;padding:1rem;background:rgba(20,10,40,.78);opacity:0;visibility:hidden;transition:opacity .25s,visibility 0s .25s}
 .sobre-carta.abierta{opacity:1;visibility:visible;transition:opacity .25s}
 .sobre-in{position:relative;width:min(100%,25rem);padding-top:1.7rem}
-.sobre-in .inv2{position:relative;color:#fff;text-align:center;background:radial-gradient(120% 90% at 50% 0%,#7655ab,#2d1b4e 72%);margin:0;max-height:calc(100dvh - 4.5rem);overflow-y:auto;padding:2.8rem 1.3rem 1.3rem;isolation:isolate;border-radius:30px;box-shadow:0 34px 54px -30px rgba(45,27,78,.95),inset 0 0 0 1.5px rgba(240,213,143,.75);opacity:0;transform:translateY(40px) scale(.9);will-change:transform,opacity;transition:opacity .3s,transform .5s cubic-bezier(.2,.9,.25,1.1)}
+.sobre-in .inv2{position:relative;color:#fff;text-align:center;background:radial-gradient(120% 90% at 50% 0%,#7655ab,#2d1b4e 72%);margin:0;max-height:calc(100dvh - 4.5rem);overflow-y:auto;padding:2.8rem 1.3rem 1.3rem;isolation:isolate;border-radius:30px;box-shadow:0 34px 54px -30px rgba(45,27,78,.95),inset 0 0 0 1.5px rgba(240,213,143,.75);opacity:0;transform:translateY(40px) scale(.9);will-change:transform,opacity;transition:opacity .2s,transform .38s cubic-bezier(.2,.9,.25,1.1)}
 .inv2::before{content:"";position:absolute;inset:-45%;will-change:transform;z-index:-1;pointer-events:none;background:repeating-conic-gradient(rgba(240,213,143,.17) 0 8deg,transparent 8deg 18deg);-webkit-mask:radial-gradient(circle at 50% 50%,#000 0,transparent 42%);mask:radial-gradient(circle at 50% 50%,#000 0,transparent 42%);animation:sobre-rayos 60s linear infinite}
 @keyframes sobre-rayos{to{transform:rotate(360deg)}}
 @keyframes sobre-brillo{0%,100%{box-shadow:0 34px 54px -30px rgba(45,27,78,.95),inset 0 0 0 1.5px rgba(240,213,143,.75),0 0 0 rgba(240,213,143,0)}50%{box-shadow:0 34px 54px -30px rgba(45,27,78,.95),inset 0 0 0 1.5px rgba(240,213,143,1),0 0 34px rgba(240,213,143,.5)}}
@@ -1023,6 +1023,20 @@ a.btn[href*="wa.me"],a.btn[href*="facebook.com"],a.btn#comoLlegar{transition:tra
 .inv2 .btn{display:flex;width:100%;justify-content:center}
 .sobre-chispa{z-index:2100;pointer-events:none;font-size:1rem;color:#e9b94f;will-change:transform,opacity}
 @media (prefers-reduced-motion:reduce){.sobre:not(.abierto) .sobre-cuerpo{animation:none}.sobre-carta,.sobre-in .inv2,.sobre-mini,.sobre-solapa,.inv2-sello{transition:none}.inv2::before,.sobre-carta.abierta .inv2,.sobre-carta.abierta .inv2 h3,.inv2-sello::after{animation:none!important}}
+</style>
+<style id="lite-css">
+@media (max-width:820px),(pointer:coarse){
+  *,*::before,*::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+  .top{background:rgba(251,246,238,.96)}
+  .n-texto,.env-texto,.o-texto{background:rgba(255,253,249,.95)}
+  .proximo{background:rgba(255,255,255,.96)}
+  .fila{background:#fff}
+  @keyframes m4-t{from{opacity:0;transform:translate3d(0,14px,0)}to{opacity:1;transform:none}}
+  @keyframes m4-in{from{opacity:0;transform:scale(.6) translateY(24px)}to{opacity:1;transform:none}}
+  #intro.sale{filter:none}
+}
+html.sobre-abierto #polvo{visibility:hidden}
+.sobre-in .inv2{contain:paint}
 </style>
 </head>
 <body>
@@ -1288,10 +1302,10 @@ a.btn[href*="wa.me"],a.btn[href*="facebook.com"],a.btn#comoLlegar{transition:tra
         </ul>
         <div class="sobre-w" id="sobreW">
           <button type="button" class="sobre" id="sobre" aria-expanded="false" aria-controls="sobreCarta">
-            <span class="sobre-cuerpo" aria-hidden="true"><span class="sobre-mini"></span><span class="sobre-solapa"></span><span class="sobre-sello">✦</span></span>
+            <span class="sobre-cuerpo" aria-hidden="true"><span class="sobre-mini"></span><span class="sobre-solapa"></span></span>
             <span class="sobre-txt"><b id="sobreT">Psstt… ¡ábreme!</b><small id="sobreS">Tengo algo para ti</small></span>
           </button>
-          <div class="sobre-carta" id="sobreCarta" role="dialog" aria-modal="true" aria-label="Invitación especial"><div class="sobre-in"><span class="inv2-sello" aria-hidden="true">✦</span><div class="inv2"><button type="button" class="inv2-x" id="sobreX" aria-label="Cerrar invitación">✕</button>
+          <div class="sobre-carta" id="sobreCarta" role="dialog" aria-modal="true" aria-label="Invitación especial"><div class="sobre-in"><div class="inv2"><button type="button" class="inv2-x" id="sobreX" aria-label="Cerrar invitación">✕</button>
             <p class="inv2-mini">Una invitación especial</p>
             <h3>Estás invitado</h3>
             <p class="inv2-txt">Hay un lugar guardado para ti y para tu familia. Ven como estás, aquí nadie es un extraño.</p>
@@ -2389,7 +2403,7 @@ $("#anio").textContent=new Date().getFullYear();
   function mira(x,y){if(!cab||reduce)return;var r=cab.getBoundingClientRect(),cx=r.left+r.width*.62,cy=r.top+r.height*.4,dx=x-cx,dy=y-cy,m=Math.hypot(dx,dy)||1,k=Math.min(1,m/300)*1.3;
     pup.forEach(function(e){e.style.transform="translate("+(dx/m*k).toFixed(2)+"px,"+(dy/m*k).toFixed(2)+"px)"})}
   addEventListener("pointermove",function(e){mira(e.clientX,e.clientY)},{passive:true});
-  addEventListener("scroll",function(){mira(innerWidth/2,innerHeight)},{passive:true});
+  var mP=false;addEventListener("scroll",function(){if(mP)return;mP=true;requestAnimationFrame(function(){mP=false;mira(innerWidth/2,innerHeight)})},{passive:true});
   var AC;function bala(){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();var t=AC.currentTime,o=AC.createOscillator(),l=AC.createOscillator(),lg=AC.createGain(),g=AC.createGain(),f=AC.createBiquadFilter();
     o.type="sawtooth";o.frequency.setValueAtTime(420,t);o.frequency.linearRampToValueAtTime(300,t+.8);l.frequency.value=26;lg.gain.value=40;l.connect(lg);lg.connect(o.frequency);
     f.type="bandpass";f.frequency.value=900;f.Q.value=1.2;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.18,t+.08);g.gain.linearRampToValueAtTime(0,t+.85);
@@ -2410,7 +2424,7 @@ $("#anio").textContent=new Date().getFullYear();
     var S='<svg viewBox="0 0 64 44"><g fill="#fffaf1" stroke="#b9a3e0" stroke-width="2"><circle cx="20" cy="19" r="11"/><circle cx="31" cy="15" r="11"/><circle cx="41" cy="21" r="10"/><circle cx="15" cy="25" r="8"/></g><g stroke="#8a74b8" stroke-width="3.2" stroke-linecap="round"><path class="pt" d="M20 31v9"/><path class="pt" d="M30 32v9"/><path class="pt" d="M39 31v9"/></g><ellipse cx="52" cy="23" rx="7" ry="8.5" fill="#ead7c9" stroke="#b9a3e0" stroke-width="2"/><circle cx="54" cy="21" r="1.4" fill="#2d1b4e"/></svg>';
     [[8,34,0],[30,26,-9],[52,38,-17],[70,30,-4],[86,42,-22]].forEach(function(a){var e=document.createElement("div");e.className="rb";e.style.top=a[0]+"%";e.style.setProperty("--t",a[1]+"s");e.style.setProperty("--d",a[2]+"s");e.innerHTML=S;rb.appendChild(e)});
     ga.insertBefore(rb,ga.firstChild);
-    addEventListener("scroll",function(){var r=ga.getBoundingClientRect(),q=1-(r.top+r.height*.3)/(innerHeight+r.height*.3);rb.style.setProperty("--p",Math.max(0,Math.min(1,q)).toFixed(2))},{passive:true})}
+    var gP=false;addEventListener("scroll",function(){if(gP)return;gP=true;requestAnimationFrame(function(){gP=false;var r=ga.getBoundingClientRect();if(r.bottom<-200||r.top>innerHeight+200)return;var q=1-(r.top+r.height*.3)/(innerHeight+r.height*.3);rb.style.setProperty("--p",Math.max(0,Math.min(1,q)).toFixed(2))})},{passive:true})}
 })();
 </script>
 <script id="movil3-js">
@@ -2464,12 +2478,13 @@ $("#anio").textContent=new Date().getFullYear();
     d.addEventListener("click",fin);setTimeout(fin,2400)}}catch(e){}
   /* Polvo de luz dorado con profundidad */
   var cv=document.createElement("canvas");cv.id="polvo";cv.setAttribute("aria-hidden","true");B.appendChild(cv);
-  var cx=cv.getContext("2d"),W,H,P=[],N=34,last=scrollY;
-  function size(){var r=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*r;cv.height=H*r;cx.setTransform(r,0,0,r,0,0)}
+  var cx=cv.getContext("2d"),W,H,P=[],N=16,last=scrollY,fr=0;
+  function size(){var r=1;W=innerWidth;H=innerHeight;cv.width=W*r;cv.height=H*r;cx.setTransform(r,0,0,r,0,0)}
   size();addEventListener("resize",size);
   for(var i=0;i<N;i++)P.push({x:Math.random()*W,y:Math.random()*H,r:.8+Math.random()*2.2,v:.15+Math.random()*.45,f:Math.random()*6.28,z:.3+Math.random()});
   function frame(t){
-    if(!document.hidden){
+    fr++;
+    if(!document.hidden&&(fr&1)&&!document.documentElement.classList.contains("sobre-abierto")){
       cx.clearRect(0,0,W,H);var ds=scrollY-last;last=scrollY;
       for(var i=0;i<N;i++){var p=P[i];p.y-=p.v+ds*p.z*.35;p.x+=Math.sin(t/1500+p.f)*.25;
         if(p.y<-12){p.y=H+12;p.x=Math.random()*W}else if(p.y>H+12){p.y=-12;p.x=Math.random()*W}
@@ -2514,7 +2529,7 @@ $("#anio").textContent=new Date().getFullYear();
   function abre(){
     b.classList.add("abierto");c.classList.add("abierta");b.setAttribute("aria-expanded","true");
     T.textContent="¡Es para ti!";Sb.textContent="Toca para volver a verla";
-    document.documentElement.style.overflow="hidden";
+    document.documentElement.style.overflow="hidden";document.documentElement.classList.add("sobre-abierto");
     var r=b.getBoundingClientRect();chispas(r.left+40,r.top+r.height/2,6);
     tm.push(setTimeout(function(){var q=caja.getBoundingClientRect();chispas(q.left+q.width/2,q.top+30,10)},350));
     tm.push(setTimeout(function(){X.focus({preventScroll:true})},300));
@@ -2523,7 +2538,7 @@ $("#anio").textContent=new Date().getFullYear();
     tm.forEach(clearTimeout);tm=[];
     b.classList.remove("abierto");c.classList.remove("abierta");b.setAttribute("aria-expanded","false");
     T.textContent="Psstt… ¡ábreme!";Sb.textContent="Tengo algo para ti";
-    document.documentElement.style.overflow="";
+    document.documentElement.style.overflow="";document.documentElement.classList.remove("sobre-abierto");
     b.focus({preventScroll:true});
   }
   b.addEventListener("click",function(){c.classList.contains("abierta")?cierra():abre()});
