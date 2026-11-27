@@ -994,14 +994,14 @@ a.btn[href*="wa.me"],a.btn[href*="facebook.com"],a.btn#comoLlegar{transition:tra
 .sobre-carta{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;padding:1rem;background:rgba(20,10,40,.78);opacity:0;visibility:hidden;transition:opacity .25s,visibility 0s .25s}
 .sobre-carta.abierta{opacity:1;visibility:visible;transition:opacity .25s}
 .sobre-in{position:relative;width:min(100%,25rem);padding-top:1.7rem}
-.sobre-in .inv2{position:relative;color:#fff;text-align:center;background:radial-gradient(120% 90% at 50% 0%,#7655ab,#2d1b4e 72%);margin:0;max-height:calc(100dvh - 4.5rem);overflow-y:auto;padding:2.8rem 1.3rem 1.3rem;isolation:isolate;border-radius:30px;box-shadow:0 34px 54px -30px rgba(45,27,78,.95),inset 0 0 0 1.5px rgba(240,213,143,.75);opacity:0;transform:translateY(40px) scale(.9);will-change:transform,opacity;transition:opacity .2s,transform .38s cubic-bezier(.2,.9,.25,1.1)}
-.inv2::before{content:"";position:absolute;inset:-45%;will-change:transform;z-index:-1;pointer-events:none;background:repeating-conic-gradient(rgba(240,213,143,.17) 0 8deg,transparent 8deg 18deg);-webkit-mask:radial-gradient(circle at 50% 50%,#000 0,transparent 42%);mask:radial-gradient(circle at 50% 50%,#000 0,transparent 42%);animation:sobre-rayos 60s linear infinite}
-@keyframes sobre-rayos{to{transform:rotate(360deg)}}
+.sobre-in .inv2{position:relative;color:#fff;text-align:center;background:repeating-conic-gradient(from 0deg at 50% 22%,rgba(240,213,143,.11) 0 8deg,rgba(240,213,143,0) 8deg 18deg),radial-gradient(120% 90% at 50% 0%,#7655ab,#2d1b4e 72%);margin:0;max-height:calc(100vh - 4.5rem);max-height:calc(100dvh - 4.5rem);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:2.8rem 1.3rem 1.3rem;border-radius:30px;box-shadow:0 34px 54px -30px rgba(45,27,78,.95),inset 0 0 0 1.5px rgba(240,213,143,.85);opacity:0;transform:translateY(40px) scale(.94);transition:opacity .2s,transform .38s cubic-bezier(.2,.9,.25,1.1)}
+.inv2>*{position:relative;z-index:1}
+@keyframes sobre-rayos{to{transform:none}}
 @keyframes sobre-brillo{0%,100%{box-shadow:0 34px 54px -30px rgba(45,27,78,.95),inset 0 0 0 1.5px rgba(240,213,143,.75),0 0 0 rgba(240,213,143,0)}50%{box-shadow:0 34px 54px -30px rgba(45,27,78,.95),inset 0 0 0 1.5px rgba(240,213,143,1),0 0 34px rgba(240,213,143,.5)}}
 @keyframes sobre-onda{from{opacity:.9;transform:scale(1)}to{opacity:0;transform:scale(1.9)}}
 @keyframes sobre-tit{0%{background-position:100% 0}60%,100%{background-position:0 0}}
 .sobre-carta.abierta .inv2{opacity:1;transform:none}
-.sobre-carta.abierta .inv2 h3{background:linear-gradient(100deg,#fff 38%,#f0d58f 50%,#fff 62%) 100% 0/260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sobre-tit 4.5s ease-in-out .6s infinite}
+.sobre-carta.abierta .inv2 h3{text-shadow:0 0 18px rgba(240,213,143,.55)}
 .inv2-sello{position:absolute;left:50%;top:0;translate:-50% 0;z-index:3;width:3.4rem;height:3.4rem;border-radius:50%;display:grid;place-items:center;font-size:1.5rem;color:#5a3a06;background:radial-gradient(circle at 35% 30%,#fff1c2,#e9b94f 60%,#c4902f);box-shadow:0 8px 18px -6px rgba(0,0,0,.5);scale:0;rotate:-200deg;transition:scale .5s cubic-bezier(.3,1.7,.5,1) .25s,rotate .6s ease .25s}
 .inv2-sello::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #e9b94f;pointer-events:none;opacity:0}
 .sobre-carta.abierta .inv2-sello{scale:1;rotate:0deg}
@@ -1036,7 +1036,6 @@ a.btn[href*="wa.me"],a.btn[href*="facebook.com"],a.btn#comoLlegar{transition:tra
   #intro.sale{filter:none}
 }
 html.sobre-abierto #polvo{visibility:hidden}
-.sobre-in .inv2{contain:paint}
 </style>
 </head>
 <body>
